@@ -1,13 +1,13 @@
 {
-  "name": "Danang Rent Map",
-  "short_name": "Danang Rent",
+  "name": "Durian Rent Map",
+  "short_name": "Durian Rent",
   "start_url": "/",
   "display": "standalone",
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://danang.kim/manifest.json",
-      "id": "danang-kim"
+      "url": "https://durian.rent/manifest.json",
+      "id": "durian-rent"
     }
   ],
   "background_color": "#ffffff",

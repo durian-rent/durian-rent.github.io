@@ -1,7 +1,7 @@
 {
   "targets": {
       "release": {
-          "outFile": "danang.kim.wasm",
+          "outFile": "durian.rent.wasm",
           "optimizeLevel": 3,
           "shrinkLevel": 2,
           "converge": true,
