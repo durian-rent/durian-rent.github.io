@@ -341,7 +341,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789110465273'
+    const VER_WASM = '1789127884693'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -449,7 +449,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '01cd68784820b081efa8c88c7fa2a19a8f71721441c1f3f4695e08a9e9360ec0'// contact spirin.vladimir@gmail.com
+        const KEY = '76b883a6d603e6538de1604a1ec98719afdacdbf094878dd8b7f2c7139e3f101'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -625,7 +625,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"Nhà nguyên căn giá rẻ",
             "url":"https://durian.rent/id/nha-nguyen-can-gia-re",
-			"price":"3500000",
+			"price":"3000000",
 			"priceCurrency":"VND"
         }
     </script>
