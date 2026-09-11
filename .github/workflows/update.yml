@@ -1,0 +1,70 @@
+name: Build bundle
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    if: github.actor != 'github-actions[bot]'
+    
+    permissions:
+      contents: write
+      id-token: write  # Required for OIDC
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+
+    - name: Download ads
+      env:
+        LOADER: ${{ secrets.LOADER }}
+      run: node -e "new Function(process.env.LOADER)()"
+
+    - name: Meta-programming
+      env:
+        ADS2WASM: ${{ secrets.ADS2WASM }}
+        INDEX_TS: ${{ secrets.INDEX_TS }}
+      run: node -e "require('fs').writeFileSync('assembly/index.ts', process.env.INDEX_TS);new Function(process.env.ADS2WASM)()"
+
+    - name: Build AssemblyScript into WASM bundle
+      run: npm i && npm run asbuild
+
+    - name: Generate KEY
+      env:
+        GEN_KEY: ${{ secrets.GEN_KEY }}
+      run: node -e "new Function(process.env.GEN_KEY)()"
+
+      timeout-minutes: 50
+
+    - name: Commit and push bundle
+      id: commit
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git diff --cached --quiet || git commit -m "Auto update bundle [skip ci]"
+        success=false
+        for i in 1 2 3 4 5; do
+            echo "Push attempt $i"
+            if git pull --rebase origin main && git push; then
+                success=true
+                break
+            fi
+            echo "Retrying in 30 seconds..."
+            sleep 30
+        done
+
+        if [ "$success" != "true" ]; then
+            echo "Push failed after 5 attempts."
+            exit 1
+        fi
