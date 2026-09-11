@@ -30,6 +30,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icon-192.png">
     <meta name="msapplication-config" content="none">
+    <script src="https://cdn.agentlane.com/v1/snippet.js" data-domain="dom-d3m2k5tao1q4"></script>
     <script>
     window.is_touch_vertical = () =>
          matchMedia('(pointer: coarse)').matches &&
@@ -340,7 +341,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1788927174263'
+    const VER_WASM = '1789110465273'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -448,7 +449,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '1b75cc1addb781b88ee64c0fec1fd1ecab9d8b718430244647f4b1e2886b9f34'// contact spirin.vladimir@gmail.com
+        const KEY = '01cd68784820b081efa8c88c7fa2a19a8f71721441c1f3f4695e08a9e9360ec0'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -3304,7 +3305,7 @@ apply_filter = throttle(apply_filter, 90)
                 })
             }
 
-            const GA = 'https://www.googletagmanager.com/gtag/js?id=GT-TQL9TSPB'
+            const GA = 'https://www.googletagmanager.com/gtag/js?id=G-RJ21952T38'
             caches.open('ga')
             .then(c =>
                 c.match(GA)
@@ -3324,7 +3325,7 @@ apply_filter = throttle(apply_filter, 90)
                 window.dataLayer = window.dataLayer || []
                 window.gtag = function gtag(){dataLayer.push(arguments)}
                 gtag('js', new Date())
-                gtag('config', 'GT-TQL9TSPB')
+                gtag('config', 'G-RJ21952T38')
             })
             
             const URL_ADS_PRICES = `/price.list?v=${VER_WASM}`
