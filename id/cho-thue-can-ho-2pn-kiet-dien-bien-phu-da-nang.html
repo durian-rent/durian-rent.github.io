@@ -341,7 +341,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789212283516'
+    const VER_WASM = '1789223756243'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -449,7 +449,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'bcd8f4fe3110e10b1ac9a5732b2b987b139a9c4a0fc65e5a631d815cd16be454'// contact spirin.vladimir@gmail.com
+        const KEY = '52ccd9604b1f389044fb4e3298de7aaa19d705308b9ec887191a2de46be6813d'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -1129,16 +1129,19 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>Cho thuê căn hộ 2PN, Kiệt Điện Biên Phủ, Đà Nẵng</h1><p>🏠 101 - 🏠 **CHO THUÊ CĂN HỘ 2 PHÒNG NGỦ – KIỆT ĐIỆN BIÊN PHỦ, ĐÀ NẴNG**
+<div id="map"></div><article><h1>Cho thuê căn hộ 2PN, Kiệt Điện Biên Phủ, Đà Nẵng</h1><p>🏠 CHO THUÊ CĂN HỘ 2 PHÒNG NGỦ – KIỆT ĐIỆN BIÊN PHỦ, ĐÀ NẴNG
 🏠 Loại phòng: 2 phòng ngủ
 📍 Địa chỉ: Kiệt Điện Phủ, Phường Thanh Khê, Thành phố Đà Nẵng
 💰 Giá thuê: 8.000.000đ/tháng
-✅ Thang máy: Có · Máy giặt: Chung · Xe điện: Không · Thú cưng: Không · Khách nước ngoài: Không · Số người ở: 4
+🚫 · Xe điện: Không · Thú cưng: Không 
+🚫· Khách nước ngoài: Không 
+
+🔔· Số người ở: 4
 ⚡ Chi phí:
 - Điện: 4.000đ/kWh
 - Nước: 50.000đ/ng
-📝 Ghi chú: Cho 4 người
-Ib: ***</p></article>
+
+📞***</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
