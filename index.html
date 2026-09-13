@@ -243,6 +243,16 @@ Prices are expressed in Vietnamese dong (VND).
           // assembly/index/get_ads() => ~lib/staticarray/StaticArray<f64>
           return __liftStaticArray(__getF64, 3, exports.get_ads() >>> 0);
         },
+        layers_order(a, b) {
+          // assembly/index/layers_order(~lib/string/String, ~lib/string/String) => i32
+          a = __retain(__lowerString(a) || __notnull());
+          b = __lowerString(b) || __notnull();
+          try {
+            return exports.layers_order(a, b);
+          } finally {
+            __release(a);
+          }
+        },
         set_ads_prices(data) {
           // assembly/index/set_ads_prices(~lib/string/String) => bool
           data = __lowerString(data) || __notnull();
