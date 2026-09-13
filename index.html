@@ -341,7 +341,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789282750345'
+    const VER_WASM = '1789290165920'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -2396,43 +2396,6 @@ apply_filter = throttle(apply_filter, 90)
                     }
                 },
                 {
-                    "id": "water",
-                    "type": "fill",
-                    "source": "danang",
-                    "source-layer": "water",
-                    "filter": [
-                        "all",
-                        [
-                            "==",
-                            "$type",
-                            "Polygon"
-                        ],
-                        [
-                            "!=",
-                            "brunnel",
-                            "tunnel"
-                        ]
-                    ],
-                    "paint": {
-                        "fill-antialias": theme.paint.water['fill-antialias'][+!dark],
-                        "fill-color": theme.paint.water['fill-color'][+!dark]
-                    }
-                },
-                {
-                    "id": "waterway",
-                    "type": "line",
-                    "source": "danang",
-                    "source-layer": "waterway",
-                    "filter": [
-                        "==",
-                        "$type",
-                        "LineString"
-                    ],
-                    "paint": {
-                        "line-color": theme.paint.waterway['line-color'][+!dark]
-                    }
-                },
-                {
                     "id": "building",
                     "type": "fill",
                     "source": "danang",
@@ -2810,6 +2773,43 @@ apply_filter = throttle(apply_filter, 90)
                     }
                 },
                 {
+                    "id": "water",
+                    "type": "fill",
+                    "source": "danang",
+                    "source-layer": "water",
+                    "filter": [
+                        "all",
+                        [
+                            "==",
+                            "$type",
+                            "Polygon"
+                        ],
+                        [
+                            "!=",
+                            "brunnel",
+                            "tunnel"
+                        ]
+                    ],
+                    "paint": {
+                        "fill-antialias": theme.paint.water['fill-antialias'][+!dark],
+                        "fill-color": theme.paint.water['fill-color'][+!dark]
+                    }
+                },
+                {
+                    "id": "waterway",
+                    "type": "line",
+                    "source": "danang",
+                    "source-layer": "waterway",
+                    "filter": [
+                        "==",
+                        "$type",
+                        "LineString"
+                    ],
+                    "paint": {
+                        "line-color": theme.paint.waterway['line-color'][+!dark]
+                    }
+                },
+                {
                     id: 'price-circle-filtered',
                     type: 'circle',
                     source: 'prices',
@@ -3068,7 +3068,7 @@ apply_filter = throttle(apply_filter, 90)
                         'circle-opacity': 0
                     }
                 }
-            ]
+            ].sort((a, b) => layers_order(a.id, b.id))
         }
 
         const map_args = {
