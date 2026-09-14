@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789351917870'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = 'add74ffb0bf25f89be67b73f7fbd3e9bd87c11b5474310f33860129753ce6274'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -1343,7 +1343,13 @@ Thông tin chi tiết: 📣📣CHO THUÊ NHÀ 2 MẶT TIỀN ĐÔ ĐỐC LỘC, 
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1388,13 +1394,7 @@ Thông tin chi tiết: 📣📣CHO THUÊ NHÀ 2 MẶT TIỀN ĐÔ ĐỐC LỘC, 
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild
