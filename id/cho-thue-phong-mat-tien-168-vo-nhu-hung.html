@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789351917870'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = 'add74ffb0bf25f89be67b73f7fbd3e9bd87c11b5474310f33860129753ce6274'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -635,7 +635,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"cho thuê phòng mặt tiền 168 võ như hưng",
             "url":"https://durian.rent/id/cho-thue-phong-mat-tien-168-vo-nhu-hung",
-			"price":"3500000",
+			"price":"2500000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1183,7 +1183,7 @@ Prices are expressed in Vietnamese dong (VND).
 </head>
 <body>
 <div id="map"></div><article><h1>cho thuê phòng mặt tiền 168 võ như hưng</h1><p>Dự án: 
-Thông tin chi tiết: Phòng có gác lửng, mặt tiền thoáng mát rộng rãi, có thể kinh doanh nhỏ. Đường Võ Như Hưng gần ĐH Kinh tế (đồ dùng có sẵn: tủ lạnh nhỏ, tủ quần áo, quạt, bếp từ, nồi cơm điện, bộ bàn ghế)</p></article>
+Thông tin chi tiết: Phòng có gác lửng, thoáng mát rộng rãi. Đường Võ Như Hưng gần ĐH Kinh tế (đồ dùng có sẵn:, tủ quần áo, quạt, bếp từ, nồi cơm điện)</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1331,7 +1331,13 @@ Thông tin chi tiết: Phòng có gác lửng, mặt tiền thoáng mát rộng 
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1376,13 +1382,7 @@ Thông tin chi tiết: Phòng có gác lửng, mặt tiền thoáng mát rộng 
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild
