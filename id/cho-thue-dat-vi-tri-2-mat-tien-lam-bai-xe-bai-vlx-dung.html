@@ -243,6 +243,16 @@ Prices are expressed in Vietnamese dong (VND).
           // assembly/index/get_ads() => ~lib/staticarray/StaticArray<f64>
           return __liftStaticArray(__getF64, 3, exports.get_ads() >>> 0);
         },
+        layers_order(a, b) {
+          // assembly/index/layers_order(~lib/string/String, ~lib/string/String) => i32
+          a = __retain(__lowerString(a) || __notnull());
+          b = __lowerString(b) || __notnull();
+          try {
+            return exports.layers_order(a, b);
+          } finally {
+            __release(a);
+          }
+        },
         set_ads_prices(data) {
           // assembly/index/set_ads_prices(~lib/string/String) => bool
           data = __lowerString(data) || __notnull();
@@ -341,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789264454568'
+    const VER_WASM = '1789343242569'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -449,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '4558754b8c1d2025572adf82987bc10736b4e0dec8028971963e9b15fbf6ecc6'// contact spirin.vladimir@gmail.com
+        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -752,8 +762,39 @@ Prices are expressed in Vietnamese dong (VND).
             width: 100%;
         }
 
-        #toggler_cards, #filter, #toggler, #close, #heart, #share, #icon-toggler-cards ,#icon-filter, #icon-dong, #icon-heart, #icon-share, #icon-close, #scale, #min, #max, #track, #icon-track {
+        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-heart, #icon-share, #icon-close, #scale, #min, #max, #track, #icon-track {
             position: absolute;
+        }
+        #last_update_time {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            padding-left: 2vh;
+            gap: 1vh;
+            height: 5vh;
+            bottom: env(safe-area-inset-bottom, 0px);
+            left: 0;
+            color: var(--filter-color);
+            font-family: Inter, Arial, sans-serif;
+            font-size: 1vh;
+            font-weight: 100;
+            pointer-events: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        #icon-last-update-time {
+            display: flex;
+            width: 2vh;
+            height: 2vh;
+            pointer-events: none;
+            stroke: var(--filter-color);
+            stroke-width: 1;
+            vector-effect: non-scaling-stroke;
+        }
+        #last_update_time_value {
+            display: flex;
+            white-space: nowrap;
         }
         #card {
             position: fixed;
@@ -782,14 +823,6 @@ Prices are expressed in Vietnamese dong (VND).
             height: 100%;
             width: 100%;
             gap: 2vh;
-        }
-        #card_info {
-            display: flex;
-            flex-direction: column;
-            justify-content: end;
-            gap: 1vh;
-            width: 100%;
-            container-type: size;
         }
         #mover {
             position: absolute;
@@ -845,14 +878,34 @@ Prices are expressed in Vietnamese dong (VND).
         .dot.active {
             opacity: 1;
         }
+        #card_info {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            gap: 1vh;
+            width: 100%;
+            container-type: size;
+        }
+        .card-metric {
+            margin-left: 5px;
+            color: grey;
+        }
+        #price {
+            font-weight: bold;
+        }
         .card-info-row {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             width: 100%;
-            /*font-weight: bold;*/
             font-size: 12pt;
             font-family: Inter, Arial, sans-serif;
             color: var(--filter-color);
+        }
+        .card-info-row-last {
+            margin-top: 20px;
+        }
+        .card-info-row-last div {
+            display: inline;
         }
         #contact {
             color: var(--filter-color);
@@ -873,6 +926,19 @@ Prices are expressed in Vietnamese dong (VND).
             right: 0vh;
             width: 10vh;
             height: 7vh;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+        #card_heart {
+            position: absolute;
+            top: 0;
+            right: 35px;
+            width: 11px;
+            height: 11px;
+            padding-right: 10px;
+            padding-left: 15px;
+            padding-bottom: 15px;
+            padding-top: 4px;
             touch-action: manipulation;
             cursor: pointer;
         }
@@ -925,16 +991,6 @@ Prices are expressed in Vietnamese dong (VND).
             -webkit-user-select: none;
             cursor: pointer;
         }
-        #toggler_cards {
-            bottom: env(safe-area-inset-bottom, 0px);
-            left: 45%;
-            width: 10%;
-            height: 7vh;
-            touch-action: manipulation;
-            user-select: none;
-            -webkit-user-select: none;
-            cursor: pointer;
-        }
         #icon-filter {
             display: block;
             bottom: 2vh;
@@ -948,18 +1004,6 @@ Prices are expressed in Vietnamese dong (VND).
             vector-effect: non-scaling-stroke;
         }
         #icon-dong {
-            display: block;
-            bottom: 2vh;
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
-            pointer-events: none;
-            stroke: var(--filter-color);
-            fill: var(--filter-color);
-            stroke-width: 1;
-            vector-effect: non-scaling-stroke;
-        }
-        #icon-toggler-cards {
             display: block;
             bottom: 2vh;
             right: 2vh;
@@ -1003,6 +1047,15 @@ Prices are expressed in Vietnamese dong (VND).
             stroke-width: 1;
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
+        }
+        #icon-card-heart {
+            display: block;
+            stroke-width: 1;
+            stroke: var(--filter-color);
+            vector-effect: non-scaling-stroke;
+        }
+        #card_heart.like #icon-card-heart {
+            stroke: #ff69b4;
         }
         #icon-card-close {
             display: block;
@@ -1296,24 +1349,32 @@ VỊ TRÍ VÀNG -ngay sát Biển
         </div>
         <div id="card_info">
             <div class="card-info-row">
-                <div>Price</div>
                 <div id="price"></div>
+                <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
-                <div>Size</div>
                 <div id="m2"></div>
+                <div class="card-metric">m²</div>
             </div>
-            <div class="card-info-row">
-                <div>Publish</div>
-                <div id="publish">3 hours</div>
+            <div class="card-info-row card-info-row-last">
+                <div>
+                    <div id="publish"></div> ago at <a id="contact" target="_blank">NhaTot</a>
+                </div>
             </div>
-            <div class="card-info-row">
-                <div>Contact</div>
-                <a id="contact" target="_blank">
-                    NhaTot
-                    <!--img height="28" width="104" alt="Nhà Tốt" src="https://static.chotot.com/storage/APP_WRAPPER/logo/pty.png"-->
-                </a>
-            </div>    
+        </div>
+        <div id="card_heart">
+            <svg id="icon-card-heart" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 80 80">
+            <path
+                fill="none" stroke-width="4" stroke-linejoin="round"
+                d="M40 72
+                   L12 43
+                   C2 33 2 17 15 12
+                   C24 8 34 12 40 22
+                   C46 12 56 8 65 12
+                   C78 17 78 33 68 43
+                   Z"/>
+            </svg>
         </div>
         <div id="card_close">
             <svg id="icon-card-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -1323,12 +1384,12 @@ VỊ TRÍ VÀNG -ngay sát Biển
         </div>
     </div>
 </div>
-<div id="toggler_cards" hidden>
-    <svg id="icon-toggler-cards" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
-        <path d="M4 12v8a2 4 0 0 0 2 2h12a3 7 0 0 0 2-2v-8"></path>
-        <polyline points="16 9 8 1 5 2"></polyline>
-        <line x1="2" y1="7" x2="11" y2="16"></line>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
     </svg>
+    <span id="last_update_time_value">2026-09-13 12:23<span>
 </div>
 <script>
 const $min_label = min.firstElementChild
@@ -1345,7 +1406,6 @@ const $icon_dong = document.getElementById('icon-dong')
 const $logo = document.getElementById('logo')
 const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
-const $toggler_cards = document.getElementById('toggler_cards')
 const $card = document.getElementById('card')
 const $card_info = document.getElementById('card_info')
 const $photo = document.getElementById('photo')
@@ -1356,7 +1416,10 @@ const $m2 = document.getElementById('m2')
 const $publish = document.getElementById('publish')
 const $title = document.getElementById('title')
 const $contact = document.getElementById('contact')
+const $card_heart = document.getElementById('card_heart')
 const $card_close = document.getElementById('card_close')
+const $last_update_time = document.getElementById('last_update_time')
+const $last_update_time_value = document.getElementById('last_update_time_value')
 
 var same_likes
 
@@ -1424,6 +1487,7 @@ const router = () => {
     $icon_filter.removeAttribute('hidden')
     $icon_dong.setAttribute('hidden', '')
     $logo.removeAttribute('hidden')
+    $last_update_time.removeAttribute('hidden')
 
     const likes = likes_search_params.length
         ? likes_search_params
@@ -1658,12 +1722,39 @@ window.addEventListener('appinstalled', () => {
     gtag('event', 'installed')
 })
 
-$toggler_cards.onclick = () => {}
 $card_close.onclick = () => {
     window.card_was_open = false
     $card.setAttribute('hidden', '')
     if (y_card_min) $card.style.height = y_card_min + 'px'
 }
+
+function toggle_like(id) {
+    var liked
+    const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
+    if (likes.has(id)) {
+        likes.delete(id)
+        liked = false
+    } else {
+        likes.add(id)
+        liked = true
+    }
+    if (window.card_id == id) $card_heart.classList.toggle('like', liked)
+    const likes_string = [...likes].join(',')
+    localStorage.setItem('likes', likes_string)
+    $likes_count.textContent = likes.size || ''
+    if (current_page == PAGE.EDIT) {
+        if (window.map) map.setFeatureState(
+            { source: 'prices', id },
+            { liked }
+        )
+        const url = new URL(location)
+        url.searchParams.set('likes', likes_string)
+        history.replaceState({}, '', url)
+    }
+    return likes
+}
+
+$card_heart.onclick = () => toggle_like(card_id)
 
 var card_height = null
 var y_card_max = null
@@ -1686,6 +1777,7 @@ var mover_prev_y = 0
 var mover_prev_prev_y = 0
 var mover_end_y = 0
 $card.ontouchstart = e => {
+    e.stopPropagation()
     if (e.target.classList.contains('photo')) return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
@@ -1703,6 +1795,7 @@ $card.ontouchstart = e => {
     mover_going_close = undefined
 }
 $card.ontouchmove = e => {
+    e.stopPropagation()
     if (e.target.classList.contains('photo')) return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
@@ -1733,6 +1826,7 @@ $card.ontouchmove = e => {
     }
 }
 $card.ontouchend = e => {
+    e.stopPropagation()
     if (e.target.classList.contains('photo')) return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
@@ -2323,43 +2417,6 @@ apply_filter = throttle(apply_filter, 90)
                     }
                 },
                 {
-                    "id": "water",
-                    "type": "fill",
-                    "source": "danang",
-                    "source-layer": "water",
-                    "filter": [
-                        "all",
-                        [
-                            "==",
-                            "$type",
-                            "Polygon"
-                        ],
-                        [
-                            "!=",
-                            "brunnel",
-                            "tunnel"
-                        ]
-                    ],
-                    "paint": {
-                        "fill-antialias": theme.paint.water['fill-antialias'][+!dark],
-                        "fill-color": theme.paint.water['fill-color'][+!dark]
-                    }
-                },
-                {
-                    "id": "waterway",
-                    "type": "line",
-                    "source": "danang",
-                    "source-layer": "waterway",
-                    "filter": [
-                        "==",
-                        "$type",
-                        "LineString"
-                    ],
-                    "paint": {
-                        "line-color": theme.paint.waterway['line-color'][+!dark]
-                    }
-                },
-                {
                     "id": "building",
                     "type": "fill",
                     "source": "danang",
@@ -2737,6 +2794,43 @@ apply_filter = throttle(apply_filter, 90)
                     }
                 },
                 {
+                    "id": "water",
+                    "type": "fill",
+                    "source": "danang",
+                    "source-layer": "water",
+                    "filter": [
+                        "all",
+                        [
+                            "==",
+                            "$type",
+                            "Polygon"
+                        ],
+                        [
+                            "!=",
+                            "brunnel",
+                            "tunnel"
+                        ]
+                    ],
+                    "paint": {
+                        "fill-antialias": theme.paint.water['fill-antialias'][+!dark],
+                        "fill-color": theme.paint.water['fill-color'][+!dark]
+                    }
+                },
+                {
+                    "id": "waterway",
+                    "type": "line",
+                    "source": "danang",
+                    "source-layer": "waterway",
+                    "filter": [
+                        "==",
+                        "$type",
+                        "LineString"
+                    ],
+                    "paint": {
+                        "line-color": theme.paint.waterway['line-color'][+!dark]
+                    }
+                },
+                {
                     id: 'price-circle-filtered',
                     type: 'circle',
                     source: 'prices',
@@ -2995,7 +3089,7 @@ apply_filter = throttle(apply_filter, 90)
                         'circle-opacity': 0
                     }
                 }
-            ]
+            ].sort((a, b) => layers_order(a.id, b.id))
         }
 
         const map_args = {
@@ -3062,6 +3156,9 @@ apply_filter = throttle(apply_filter, 90)
                 map.getCanvas().style.cursor = 'pointer'
             })
             map.on('mouseleave', 'price-hitbox', e => {
+                const $ = document.elementFromPoint(e.point.x, e.point.y)
+                if ($?.closest('#card')) return
+
                 if (hovered_price_id != null) {
                     map.setFeatureState(
                         { source: 'prices', id: hovered_price_id },
@@ -3134,25 +3231,7 @@ apply_filter = throttle(apply_filter, 90)
                     window.open(url, '_blank')
                     return
                 }
-                var liked
-                const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
-                if (likes.has(id)) {
-                    likes.delete(id)
-                    liked = false
-                } else {
-                    likes.add(id)
-                    liked = true
-                }
-                map.setFeatureState(
-                    { source: 'prices', id },
-                    { liked }
-                )
-                const likes_string = [...likes].join(',')
-                localStorage.setItem('likes', likes_string)
-                $likes_count.textContent = likes.size || ''
-                const url = new URL(location)
-                url.searchParams.set('likes', likes_string)
-                history.replaceState({}, '', url)
+                var likes = toggle_like(id)
             })
             map.on('click', 'price-hitbox', e => {
                 const click_priority = {normal: 1, filtered: 0}
@@ -3175,6 +3254,9 @@ apply_filter = throttle(apply_filter, 90)
                 $card.style.bottom = 0
                 if (y_card_min) $card.style.height = y_card_min + 'px'
                 $card_info.removeAttribute('hidden')
+                const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
+                $card_heart.classList.toggle('like', likes.has(id))
+
                 var photos_urls
                 try {
                     photos_urls = get_ad_img_urls(id)
@@ -3212,8 +3294,8 @@ apply_filter = throttle(apply_filter, 90)
                         price_string_space = ' ' + price_string_space
                     price_string_space = price_string[i] + price_string_space
                 }
-                $price.textContent = `${price_string_space} VND`
-                $m2.textContent = `${ad.m2} m²`
+                $price.textContent = price_string_space
+                $m2.textContent = ad.m2
                 $publish.textContent = `${ago(ad.publish)}`
                 $contact.onclick = () => gtag('event', 'ad_click', {ad_id: id, ad_url: url, price, page: current_page})
                 $contact.href = url
@@ -3252,35 +3334,20 @@ apply_filter = throttle(apply_filter, 90)
                 }
             })
 
+            var time_values = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hourCycle: 'h23'
+            }).formatToParts(new Date(+VER_WASM)).map(_ => [_.type, _.value]))
+            $last_update_time_value.textContent =
+                `${time_values.year}-${time_values.month}-${time_values.day} ${time_values.hour}:${time_values.minute}`
+
             router()
         })
 
-        map.on('error', e => console.error('MAP ERROR', e.error));
-        map.on('dataloading', e => console.log('DATA LOADING', e));
-        //map.on('data', e => console.log('DATA', e));
-        //map.on('styledata', e => console.log('STYLE DATA'));
-        map.on('idle', () => console.log('IDLE'));
-        map.on('load', () => console.log('LOAD'));
-
-
-        let n = 0;
-
-        map.on('styledata', e => {
-//            console.log('STYLE DATA', ++n, performance.now());
-
-            if (n > 20) {
-//                debugger;
-            }
-        });
-        
-        setTimeout(() => {
-            console.log({
-                loaded: map.loaded(),
-                style: map.isStyleLoaded(),
-                tiles: map.areTilesLoaded()
-            });
-        }, 5000);
-        
         map.once('load', () => {
             if (cache_pmtiles_exist_and_loading == null) {
                 fetch('/danang.pmtiles', {cache: 'no-store', priority: 'low'})
