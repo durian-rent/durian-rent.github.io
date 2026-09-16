@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789524701852'
+    const VER_WASM = '1789545786120'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '1f0d6e62315aa132c1e97d545987152026fa5d4a36251546442761cdd9a73a48'// contact spirin.vladimir@gmail.com
+        const KEY = 'ffef5bac0833d502a3f4f5c46598adf7156ed1498ef5594f421f1ee3efa4f758'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -635,7 +635,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"Cho thuê căn hộ 1pn đường Trần bạch đằng, quận ngũ hành sơn, gần biển",
             "url":"https://durian.rent/id/cho-thue-can-ho-1pn-duong-tran-bach-dang-quan-ngu-hanh-son-gan-bien",
-			"price":"7500000",
+			"price":"7000000",
 			"priceCurrency":"VND"
         }
     </script>
