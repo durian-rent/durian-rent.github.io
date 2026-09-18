@@ -800,12 +800,12 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #card {
             position: fixed;
-            bottom: -20vh;/*card SSR*/
+            bottom: -40vh;/*card SSR*/
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            height: 20vh;
+            height: 40vh;
             padding: 10px;
             padding-top: 20px;
             box-sizing: border-box;
@@ -821,7 +821,7 @@ Prices are expressed in Vietnamese dong (VND).
         #card_content {
             justify-content: space-between;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             height: 100%;
             width: 100%;
             gap: 2vh;
@@ -837,9 +837,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #photo {
             position: relative;
-            flex: 0 0 auto;
             height: 100%;
-            aspect-ratio: 1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -855,7 +853,6 @@ Prices are expressed in Vietnamese dong (VND).
         .photo {
             flex: 0 0 auto;
             height: 100%;
-            aspect-ratio: 1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -889,6 +886,7 @@ Prices are expressed in Vietnamese dong (VND).
             justify-content: end;
             gap: 1vh;
             width: 100%;
+            height: 100%;
             container-type: size;
         }
         .card-metric {
@@ -1846,10 +1844,6 @@ $card.ontouchmove = e => {
     card_prev_x = e.changedTouches[0].screenX
     card_prev_prev_y = card_prev_y
     card_prev_y = e.changedTouches[0].screenY
-    console.log(
-        card_prev_y,
-        card_prev_prev_y
-    )
     
     var dx = card_prev_x - card_start_x
     var dy = card_prev_y - card_start_y
@@ -1868,12 +1862,10 @@ $card.ontouchmove = e => {
     } else {
         $photos_container.setAttribute('hidden', '')
         var last_move_direction = dy > 0 ? 'down' : 'up'
-        console.log(last_move_direction)
         
         if (card_going_close == undefined) {
             card_going_close = card_start_small &&
                 last_move_direction == 'down'
-            console.log('card_going_close', card_going_close)
         }
         if (dy == 0) return
 
@@ -1884,6 +1876,7 @@ $card.ontouchmove = e => {
             var y = Math.max(0, Math.min(y_card_min, dy))
             $card.style.bottom = `-${y}px`
         } else {
+            return //Disable min/mid views 
             var y = Math.max(y_card_min, Math.min(y_card_max, card_height - dy))
             $card.style.height = `${y}px`
             $card_info.setAttribute('hidden', '')
@@ -1939,6 +1932,7 @@ $card.ontouchend = e => {
             $card.style.bottom = 0
         }
     } else {
+        return //Disable min/mid views 
         if (last_move_direction == 'down') {
             card_start_small = true
             dY = y_card_min - h
