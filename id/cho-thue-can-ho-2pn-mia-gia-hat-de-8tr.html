@@ -355,7 +355,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789734509236'
+    const VER_WASM = '1789735691391'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -463,7 +463,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'fa588f97e6a41aeeb0959653da79cbadace8715043e230f28f6d01f67fede11f'// contact spirin.vladimir@gmail.com
+        const KEY = 'be1e1895012dc5aa21dc3510ceaa5798714abc80cf676c436f5b5f1f1477fee1'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -800,12 +800,12 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #card {
             position: fixed;
-            bottom: 0;/*card SSR*/
+            bottom: -40vh;/*card SSR*/
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            height: 20vh;
+            height: 40vh;
             padding: 10px;
             padding-top: 20px;
             box-sizing: border-box;
@@ -821,7 +821,7 @@ Prices are expressed in Vietnamese dong (VND).
         #card_content {
             justify-content: space-between;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             height: 100%;
             width: 100%;
             gap: 2vh;
@@ -837,9 +837,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #photo {
             position: relative;
-            flex: 0 0 auto;
             height: 100%;
-            aspect-ratio: 1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -855,7 +853,6 @@ Prices are expressed in Vietnamese dong (VND).
         .photo {
             flex: 0 0 auto;
             height: 100%;
-            aspect-ratio: 1;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -889,6 +886,7 @@ Prices are expressed in Vietnamese dong (VND).
             justify-content: end;
             gap: 1vh;
             width: 100%;
+            height: 100%;
             container-type: size;
         }
         .card-metric {
@@ -1364,6 +1362,9 @@ Prices are expressed in Vietnamese dong (VND).
                 <div id="m2">63.2999</div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
+            <div class="card-info-row">
+                <div id="street" class="card-metric"></div>
+            </div>
             <div class="card-info-row card-info-row-last">
                 <div>
                     <div id="publish"></div> ago at <a id="contact" target="_blank">NhaTot</a>
@@ -1414,6 +1415,7 @@ const $photo = document.getElementById('photo')
 const $photos_container = document.getElementById('photos_container')
 const $price = document.getElementById('price')
 const $dots = document.getElementById('dots')
+const $street = document.getElementById('street')
 const $m2 = document.getElementById('m2')
 const $publish = document.getElementById('publish')
 const $title = document.getElementById('title')
@@ -1842,10 +1844,6 @@ $card.ontouchmove = e => {
     card_prev_x = e.changedTouches[0].screenX
     card_prev_prev_y = card_prev_y
     card_prev_y = e.changedTouches[0].screenY
-    console.log(
-        card_prev_y,
-        card_prev_prev_y
-    )
     
     var dx = card_prev_x - card_start_x
     var dy = card_prev_y - card_start_y
@@ -1864,12 +1862,10 @@ $card.ontouchmove = e => {
     } else {
         $photos_container.setAttribute('hidden', '')
         var last_move_direction = dy > 0 ? 'down' : 'up'
-        console.log(last_move_direction)
         
         if (card_going_close == undefined) {
             card_going_close = card_start_small &&
                 last_move_direction == 'down'
-            console.log('card_going_close', card_going_close)
         }
         if (dy == 0) return
 
@@ -1880,6 +1876,7 @@ $card.ontouchmove = e => {
             var y = Math.max(0, Math.min(y_card_min, dy))
             $card.style.bottom = `-${y}px`
         } else {
+            return //Disable min/mid views 
             var y = Math.max(y_card_min, Math.min(y_card_max, card_height - dy))
             $card.style.height = `${y}px`
             $card_info.setAttribute('hidden', '')
@@ -1935,6 +1932,7 @@ $card.ontouchend = e => {
             $card.style.bottom = 0
         }
     } else {
+        return //Disable min/mid views 
         if (last_move_direction == 'down') {
             card_start_small = true
             dY = y_card_min - h
@@ -3361,6 +3359,7 @@ apply_filter = throttle(apply_filter, 90)
                     return [subject, body, street_name]
                 })
                 .then(([subject, body, street_name]) => {
+                    $street.textContent = street_name
                     console.log(
                         'subject:', subject,
                         'body:', body,
