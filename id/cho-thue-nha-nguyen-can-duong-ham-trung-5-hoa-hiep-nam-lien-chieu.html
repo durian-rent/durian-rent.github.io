@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     <title>Durian Rent Map</title>
-    <meta property="og:url" content="https://durian.rent/id/cho-thue-nha-nguyen-can-duong-ham-trung-5-hoa-hiep-nam-lien-chieu">
+    <meta property="og:url" content="https://durian.rent/">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu" />
+    <meta property="og:title" content="Durian Rent Map" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Interactive map for Danang, Vietnam with rental ads" />
+    <meta name="description" content="🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu">
+    <meta name="twitter:title" content="Durian Rent Map">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
-    <link rel="canonical" href="https://durian.rent/id/cho-thue-nha-nguyen-can-duong-ham-trung-5-hoa-hiep-nam-lien-chieu">
+    <link rel="canonical" href="https://durian.rent/">
     <link rel="manifest" href="/manifest.json">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml">
@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789686944023'
+    const VER_WASM = '1789715252752'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
+        const KEY = 'de50bd427b27fb5c11b315b4379d87c1304f551df0c39f2f95406e4c6de66ace'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -633,10 +633,8 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu",
-            "url":"https://durian.rent/id/cho-thue-nha-nguyen-can-duong-ham-trung-5-hoa-hiep-nam-lien-chieu",
-			"price":"8000000",
-			"priceCurrency":"VND"
+            "name":"Durian Rent Map",
+            "url":"https://durian.rent/"
         }
     </script>
     <style>
@@ -889,6 +887,10 @@ Prices are expressed in Vietnamese dong (VND).
         .card-metric {
             margin-left: 5px;
             color: grey;
+        }
+        .card-metric sup {
+            font-size: 0.7em;
+            vertical-align: super;
         }
         #price {
             font-weight: bold;
@@ -1182,24 +1184,7 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu</h1><p>🔥CHO THUÊ NHÀ NGUYÊN CĂN🔥
-👇👇👇👇👇
-Địa chỉ: Đường Hàm Trung 5. Hoà Hiệp Nam. Liên Chiểu (phường Hải Vân mới)
-💰 Giá thuê: 8 triệu/tháng
-👉 Vị trí: (ngay đầu đường Mê Linh)
-- Cách trường ĐH Xây Dựng Miền Trung 500m
-- Cách trường ĐH Bách Khoa 3km
-- Cách trường CĐ GTVT 3km
-- Bên cạnh trường THPT Liên Chiểu
-- Gần chợ Nam Ô, bãi tắm Xuân Thiều, Mikazuki, toà nhà Trung Nam…
-👉 Tiện ích: 
-- Nhà 2 tầng – 180m² sử dụng
-- 2 phòng ngủ (1 phòng có WC riêng)
-- 2 phòng khách (tầng 1 và tầng 2)
-- 1 bếp rộng rãi
-- Khu giặt phơi riêng. Có lối lên sân thượng
-- Sân trước cực rộng, để nhiều xe hơi thoải mái
-⚡ Điện nước tính theo giá Nhà nước.</p></article>
+<div id="map"></div>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1363,12 +1348,12 @@ Prices are expressed in Vietnamese dong (VND).
         </div>
         <div id="card_info">
             <div class="card-info-row">
-                <div id="price"></div>
+                <div id="price">8 000 000</div>
                 <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
-                <div id="m2"></div>
-                <div class="card-metric">m²</div>
+                <div id="m2">90</div>
+                <div class="card-metric">m<sup>2</sup></div>
             </div>
             <div class="card-info-row card-info-row-last">
                 <div>

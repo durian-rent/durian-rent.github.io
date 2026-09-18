@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     <title>Durian Rent Map</title>
-    <meta property="og:url" content="https://durian.rent/id/146-cho-thue-nha-2-5-tang-sat-truc-vo-chi-cong">
+    <meta property="og:url" content="https://durian.rent/">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="146 ✨ 🏡 CHO THUÊ NHÀ 2.5 TẦNG SÁT TRỤC VÕ CHÍ CÔNG" />
+    <meta property="og:title" content="Durian Rent Map" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Interactive map for Danang, Vietnam with rental ads" />
+    <meta name="description" content="146 ✨ 🏡 CHO THUÊ NHÀ 2.5 TẦNG SÁT TRỤC VÕ CHÍ CÔNG" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="146 ✨ 🏡 CHO THUÊ NHÀ 2.5 TẦNG SÁT TRỤC VÕ CHÍ CÔNG">
+    <meta name="twitter:title" content="Durian Rent Map">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
-    <link rel="canonical" href="https://durian.rent/id/146-cho-thue-nha-2-5-tang-sat-truc-vo-chi-cong">
+    <link rel="canonical" href="https://durian.rent/">
     <link rel="manifest" href="/manifest.json">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml">
@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789686944023'
+    const VER_WASM = '1789715252752'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
+        const KEY = 'de50bd427b27fb5c11b315b4379d87c1304f551df0c39f2f95406e4c6de66ace'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -633,10 +633,8 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"146 ✨ 🏡 CHO THUÊ NHÀ 2.5 TẦNG SÁT TRỤC VÕ CHÍ CÔNG",
-            "url":"https://durian.rent/id/146-cho-thue-nha-2-5-tang-sat-truc-vo-chi-cong",
-			"price":"21000000",
-			"priceCurrency":"VND"
+            "name":"Durian Rent Map",
+            "url":"https://durian.rent/"
         }
     </script>
     <style>
@@ -889,6 +887,10 @@ Prices are expressed in Vietnamese dong (VND).
         .card-metric {
             margin-left: 5px;
             color: grey;
+        }
+        .card-metric sup {
+            font-size: 0.7em;
+            vertical-align: super;
         }
         #price {
             font-weight: bold;
@@ -1182,18 +1184,7 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>146 ✨ 🏡 CHO THUÊ NHÀ 2.5 TẦNG SÁT TRỤC VÕ CHÍ CÔNG</h1><p>Dự án: 
-Thông tin chi tiết: 🚗 Tiện ích: Có Sân để xe rộng rãi, an toàn và tiện lợi.
- 🏢 Công năng:
- 3 Phòng ngủ rộng rãi, thiết kế riêng tư, ấm cúng.
- Phòng khách rộng lớn, sang trọng.
- Bếp tiện nghi, đầy đủ dụng cụ nấu nướng.
- Hệ thống WC tiện lợi cho sinh hoạt gia đình.
- 🛋️ Nội thất: Full nội thất chỉn chu, chất lượng cao – chỉ việc xách vali vào ở ngay.
- 🌍 Đối tượng: Phù hợp cho hộ gia đình, chuyên gia công tác hoặc khách nước ngoài tìm kiếm không gian sống hiện đại, an lành.
- 💰 Giá thuê:
- Khách Việt Nam: 21 triệu / tháng.
- Khách Nước Ngoài: 25 triệu / tháng</p></article>
+<div id="map"></div>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1357,12 +1348,12 @@ Thông tin chi tiết: 🚗 Tiện ích: Có Sân để xe rộng rãi, an toàn
         </div>
         <div id="card_info">
             <div class="card-info-row">
-                <div id="price"></div>
+                <div id="price">21 000 000</div>
                 <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
-                <div id="m2"></div>
-                <div class="card-metric">m²</div>
+                <div id="m2">85</div>
+                <div class="card-metric">m<sup>2</sup></div>
             </div>
             <div class="card-info-row card-info-row-last">
                 <div>
