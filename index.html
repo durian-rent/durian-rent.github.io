@@ -1364,6 +1364,9 @@ Prices are expressed in Vietnamese dong (VND).
                 <div id="m2"></div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
+            <div class="card-info-row">
+                <div id="street" class="card-metric"></div>
+            </div>
             <div class="card-info-row card-info-row-last">
                 <div>
                     <div id="publish"></div> ago at <a id="contact" target="_blank">NhaTot</a>
@@ -1414,6 +1417,7 @@ const $photo = document.getElementById('photo')
 const $photos_container = document.getElementById('photos_container')
 const $price = document.getElementById('price')
 const $dots = document.getElementById('dots')
+const $street = document.getElementById('street')
 const $m2 = document.getElementById('m2')
 const $publish = document.getElementById('publish')
 const $title = document.getElementById('title')
@@ -3361,6 +3365,7 @@ apply_filter = throttle(apply_filter, 90)
                     return [subject, body, street_name]
                 })
                 .then(([subject, body, street_name]) => {
+                    $street.textContent = street_name
                     console.log(
                         'subject:', subject,
                         'body:', body,
