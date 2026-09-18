@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789686944023'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -635,7 +635,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"CHO THUÊ CĂN HỘ 2PN MIA CENTER POINT VIEW BIỂN, VIEW PHÁO HOA",
             "url":"https://durian.rent/id/cho-thue-can-ho-2pn-mia-center-point-view-bien-view-phao-hoa",
-			"price":"16000000",
+			"price":"15000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1183,8 +1183,21 @@ Prices are expressed in Vietnamese dong (VND).
 </head>
 <body>
 <div id="map"></div><article><h1>CHO THUÊ CĂN HỘ 2PN MIA CENTER POINT VIEW BIỂN, VIEW PHÁO HOA</h1><p>Dự án: 
-Thông tin chi tiết: Chính chủ cho thuê căn hộ Chung cư Mia Center Point view biển, view pháo hoa, tầng trung đẹp, 2PN, 2VS, 1 PK bếp khép kín, tại 61 Ngô Thì Nhậm, quận Liên Chiểu, Đà nẵng. Cách biển Nguyễn Tất Thành hơn 1km, gần các Trường đại học, chợ Hoà Khánh, khu đông dân sầm uất. Full nội thất cao cấp, full đồ điện tử, nhà mới kính koong, nhận nhà vào ở luôn. Toà nhà có bể bơi trên tầng thượng. Ký HĐ dài hạn. Giá thuê 16triệu/tháng
-Liên hệ chính chủ : ***/***</p></article>
+Thông tin chi tiết: Chính chủ cho thuê căn hộ Chung cư Mia Center Point view biển, view pháo hoa, tầng trung đẹp, 2PN, 2VS, 1 PK bếp khép kín, tại 61 Ngô Thì Nhậm, quận Liên Chiểu, Đà nẵng. Cách biển Nguyễn Tất Thành hơn 1km, gần các Trường đại học, chợ Hoà Khánh, khu đông dân sầm uất. Full nội thất cao cấp, full đồ điện tử, nhà mới kính koong, nhận nhà vào ở luôn. Toà nhà có bể bơi trên tầng thượng. Ký HĐ dài hạn. Giá thuê 15triệu/tháng
+
+🌊🎆 BRAND-NEW 2-BEDROOM APARTMENT WITH SEAVIEWFOR RENT
+This beautiful 65m² apartment at Mia Center Point is now available for long-term rent.
+✨ 2 Bedrooms | 2 Bathrooms | Sea View
+🛋️ Premium furniture &amp; full electrical appliances
+🏠 Brand new – move-in ready
+🏊 Rooftop swimming pool
+🌊 Over 1 km to Nguyen Tat Thanh Beach
+📍 Mia Center Point, 61 Ngo Thi Nham, Lien Chieu, Da Nang
+Close to Hoa Khanh Market and Mega Market, while still located in a quiet residential area.
+📑 Long-term lease preferred.
+💰 VND 15,000,000/month
+👉 DIRECT OWNER :
+</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1332,7 +1345,13 @@ Liên hệ chính chủ : ***/***</p></article>
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1377,13 +1396,7 @@ Liên hệ chính chủ : ***/***</p></article>
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild

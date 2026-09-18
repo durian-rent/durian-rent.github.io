@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789686944023'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -635,7 +635,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"CHO THUÊ CĂN HỘ - SƠN TRÀ",
             "url":"https://durian.rent/id/cho-thue-can-ho-son-tra",
-			"price":"17000000",
+			"price":"14000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1182,49 +1182,25 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>CHO THUÊ CĂN HỘ - SƠN TRÀ</h1><p>🌿
-🏡 Căn hộ 1 phòng ngủ đầy đủ nội thất
-📍 Nguyễn Công Trứ, Sơn Trà, Đà Nẵng
-🌿 Không gian xanh mát, nhiều cây xanh, mang lại cảm giác thư giãn và gần gũi với thiên nhiên
-🛋️ Nội thất đầy đủ, chỉ cần xách vali vào ở
-🍳 Khu bếp tiện nghi
-🌤️ Không gian thoáng đãng, phù hợp cho người làm việc từ xa, chuyên gia hoặc cặp đôi
+<div id="map"></div><article><h1>CHO THUÊ CĂN HỘ - SƠN TRÀ</h1><p>🏡 CĂN HỘ 1 PHÒNG NGỦ – KHÔNG GIAN XANH &amp; RIÊNG TƯ
 
-✨ Điểm nhấn đặc biệt:
-💦 Sân thượng rộng rãi với bể Jacuzzi thư giãn
-🌇 Không gian lý tưởng để ngắm hoàng hôn và tận hưởng những buổi tối yên bình tại Đà Nẵng
+✨ Ban công đón gió – nhiều cây xanh, thoáng mát
+✨ Nội thất đầy đủ, trang bị dụng cụ nấu ăn như ở nhà
+✨ Không gian yên tĩnh, riêng tư
 
-📍 Vị trí thuận tiện:
-✔️ Gần biển Mỹ Khê
-✔️ Gần chợ, siêu thị, nhà hàng, quán cà phê
-✔️ Dễ dàng di chuyển đến trung tâm thành phố
+🫧 Có bể sục trên sân thượng thư giãn sau ngày dài
+🧺 Dịch vụ giặt sấy riêng tiện lợi
+Liên hệ : *** (Zalo/WhatsApp)
+------------- 
+🏡 1-BEDROOM APARTMENT – GREEN &amp; PRIVATE LIVING
 
-📞 Liên hệ/Zalo/WhatsApp: *** 
+✨ Balconies with plenty of natural light and greenery
+✨ Fully furnished with complete cooking utensils – just like home
+✨ Quiet and private atmosphere
 
-━━━━━━━━━━━━━━
-
-🌿 GREEN LIVING IN SON TRA, DA NANG
-
-Looking for a peaceful and comfortable place to call home?
-
-🏡 Fully Furnished 1-Bedroom Apartment
-📍 Nguyen Cong Tru Street, Son Tra District, Da Nang
-
-✨ Features:
-🌿 Green and relaxing living environment
-🛋️ Fully furnished and move-in ready
-🍳 Functional kitchen
-🌤️ Bright and airy living space
-
-💦 Rooftop Jacuzzi
-🌇 Perfect place to relax, enjoy the sunset, and unwind after a long day
-
-📍 Convenient location:
-✔️ Near My Khe Beach
-✔️ Close to supermarkets, restaurants, and coffee shops
-✔️ Easy access to the city center
-
-📞 Contact (Zalo/WhatsApp): ***
+🫧 Rooftop jacuzzi for relaxing after a long day
+🧺 Private laundry service available
+Contact: *** (Zalo/WhatsApp)
 </p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
@@ -1373,7 +1349,13 @@ Looking for a peaceful and comfortable place to call home?
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1418,13 +1400,7 @@ Looking for a peaceful and comfortable place to call home?
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild

@@ -5,7 +5,7 @@
     <meta property="og:url" content="https://durian.rent/id/can-ho-son-tra">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Căn Hộ Sơn Trà" />
+    <meta property="og:title" content="Căn hộ Sơn Trà" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -15,7 +15,7 @@
     <meta name="description" content="Interactive map for Danang, Vietnam with rental ads" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Căn Hộ Sơn Trà">
+    <meta name="twitter:title" content="Căn hộ Sơn Trà">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
     <link rel="canonical" href="https://durian.rent/id/can-ho-son-tra">
@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789686944023'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -633,9 +633,9 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"Căn Hộ Sơn Trà",
+            "name":"Căn hộ Sơn Trà",
             "url":"https://durian.rent/id/can-ho-son-tra",
-			"price":"7000000",
+			"price":"6000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1182,13 +1182,28 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>Căn Hộ Sơn Trà</h1><p>Dự án: 
-Thông tin chi tiết: 📣 CHO THUÊ CĂN HỘ SƠN TRÀ – ĐÀ NẴNG 🏡
-🌿 Căn hộ nội thất mới – vị trí đẹp – gần biển
+<div id="map"></div><article><h1>Căn hộ Sơn Trà</h1><p>KHAI TRƯƠNG CĂN HỘ FULL NỘI THẤT CAO CẤP - VỊ TRÍ VÀNG NGAY SÁT ĐẠI HỌC GREENWICH
 
-📐 Diện tích: 30–50m²/phòng
+Địa chỉ: 454 Ngô Quyền, Phường An Hải Bắc, Quận Sơn Trà, TP. Đà Nẵng
+(Tuyến đường lớn, giao thông thuận tiện, di chuyển nhanh chóng)
 
-🛋️ Nội thất mới hoàn toàn, đầy đủ tiện nghi:</p></article>
+CĂN HỘ MỚI 100% - VÀO Ở NGAY:
+
+Full nội thất mới tinh, hiện đại: Giường nệm, tủ quần áo, bàn học/làm việc, tủ lạnh, điều hòa, máy hút mùi...
+
+Tiện nghi riêng tư: Trang bị sẵn máy giặt sấy tiện lợi ngay trong phòng/khu dịch vụ.
+
+Không gian thoáng đãng, thiết kế hiện đại, riêng tư và yên tĩnh, rất phù hợp để học tập và làm việc.
+
+TIỆN ÍCH XUNG QUANH (BÁN KÍNH 3 - 5 PHÚT):
+
+Giáo dục: Chỉ vài phút đến Đại học Greenwich Đà Nẵng, gần các trường Đại học, Cao đẳng khu vực Sơn Trà.
+
+Giải trí &amp; Bãi biển: Cách bãi biển Phạm Văn Đồng, Mỹ Khê chỉ khoảng 5 phút di chuyển.
+
+Mua sắm &amp; Sinh hoạt: Gần siêu thị VinMart, Co.opmart, chợ hải sản, xung quanh ngập tràn chợ dân sinh, quán ăn, cửa hàng tiện lợi 24/7.
+
+Kết nối trung tâm: Gần cầu Sông Hàn, cầu Rồng, di chuyển sang trung tâm thành phố cực kỳ nhanh chóng.</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1336,7 +1351,13 @@ Thông tin chi tiết: 📣 CHO THUÊ CĂN HỘ SƠN TRÀ – ĐÀ NẴNG 🏡
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1381,13 +1402,7 @@ Thông tin chi tiết: 📣 CHO THUÊ CĂN HỘ SƠN TRÀ – ĐÀ NẴNG 🏡
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild

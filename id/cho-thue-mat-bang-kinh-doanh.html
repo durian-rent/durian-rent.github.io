@@ -5,7 +5,7 @@
     <meta property="og:url" content="https://durian.rent/id/cho-thue-mat-bang-kinh-doanh">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cho thuê mặt bằng kinh doanh" />
+    <meta property="og:title" content="cho thuê mặt bằng kinh doanh" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -15,7 +15,7 @@
     <meta name="description" content="Interactive map for Danang, Vietnam with rental ads" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cho thuê mặt bằng kinh doanh">
+    <meta name="twitter:title" content="cho thuê mặt bằng kinh doanh">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
     <link rel="canonical" href="https://durian.rent/id/cho-thue-mat-bang-kinh-doanh">
@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789686944023'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -633,9 +633,9 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"Cho thuê mặt bằng kinh doanh",
+            "name":"cho thuê mặt bằng kinh doanh",
             "url":"https://durian.rent/id/cho-thue-mat-bang-kinh-doanh",
-			"price":"6000000",
+			"price":"5000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1182,8 +1182,9 @@ Prices are expressed in Vietnamese dong (VND).
     </style>
 </head>
 <body>
-<div id="map"></div><article><h1>Cho thuê mặt bằng kinh doanh</h1><p>Dự án: 
-Thông tin chi tiết: Cho thuê mặt bằng kinh doanh tầng trệt gần aeon mall, công viên 29/3 ngay trung tâm thành phố mở văn phòng, dạy học, studio,… (không dịch vụ ăn uống). Chính chủ đăng cho thuê, llac qua sdt ***</p></article>
+<div id="map"></div><article><h1>cho thuê mặt bằng kinh doanh</h1><p>Dự án: 
+Thông tin chi tiết: Do nhu cầu không sử dụng hết, cần cho thuê mặt bằng kinh doanh
+***</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1331,7 +1332,13 @@ Thông tin chi tiết: Cho thuê mặt bằng kinh doanh tầng trệt gần aeo
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1376,13 +1383,7 @@ Thông tin chi tiết: Cho thuê mặt bằng kinh doanh tầng trệt gần aeo
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild

@@ -351,7 +351,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789343242569'
+    const VER_WASM = '1789686944023'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +459,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '593fa52e630aa8121291afb5398b7b1b4cd670e14736f99d5ebb409180c5f1ad'// contact spirin.vladimir@gmail.com
+        const KEY = '19adc645b363c3a740986969ad8719834d8cc4ab77c6ec7b41f07988640a128a'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -635,7 +635,7 @@ Prices are expressed in Vietnamese dong (VND).
             "@type":"Offer",
             "name":"Cho thuê nhà 3,5 tầng mặt tiền đường Phan Huy Chú sát cầu Trần Thị Lý",
             "url":"https://durian.rent/id/cho-thue-nha-3-5-tang-mat-tien-duong-phan-huy-chu-sat-cau-tran-thi-ly",
-			"price":"35000000",
+			"price":"32000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -1186,10 +1186,8 @@ Prices are expressed in Vietnamese dong (VND).
 - Diện tích: 80 m2, ( 5x 16), hướng nam, đường 5m5 lề 3m.
 - Công năng: nhà 3,5 tầng, thiết kế đẹp và hiện đại, gồm có 5PN khép kín, 1 PK, 1 PB, 6WC, sân phơi, full nội thất đẹp như hình.
 - Vị trí: sát cầu Trần Thị Lý, khu vực kinh doanh tốt, tiện ích đầy đủ, gần biển, gần trường, gần chợ, thích hợp thuê ở gia đình hoặc làm VP công ty.
-Gía cho thuê: 35 tr/ tháng, cọc 1 thanh toán 6, hd lâu dài.
-Liên hệ xem nhà: call/zalo
-BẤT ĐỘNG SẢN NEWLANDS CHUYÊN NHÀ ĐẤT THỔ CƯ ĐÀ NẴNG
-+ PKD1: 12 Vũ Văn Dũng, Sơn Trà.</p></article>
+Gía cho thuê: 32 tr/ tháng, cọc 1 thanh toán 6, hd lâu dài.
+Liên hệ xem nhà: call/zalo</p></article>
 <div id="logo" hidden>
     <svg xmlns="http://www.w3.org/2000/svg"
         width="300"
@@ -1337,7 +1335,13 @@ BẤT ĐỘNG SẢN NEWLANDS CHUYÊN NHÀ ĐẤT THỔ CƯ ĐÀ NẴNG
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
 </div>
-<div id="toast" hidden></div>
+<div id="last_update_time" hidden>
+    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+    </svg>
+    <span id="last_update_time_value"><span>
+</div>
 <div id="card">
     <div id="mover"></div>
     <div id="card_content">
@@ -1382,13 +1386,7 @@ BẤT ĐỘNG SẢN NEWLANDS CHUYÊN NHÀ ĐẤT THỔ CƯ ĐÀ NẴNG
         </div>
     </div>
 </div>
-<div id="last_update_time" hidden>
-    <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 6v6l4 2"/>
-    </svg>
-    <span id="last_update_time_value">2026-09-13 12:23<span>
-</div>
+<div id="toast" hidden></div>
 <script>
 const $min_label = min.firstElementChild
 const $max_label = max.firstElementChild
