@@ -4,10 +4,21 @@
 		<id>https://danang.kim/</id>
 		<link rel="alternate" href="https://danang.kim/"/>
 		<link rel="self" href="https://danang.kim/atom.xml"/>
-		<updated>2026-09-18T12:28:26.816Z</updated>
+		<updated>2026-09-18T12:48:08.718Z</updated>
 		<author>
 			<name>Rental Map Danang</name>
 		</author>
+		<entry>
+			<id>https://danang.kim/id/cho-thue-phong-o-do-quang</id>
+			<title>Cho thuê Phòng ở Đỗ Quang</title>
+			<link href="https://danang.kim/id/cho-thue-phong-o-do-quang"/>
+			<updated>2026-09-18T11:06:07.000Z</updated>
+			<published>2026-09-18T11:06:07.000Z</published>
+			<summary>Dự án: 
+Thông tin chi tiết: Cho thuê phòng trọ có gác lững, sau lưng MT Đỗ Quang. Trung tâm gần Nguyễn Văn Linh, Trường ĐH Duy Tân, BV Hoàn Mĩ
+Phòng sạch sẽ, đầy đủ nội thất, có wf, điều hoà…
+Giá thuê 5Tr</summary>
+		</entry>
 		<entry>
 			<id>https://danang.kim/id/can-ho-1-phong-ngu-nguyen-xien-ngu-hanh-son</id>
 			<title>CĂN HỘ 1 PHÒNG NGỦ - NGUYỄN XIỂN - NGŨ HÀNH SƠN</title>
@@ -2733,25 +2744,5 @@ Thông tin chi tiết: Cho thuê căn hộ Măt tiền Nguyễn Hữu Thọ gầ
 - Không cho nuôi thú cưng 
 - Nhận khách nước ngoài 
 - Giá cho thuê 6tr - 7tr- 12tr/tùy phòng</summary>
-		</entry>
-		<entry>
-			<id>https://danang.kim/id/can-ho-hoa-binh-green-da-nang-golden-bay-tieu-chuan-song-5-sao</id>
-			<title>🌟 CĂN HỘ HOÀ BÌNH GREEN ĐÀ NẴNG GOLDEN BAY 🏡TIÊU CHUẨN SỐNG 5 ⭐️SAO✅</title>
-			<link href="https://danang.kim/id/can-ho-hoa-binh-green-da-nang-golden-bay-tieu-chuan-song-5-sao"/>
-			<updated>2026-09-18T02:53:41.000Z</updated>
-			<published>2026-09-18T02:53:41.000Z</published>
-			<summary>Dự án: 
-Thông tin chi tiết: Cho thuê căn hộ cao cấp 5 sao Dát Vàng Đà Nẵng, Căn Hộ Dát vàng tại Đà Nẵng.
-* Diện tích: 40m2.
-* 1 phòng ngủ, 1 WC, phòng khách, phòng bếp, ban công.
-* Căn hộ được trang bị đầy đủ nội thất chuẩn 5*, View toàn thành phố, view biển, núi, sông, vịnh.
-* Căn hộ được trang bị đầy đủ nội thất: Sofa, bàn ăn, máy giặt, tủ lạnh, hút mùi, bếp từ, nước nóng, giường nệm cao cấp,... Quý khách hàng chỉ cần vào ở ngay.
-* Tiện ích:
-* Được sử dụng toàn bộ tiện ích trong tòa nhà.
-* Hồ bơi vô cực Miễn Phí, nhà hàng, bar, phòng hội nghị, siêu thị, gym, lễ tân, an ninh.
-* Có chỗ để ô tô miễn phí.
-* Bảo vệ 24/24.
-Giá thuê chỉ từ 8triệu/tháng.
-Liên hệ ngay em Quân để chọn được căn ưng ý nhất.</summary>
 		</entry>
 </feed>

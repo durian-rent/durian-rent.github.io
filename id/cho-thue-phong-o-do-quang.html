@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="☘️☘️☘️☘️CHO THUÊ NHÀ 2 TẦNG 2MT  DƯƠNG LOAN GẦN SÁT CẦU NTP- HOÀ XUÂN- C" />
+    <meta name="description" content="Cho thuê Phòng ở Đỗ Quang" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -243,6 +243,10 @@ Prices are expressed in Vietnamese dong (VND).
           // assembly/index/get_ads() => ~lib/staticarray/StaticArray<f64>
           return __liftStaticArray(__getF64, 3, exports.get_ads() >>> 0);
         },
+        get_ad_range(id) {
+          // assembly/index/get_ad_range(f64) => ~lib/staticarray/StaticArray<f64>
+          return __liftStaticArray(__getF64, 3, exports.get_ad_range(id) >>> 0);
+        },
         layers_order(a, b) {
           // assembly/index/layers_order(~lib/string/String, ~lib/string/String) => i32
           a = __retain(__lowerString(a) || __notnull());
@@ -351,7 +355,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789715252752'
+    const VER_WASM = '1789734509236'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -459,7 +463,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'de50bd427b27fb5c11b315b4379d87c1304f551df0c39f2f95406e4c6de66ace'// contact spirin.vladimir@gmail.com
+        const KEY = 'fa588f97e6a41aeeb0959653da79cbadace8715043e230f28f6d01f67fede11f'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -495,7 +499,7 @@ Prices are expressed in Vietnamese dong (VND).
             var longitude = raw_ads[i + 2]
             var latitude = raw_ads[i + 3]
             var m2 = raw_ads[i + 8]
-            var publish = ad_size == 10 ? raw_ads[i + 9] : Date.now() - 3600 * 24 * 1000 
+            var publish = raw_ads[i + 9] 
             var key = longitude + '-' + latitude
             var dup_set = dup_map.get(key) || new Set()
             dup_set.add(id)
@@ -796,7 +800,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #card {
             position: fixed;
-            bottom: -20vh;
+            bottom: 0;/*card SSR*/
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -812,7 +816,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-top-style: solid;
             border-top-width: 1px;
             container-type: size;
-            transition: bottom 0.25s ease, height 0.25s ease;
+            transition: bottom 0.1s linear, height 0.1s linear;
         }
         #card_content {
             justify-content: space-between;
@@ -836,6 +840,9 @@ Prices are expressed in Vietnamese dong (VND).
             flex: 0 0 auto;
             height: 100%;
             aspect-ratio: 1;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             overflow: hidden;
             border-radius: 4px;
             touch-action: none;
@@ -898,13 +905,15 @@ Prices are expressed in Vietnamese dong (VND).
         .card-info-row {
             display: flex;
             justify-content: flex-end;
+            align-items: baseline;
             width: 100%;
             font-size: 12pt;
             font-family: Inter, Arial, sans-serif;
             color: var(--filter-color);
         }
         .card-info-row-last {
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
         .card-info-row-last div {
             display: inline;
@@ -1348,11 +1357,11 @@ Prices are expressed in Vietnamese dong (VND).
         </div>
         <div id="card_info">
             <div class="card-info-row">
-                <div id="price">14 500 000</div>
+                <div id="price">5 000 000</div>
                 <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
-                <div id="m2">100</div>
+                <div id="m2">20</div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
             <div class="card-info-row card-info-row-last">
@@ -1472,8 +1481,8 @@ const router = () => {
     current_page == PAGE.MAIN && console.log('MAIN')
     current_page == PAGE.EDIT && console.log('EDIT')
     current_page == PAGE.SINGLE && console.log('SINGLE')
-    $close.toggleAttribute('hidden', current_page != PAGE.SHARED && current_page != PAGE.SINGLE)
-    $heart.toggleAttribute('hidden', current_page == PAGE.SHARED || current_page == PAGE.SINGLE)
+    $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
+    $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
     $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
     filter.setAttribute('hidden', '')
@@ -1481,6 +1490,7 @@ const router = () => {
     $icon_dong.setAttribute('hidden', '')
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
+    $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
 
     const likes = likes_search_params.length
         ? likes_search_params
@@ -1763,19 +1773,46 @@ window.addEventListener('resize', () => {
     }
 })
 
-var mover_start_y = 0
-var mover_start_small = true
-var mover_going_close = undefined
-var mover_prev_y = 0
-var mover_prev_prev_y = 0
-var mover_end_y = 0
+window.photo_current_index = null
+window.photo_total_count = null
+
+var photo_size = null
+new ResizeObserver(() => {
+    $photos_container.style.transition = 'none'
+    photo_size = $photo.getBoundingClientRect().width
+    //to_current()
+}).observe($photo)
+
+var card_start_t = null
+var card_start_x = 0
+var card_start_y = 0
+var card_start_small = true
+var card_going_close = undefined
+var card_prev_x = 0
+var card_prev_prev_x = 0
+var card_prev_y = 0
+var card_prev_prev_y = 0
+var card_end_t = null
+var card_end_x = 0
+var card_end_y = 0
+var x_photo_min = null
+var x_photo_max = null
+var cur_x
+var photo_swipe
+
 $card.ontouchstart = e => {
     e.stopPropagation()
-    if (e.target.classList.contains('photo')) return
+    if (e.target.id == 'contact') return
+    if (e.target.id == 'card_heart') return
+    if (e.target.id == 'icon-card-heart') return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
     $card.style.transition = 'none'
-    mover_start_y = e.changedTouches[0].screenY
+    card_start_t = Date.now()
+    card_start_x = e.changedTouches[0].screenX
+    card_start_y = e.changedTouches[0].screenY
+    card_prev_prev_x = card_start_x
+    card_prev_prev_y = card_start_y
     var rect = $card.getBoundingClientRect()
     card_height = rect.height
     if (!y_card_min || detect_y_card_min == false) {
@@ -1785,142 +1822,141 @@ $card.ontouchstart = e => {
     y_card_max = Math.min(rect.width, 0.75 * window.innerHeight) +
         10 // addition for mover then aspect 1:1 for photo would be correct
         // where 10px is diff between padding and top padding
-    mover_going_close = undefined
+    card_going_close = undefined
+    
+    $photos_container.style.transition = 'none'
+    x_photo_min = 0
+    x_photo_max = (photo_total_count - 1) * photo_size
+    cur_x = photo_current_index * photo_size
+    photo_swipe = undefined
 }
 $card.ontouchmove = e => {
     e.stopPropagation()
-    if (e.target.classList.contains('photo')) return
+    if (e.target.id == 'contact') return
+    if (e.target.id == 'card_heart') return
+    if (e.target.id == 'icon-card-heart') return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
-    e.preventDefault()
-    mover_prev_prev_y = mover_prev_y 
-    mover_prev_y = e.changedTouches[0].screenY
+    try{ e?.preventDefault()} catch(e) {}
+    card_prev_prev_x = card_prev_x
+    card_prev_x = e.changedTouches[0].screenX
+    card_prev_prev_y = card_prev_y
+    card_prev_y = e.changedTouches[0].screenY
+    console.log(
+        card_prev_y,
+        card_prev_prev_y
+    )
     
-    dy = mover_prev_y - mover_start_y
-    if (dy == 0) return
-    
-    var h = +$card.style.height.replace('px', '') || y_card_min
-    var bottom = +$card.style.bottom.replace('px', '') || 0
-    var last_move_direction = dy > 0
-        ? 'down'
-        : 'up'
+    var dx = card_prev_x - card_start_x
+    var dy = card_prev_y - card_start_y
 
-    if (mover_going_close == undefined) {
-        mover_going_close = mover_start_small &&
-        last_move_direction == 'down'
+    if (photo_swipe == undefined) {
+        photo_swipe = (
+            e.target.id == 'photo' ||
+            e.target.classList.contains('photo')
+        ) && 2 * Math.abs(dx) > Math.abs(dy)
     }
     
-    if (mover_going_close) {
-        var y = Math.max(0, Math.min(h, dy))
-        $card.style.bottom = `-${y}px`
+    if (photo_swipe) {
+        var x = Math.max(x_photo_min, Math.min(x_photo_max, cur_x - dx))
+        $photos_container.style.transform = `translate3d(-${x}px,0,0)`
+        $photos_container.removeAttribute('hidden')
     } else {
-        var y = Math.max(y_card_min, Math.min(y_card_max, card_height - dy))
-        $card.style.height = `${y}px`
+        $photos_container.setAttribute('hidden', '')
+        var last_move_direction = dy > 0 ? 'down' : 'up'
+        console.log(last_move_direction)
+        
+        if (card_going_close == undefined) {
+            card_going_close = card_start_small &&
+                last_move_direction == 'down'
+            console.log('card_going_close', card_going_close)
+        }
+        if (dy == 0) return
+
+        var h = +$card.style.height.replace('px', '') || y_card_min
+        var bottom = +$card.style.bottom.replace('px', '') || 0
+
+        if (card_going_close) {
+            var y = Math.max(0, Math.min(y_card_min, dy))
+            $card.style.bottom = `-${y}px`
+        } else {
+            var y = Math.max(y_card_min, Math.min(y_card_max, card_height - dy))
+            $card.style.height = `${y}px`
+            $card_info.setAttribute('hidden', '')
+        }
     }
 }
 $card.ontouchend = e => {
     e.stopPropagation()
-    if (e.target.classList.contains('photo')) return
+    if (e.target.id == 'contact') return
+    if (e.target.id == 'card_heart') return
+    if (e.target.id == 'icon-card-heart') return
     if (e.target.classList.contains('dot')) return
     if (e.target.id == 'dots') return
-    $card.style.transition = 'bottom 0.25s ease, height 0.25s ease'
-    mover_end_y = e.changedTouches[0].screenY
+    card_end_t = Date.now()
+    card_end_x = e.changedTouches[0].screenX
+    card_end_y = e.changedTouches[0].screenY
+    var dt = card_end_t - card_start_t // user moved by finger in ms
+    var dx = card_end_x - card_start_x // user moved by finger by px
+    var dy = card_end_y - card_start_y // user moved by finger by px
+    if (photo_swipe) {
+        //var vX = Math.max(0.3, 1.5 * Math.abs(dx / dt))
+        $photos_container.style.transition = 'transform 0.25s ease-out'
+        var frames = Math.ceil(Math.abs(dx / photo_size))
+        var last_move_direction = card_end_x > card_prev_prev_x ? 'left' : 'right'
+        if (last_move_direction == 'right') {
+            if (dx > 0) to_current() 
+            else next_proto_right(frames)
+        } else {
+            if (dx < 0) to_current() 
+            else next_proto_left(frames)
+        }
+        return
+    }
+    var dY = null // future rest path for animation
+    var dT = null // future rest time for animation
+    var vY = Math.max(0.4, 1.5 * Math.abs(dy / dt))
     var h = +$card.style.height.replace('px', '') || y_card_min
-    var last_move_direction = mover_end_y > mover_prev_prev_y
+    var b = +$card.style.bottom.replace('px', '') || 0
+    var last_move_direction = card_end_y > card_prev_prev_y
         ? 'down'
         : 'up'
 
-    if (mover_going_close) {
-        $card.style.bottom = last_move_direction == 'down'
-            ? `-${y_card_min}px`
-            : 0
+    if (card_going_close) {
+        if (last_move_direction == 'down') {
+            dY = y_card_min - b
+            dT = Math.abs(dY / vY)
+            $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
+            $card.style.bottom = `-${y_card_min}px`
+        } else {
+            dY = 0 - b
+            dT = Math.abs(dY / vY)
+            $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
+            $card.style.bottom = 0
+        }
     } else {
         if (last_move_direction == 'down') {
-            mover_start_small = true
+            card_start_small = true
+            dY = y_card_min - h
+            dT = Math.abs(dY / vY)
+            $card.style.transition = `height ${(dT/1000).toFixed(2)}s linear`
             $card.style.height = y_card_min + 'px'
-            $card_info.removeAttribute('hidden')
+            setTimeout(() => $card_info.removeAttribute('hidden'), dT)
         } else {
-            mover_start_small = false
+            card_start_small = false
+            dY = y_card_max - h
+            dT = Math.abs(dY / vY)
+            $card.style.transition = `height ${(dT/1000).toFixed(2)}s linear`
             $card.style.height = y_card_max + 'px'
             $card_info.setAttribute('hidden', '')
         }
     }
 }
 
-window.photo_current_index = null
-window.photo_total_count = null
-
-var photo_size = null
-new ResizeObserver(() => {
-    $photos_container.style.transition = 'none'
-    photo_size = $photo.getBoundingClientRect().width
-    to_current()
-}).observe($photo)
-
-var touch_start_t = null
-var touch_start_x = 0
-var touch_start_y = 0
-var touch_prev_x = 0
-var touch_prev_prev_x = 0
-var dx = 0
-var dy = 0
-var x_photo_min = null
-var x_photo_max = null
-var cur_x
-$photo.ontouchstart = e => {
-    touch_start_t = Date.now()
-    touch_start_x = e.changedTouches[0].screenX
-    touch_start_y = e.changedTouches[0].screenY
-    $photos_container.style.transition = 'none'
-    x_photo_min = 0
-    x_photo_max = (photo_total_count - 1) * photo_size
-    cur_x = photo_current_index * photo_size
-}
-$photo.ontouchmove = e => {
-    touch_prev_prev_x = touch_prev_x
-    touch_prev_x = e.changedTouches[0].screenX
-    
-    dx = touch_prev_x - touch_start_x
-    var x = Math.max(x_photo_min, Math.min(x_photo_max, cur_x - dx))
-    $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-}
-$photo.ontouchend = e => {
-    $photos_container.style.transition = 'transform 0.25s ease'
-    var touch_end_t = Date.now()
-    var touch_end_x = e.changedTouches[0].screenX
-    var touch_end_y = e.changedTouches[0].screenY
-    var last_move_direction = touch_end_x > touch_prev_prev_x
-        ? 'left'
-        : 'right'
-    dt = touch_end_t - touch_start_t
-    dx = touch_end_x - touch_start_x
-    dy = touch_end_y - touch_start_y
-    if (dt < 1000 && dy > 0 && dy > 2 * Math.abs(dx)) {
-        to_current()
-        mover_start_small = true
-        $card.style.transition = 'height 0.25s ease'
-        $card.style.height = y_card_min + 'px'
-        $card_info.removeAttribute('hidden')
-        return
-    }
-    var frames = Math.ceil(Math.abs(dx / photo_size))
-    if (last_move_direction == 'right') {
-        if (dx > 0) to_current() 
-        next_proto_right(frames)
-    } else {
-        if (dx < 0) to_current() 
-        next_proto_left(frames)
-    }
-    //if (dy > dx) {
-    //    if (dy > 0 && y_card_min) $card.style.height = y_card_min + 'px'
-    //    if (dy < 0 && y_card_max) $card.style.height = y_card_max + 'px'
-    //}
-}
-
-
 function to_current() {
     var x = photo_current_index * photo_size
     $photos_container.style.transform = `translate3d(-${x}px,0,0)`
+    $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
 }
 function next_proto_right(frames) {
     if (frames == 0) return
@@ -1930,6 +1966,7 @@ function next_proto_right(frames) {
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $dots.children[photo_current_index].classList.add('active')
+        $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
        next_proto_right(frames - 1)
     }
@@ -1942,6 +1979,7 @@ function next_proto_left(frames) {
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $dots.children[photo_current_index].classList.add('active')
+        $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
         next_proto_left(frames - 1)
     }
@@ -3253,29 +3291,33 @@ apply_filter = throttle(apply_filter, 90)
                 var photos_urls
                 try {
                     photos_urls = get_ad_img_urls(id)
-                    navigator.serviceWorker.controller.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+                    if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
                 } catch (e) {
-                    console.error(`ERROR: get_ad_img_urls(${id}) ${url}`)
+                    console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
                     photos_urls = []
                 }
                 $dots.innerHTML = ''
                 photo_total_count = photos_urls.length
                 photo_current_index = 0
                 $photos_container.style.transform = `translate3d(0,0,0)`
-                for (var i = 0, $photo; i < photos_urls.length; i++) {
+                $photo.style.backgroundImage = `url("${photos_urls[i]}")`
+                for (var i = 0, $; i < photos_urls.length; i++) {
                     if ($photos_container.children[i]) {
-                        $photo = $photos_container.children[i]
-                        $photo.style.backgroundImage = `url("${photos_urls[i]}")`
+                        $ = $photos_container.children[i]
+                        $.style.backgroundImage = `url("${photos_urls[i]}")`
                     } else {
-                        $photo = document.createElement('div')
-                        $photo.className = 'photo'
-                        $photo.style.backgroundImage = `url("${photos_urls[i]}")`
-                        $photos_container.appendChild($photo)
+                        $ = document.createElement('div')
+                        $.className = 'photo'
+                        $.style.backgroundImage = `url("${photos_urls[i]}")`
+                        $photos_container.appendChild($)
                     }
                     var $dot = document.createElement('div')
                     $dot.className = 'dot'
                     $dots.appendChild($dot)
-                    if (i == 0) $dot.classList.add('active')
+                    if (i == 0) {
+                        $dot.classList.add('active')
+                        $photo.style.backgroundImage = `url("${photos_urls[i]}")`
+                    }
                 }
                 while ($photos_container.children.length > photos_urls.length) {
                     $photos_container.lastElementChild.remove()
@@ -3292,6 +3334,39 @@ apply_filter = throttle(apply_filter, 90)
                 $publish.textContent = `${ago(ad.publish)}`
                 $contact.onclick = () => gtag('event', 'ad_click', {ad_id: id, ad_url: url, price, page: current_page})
                 $contact.href = url
+                
+                fetch(
+                    '/ads.bin',
+                    {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
+                )
+                .then(_ => _.arrayBuffer())
+                .then(ab => {
+                    const view = new DataView(ab)
+                    const decoder = new TextDecoder('utf-8')
+                    var offset = 0
+                    
+                    const subjectLen = view.getUint32(offset, false)
+                    offset += 4
+                    const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
+                    offset += subjectLen
+                    
+                    const bodyLen = view.getUint32(offset, false)
+                    offset += 4
+                    const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
+                    offset += bodyLen
+                    
+                    const streetLen = view.getUint32(offset, false)
+                    offset += 4
+                    const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
+                    return [subject, body, street_name]
+                })
+                .then(([subject, body, street_name]) => {
+                    console.log(
+                        'subject:', subject,
+                        'body:', body,
+                        'street_name:', street_name
+                    )
+                })
             })
             map.on('click', e => {
                 features = map.queryRenderedFeatures(e.point, {
@@ -3400,7 +3475,7 @@ apply_filter = throttle(apply_filter, 90)
         })
 
     })
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js?v=14')
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js?v=15')
 </script>
 </body>
 </html>
