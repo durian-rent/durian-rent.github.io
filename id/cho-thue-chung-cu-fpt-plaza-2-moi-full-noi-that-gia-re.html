@@ -199,6 +199,10 @@ Prices are expressed in Vietnamese dong (VND).
       const { exports } = await WebAssembly.instantiate(module, adaptedImports);
       const memory = exports.memory || imports.env.memory;
       const adaptedExports = Object.setPrototypeOf({
+        get_category_for_user(category) {
+          // assembly/index/get_category_for_user(f64) => ~lib/string/String
+          return __liftString(exports.get_category_for_user(category) >>> 0);
+        },
         get_area_v2_for_user(id) {
           // assembly/index/get_area_v2_for_user(f64) => ~lib/string/String
           return __liftString(exports.get_area_v2_for_user(id) >>> 0);
@@ -359,7 +363,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789808617626'
+    const VER_WASM = '1789808621895'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -502,6 +506,7 @@ Prices are expressed in Vietnamese dong (VND).
             var price = raw_ads[i + 1]
             var longitude = raw_ads[i + 2]
             var latitude = raw_ads[i + 3]
+            var category = raw_ads[i + 5]
             var area = raw_ads[i + 6]
             var m2 = raw_ads[i + 8]
             var publish = raw_ads[i + 9] 
@@ -511,7 +516,7 @@ Prices are expressed in Vietnamese dong (VND).
             dup_map.set(key, dup_set)
             if (price < limit$.min) limit$.min = price
             if (price > limit$.max) limit$.max = price
-            ads[i / ad_size] = { id, price, longitude, latitude, area, m2, publish }
+            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish }
         }
         dup_map.forEach((dup_set, key) =>
             dup_set.size == 1 &&
@@ -1368,6 +1373,7 @@ Prices are expressed in Vietnamese dong (VND).
                 <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
+                <div id="category"></div>
                 <div id="m2">73</div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
@@ -1427,6 +1433,7 @@ const $photos_container = document.getElementById('photos_container')
 const $price = document.getElementById('price')
 const $dots = document.getElementById('dots')
 const $street = document.getElementById('street')
+const $category = document.getElementById('category')
 const $area = document.getElementById('area')
 const $m2 = document.getElementById('m2')
 const $publish = document.getElementById('publish')
@@ -3340,6 +3347,7 @@ apply_filter = throttle(apply_filter, 90)
                     price_string_space = price_string[i] + price_string_space
                 }
                 $price.textContent = price_string_space
+                $category.textContent = get_category_for_user(ad.area)
                 $area.textContent = get_area_v2_for_user(ad.area)
                 $m2.textContent = ad.m2
                 $publish.textContent = `${ago(ad.publish)}`
