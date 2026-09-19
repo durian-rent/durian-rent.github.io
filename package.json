@@ -18,7 +18,8 @@
     "ads2wasm": "node ads2wasm.cjs",
     "asbuild": "asc assembly/index.ts --target release",
     "build": "npm run ads2wasm && npm run asbuild",
-    "start": "node nhatot.cjs"
+    "start": "node nhatot.cjs",
+    "dev": "npm run start && npm run build"
   },
   "devDependencies": {
     "assemblyscript": "^0.28.18"
