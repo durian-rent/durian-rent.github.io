@@ -363,7 +363,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789808621895'
+    const VER_WASM = '1789810206090'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -471,7 +471,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'bce20daa79fc1844f6e059a798fc7f1304d87d52c9b4339d96aa9c919c15c218'// contact spirin.vladimir@gmail.com
+        const KEY = '6c785d807148f9b50266f1e1e898f7d1c59d22b0cbb97a223d67a85443646f3e'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -1374,6 +1374,9 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card-info-row">
                 <div id="category"></div>
+                <div class="card-info-separator"> · </div>
+                <div id="bed">- bed</div>
+                <div class="card-info-separator"> · </div>
                 <div id="m2">74</div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
@@ -3347,7 +3350,7 @@ apply_filter = throttle(apply_filter, 90)
                     price_string_space = price_string[i] + price_string_space
                 }
                 $price.textContent = price_string_space
-                $category.textContent = get_category_for_user(ad.area)
+                $category.textContent = get_category_for_user(ad.category)
                 $area.textContent = get_area_v2_for_user(ad.area)
                 $m2.textContent = ad.m2
                 $publish.textContent = `${ago(ad.publish)}`
