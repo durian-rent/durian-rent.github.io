@@ -40,6 +40,9 @@ jobs:
     - name: Build AssemblyScript into WASM bundle
       run: npm i && npm run asbuild
 
+    - name: Version WASM bundle
+      run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
+
     - name: Generate KEY
       env:
         GEN_KEY: ${{ secrets.GEN_KEY }}
