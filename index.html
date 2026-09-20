@@ -561,45 +561,45 @@ Prices are expressed in Vietnamese dong (VND).
 
     const colors = {
         light: {//hot pink
-            selected: '#ff69b4',//#ff69b4
+            selected: '#E5E8DB',//#-ff69b4 //
             other: '#888',
             filtered: '#888',
-            normal: '#ff69b4'
+            normal: '#E5E8DB'
         },
         dark: {
-            selected: '#ff69b4',
+            selected: '#0E1911',
             other: '#555',
             filtered: '#555',
-            normal: '#ff69b4'
+            normal: '#0E1911'
         }
     }
 
     const theme = {
         paint: {
             'price-text-shared-likes': {
-                'text-color': ['#ffffff', '#000000']
+                'text-color': ['#B6C3A8', '#47553E']
             },
             'price-text': {
-                'text-color': ['#ffffff', '#000000']
+                'text-color': ['#B6C3A8', '#47553E']
             },
             'price-circle-filtered': {
                 'circle-color': ['#555', '#888']
             },
             background: {
-                "background-color": ["rgb(12,12,12)", "rgb(242,243,240)"]
+                "background-color": ["#0E1911", "#E5E8DB"]
             },
             building: {
-                "fill-color": ["rgb(10,10,10)", "rgb(234, 234, 229)"],
-                "fill-outline-color": ["rgb(27 ,27 ,29)", "rgb(219, 219, 218)"]
+                "fill-color": ["#19291D", "#DADECD"],
+                "fill-outline-color": ["#314737", "#B0BB9D"]
             },
             highway_major_casing: {
-                "line-color": ["rgba(60,60,60,0.8)", "rgb(213, 213, 213)"]
+                "line-color": ["#0E1911", "#C8D0B8"]
             },
             highway_major_inner: {
-                "line-color": ["hsl(0, 0%, 7%)", "#fff"]
+                "line-color": ["#415C46", "#F6F7F1"]
             },
             highway_minor: {
-                "line-color": ["#181818", "hsl(0, 0%, 88%)"]
+                "line-color": ["#2C4232", "#F3F4ED"]
             },
             highway_name_other: {
                 "text-color": ["rgba(80, 78, 78, 1)", "#bbb"],
@@ -621,10 +621,10 @@ Prices are expressed in Vietnamese dong (VND).
             },
             water: {
                 "fill-antialias": [false, true],
-                "fill-color": ["rgb(27 ,27 ,29)", "rgb(194, 200, 202)"]
+                "fill-color": ["#10363A", "#99C1B7"]
             },
             waterway: {
-                "line-color": ["rgb(27 ,27 ,29)", "hsl(195, 17%, 78%)"]
+                "line-color": ["#10363A", "#99C1B7"]
             },
         }
     }
@@ -1078,7 +1078,7 @@ Prices are expressed in Vietnamese dong (VND).
             vector-effect: non-scaling-stroke;
         }
         #card_heart.like #icon-card-heart {
-            stroke: #ff69b4;
+            stroke: #E5E8DB;
         }
         #icon-card-close {
             display: block;
@@ -2933,7 +2933,7 @@ apply_filter = throttle(apply_filter, 90)
                                 ['*', circle_radius, hover_scale]//normal
                             ]
                         ],
-                        'circle-color': '#ff69b4',
+                        'circle-color': '#E5E8DB',
                         'circle-opacity':
                         [
                             "step",
@@ -3102,7 +3102,7 @@ apply_filter = throttle(apply_filter, 90)
                         'icon-color': [
                             'case',
                             ['boolean', ['feature-state', 'hover'], false],
-                            '#ff69b4',
+                            '#E5E8DB',
                             '#888'
                         ]
                     }
@@ -3125,7 +3125,7 @@ apply_filter = throttle(apply_filter, 90)
                             1,
                             0
                         ],
-                        'icon-color': '#ff69b4',//hot-pink
+                        'icon-color': '#E5E8DB',//hot-pink
                     }
                 },
                 {
