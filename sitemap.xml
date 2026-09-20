@@ -2,9 +2,261 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:dk="https://danang.kim/schemas/sitemap">
 	<url>
 		<loc>https://danang.kim/</loc>
-		<lastmod>2026-09-19</lastmod>
+		<lastmod>2026-09-20</lastmod>
 		<changefreq>hourly</changefreq>
 		<priority>1.0</priority>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/nha-vuon-3pn-2wc-dep-moi</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178856490</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-2-tang-duong-7m5-vu-dinh-long-gan-bien-son-tra-da-nang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178853649</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-dat-mt-phan-tu-276m2-ngay-mai-thuc-lan-50tr-thang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178893101</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-3-phong-ngu-blooming-trung-tam-da-nang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>177866124</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-san-vuon-khu-tan-thai-son-tra-da-nang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178769431</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-goc-phan-dang-luu-nguyen-trac-cam-le</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178854200</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-3-tang-mac-tien-khu-vuong-thua-vu-gan-bien-son-tra-da-na</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178892940</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-shophouse-4-tang-moi-xay-co-thang-may-doi-dien-ho</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178326252</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-3-tang-mat-tien-5m5-sat-khuc-hao-doi-dien-cong-vien-di</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178761460</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-3-tang-bang-lang-1-full-noi-that-35-trieu-thang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178884808</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-2-tang-mat-tien-duong-tran-huan-khue-trung</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178892874</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-view-song</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>177513582</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-mat-bang-kinh-doanh-20m2-da-nang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>176453625</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/can-ho-1-phong-ngu-rong-rai-gan-bien</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178857258</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-chung-cu-fpt-plaza-2</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178852732</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-mia-centre-point-full-tien-nghi-7-5-trieu-tha</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178855308</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/dat-chinh-chu-cho-thue-2-mat-tien-duong-lon-nam-hoa-xuan-da-nang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>176942115</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/toa-moi-con-dau-18-hoa-xuan</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178864109</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/studio-ban-cong-full-noi-that-gan-bien-my-khe</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178892276</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-lo-goc-mat-tien-duong-ly-can-to-son-tra</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178853331</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-mini</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178869221</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/chdv-full-noi-that-duong-thuy-son-5-ngu-hanh-son</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178892188</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/can-ho-co-ban-cong-le-am-hoa-xuan-cho-phep-nuoi-thu-cung</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178872537</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-2-phong-ngu-vip-full-noi-that</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178584281</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-3-tang-duong-do-quy-hoa-xuan-full-noi-that</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178861134</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/mat-bang-kd-van-phong-2-thang-9-110m2-16tr-thang</loc>
+		<lastmod>2026-09-20</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178884887</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/toi-can-cho-thue-mt-nguyen-luong-bang-nha-2-tang-full-noi-that</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178647675</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-2-tang-moi-rong-200m2-mt-nguyen-luong-bang</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178727981</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-gan-fpt</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178824568</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-mt-thanh-khe</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178401468</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-khu-nam-viet-a-noi-that-day-du-15tr-thang</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178500886</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-nha-mat-tien-son-tra-3pn-gan-bien</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178890533</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-mot-phong-ngu-khu-nam-viet-a</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178827018</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/22-09-trong-can-2br-2wc-gan-cong-vien-son-tra-gan-bien</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178889622</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/cho-thue-can-ho-nam-viet-a</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178827057</dk:id>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/nha-2-tang-truong-chinh-150m-chi-9-5tr-thang</loc>
+		<lastmod>2026-09-19</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+		<dk:id>178888887</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/can-ho-1pn-rieng-gan-bien-my-an-co-ban-cong</loc>
@@ -89,20 +341,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178886194</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/mat-bang-kd-van-phong-2-thang-9-110m2-16tr-thang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178884887</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-3-tang-bang-lang-1-full-noi-that-35-trieu-thang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178884808</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-dat-lau-dai</loc>
@@ -343,13 +581,6 @@
 		<dk:id>178761035</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-san-vuon-khu-tan-thai-son-tra-da-nang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178769431</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cho-thue-gap-2pn-monarchy-full-noi-that-trong-san-gia-chi-17-trieu</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
@@ -369,13 +600,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178764086</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-3-phong-ngu-blooming-trung-tam-da-nang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>177866124</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/phong-moi-gan-dh-kien-truc-mega-bv-tam-tri</loc>
@@ -1008,27 +1232,6 @@
 		<dk:id>178873126</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/can-ho-co-ban-cong-le-am-hoa-xuan-cho-phep-nuoi-thu-cung</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178872537</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-chung-cu-fpt-plaza-2</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178852732</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-mini</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178869221</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cho-thue-can-ho-1pn-rieng-biet-khu-nam-viet-a</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
@@ -1050,13 +1253,6 @@
 		<dk:id>178847331</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-nguyen-can-gan-ben-xe-110m2</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178784043</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cozy-apartment-near-beach-for-rent-cho-thu</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
@@ -1064,32 +1260,11 @@
 		<dk:id>178872782</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-mia-centre-point-full-tien-nghi-7-5-trieu-tha</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178855308</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cho-thue-nha-nguyen-can-hoa-xuan-sat-nguyen-phuoc-lan</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>176888808</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-hoa-xuan-sat-le-quang-chi</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>177621600</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-3-tang-duong-do-quy-hoa-xuan-full-noi-that</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178861134</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-can-ho-studio-khu-nam-viet-a</loc>
@@ -1113,32 +1288,11 @@
 		<dk:id>178872544</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-mat-bang-kinh-doanh-20m2-da-nang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>176453625</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-goc-phan-dang-luu-nguyen-trac-cam-le</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178854200</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/can-ho-moi-100-135-phung-chi-kien-thanh-khe-da-nang</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178837020</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/toa-moi-con-dau-18-hoa-xuan</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178864109</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-nha-2-tang-duong-phan-thanh-sat-dai-hoc-duy-tan</loc>
@@ -1169,13 +1323,6 @@
 		<dk:id>178830078</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/nha-vuon-3pn-2wc-dep-moi</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178856490</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/chinh-chu-cho-thue-nguyen-can-3-tang-view-bien-son-tra</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
@@ -1183,25 +1330,11 @@
 		<dk:id>177464677</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-3-tang-mat-tien-5m5-sat-khuc-hao-doi-dien-cong-vien-di</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178761460</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-mia-center-point-view-bien-view-phao-hoa</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178571877</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/dat-chinh-chu-cho-thue-2-mat-tien-duong-lon-nam-hoa-xuan-da-nang</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>176942115</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/hot-chi-con-1-can-ho-ban-cong-45m2-dep-o-8-ba-huyen-thanh-quan</loc>
@@ -1267,13 +1400,6 @@
 		<dk:id>178835881</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-view-song</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>177513582</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/can-ho-1-phong-ngu-tttp-gia-re</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
@@ -1307,20 +1433,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178844185</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-lo-goc-mat-tien-duong-ly-can-to-son-tra</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178853331</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/can-ho-1-phong-ngu-rong-rai-gan-bien</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178857258</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-can-ho-apartment-for-rent-new-100-gan-song-bien-b-1-br-expat</loc>
@@ -2212,13 +2324,6 @@
 		<dk:id>178853650</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-2-tang-duong-7m5-vu-dinh-long-gan-bien-son-tra-da-nang</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178853649</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/can-ho-1-phong-ngu-moi-co-ho-boi-gym-ban-cong-gan-song-va-bien</loc>
 		<lastmod>2026-09-18</lastmod>
 		<changefreq>daily</changefreq>
@@ -2287,13 +2392,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178815347</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-3-tang-trong-suot-mt-duong-trung-nu-vuong-gan-cau-rong</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>177787867</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-nha-nguyen-can-kiet-50-bui-ta-han-phuong-khue-my-7-trieu</loc>
@@ -3764,13 +3862,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178831291</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-duong-phan-tu-gan-khu-pho-tay-an-thuong-sat-bien</loc>
-		<lastmod>2026-09-17</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178831127</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/can-ho-full-noi-that-nam-ngay-cau-song-han-cho-thue-lau-dai</loc>
@@ -5663,13 +5754,6 @@
 		<dk:id>178795626</dk:id>
 	</url>
 	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-2-phong-ngu-vip-full-noi-that</loc>
-		<lastmod>2026-09-15</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178584281</dk:id>
-	</url>
-	<url>
 		<loc>https://danang.kim/id/cho-thue-van-phong-70m-xo-viet-nghe-tinh</loc>
 		<lastmod>2026-09-15</lastmod>
 		<changefreq>daily</changefreq>
@@ -5990,13 +6074,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178670484</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-1pn-50m2-duong-to-hien-thanh-quan-son-tra-ban-cong</loc>
-		<lastmod>2026-09-15</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178787436</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-rieng-biet-80m2-duong-an-nhon-son-tra</loc>
@@ -8769,13 +8846,6 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178732862</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-nha-dep-3-tang-mat-tien-duong-tri-trach-gan-bien-my-khe</loc>
-		<lastmod>2026-09-12</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178364906</dk:id>
 	</url>
 	<url>
 		<loc>https://danang.kim/id/cho-thue-biet-thu-san-vuon-3-tang-300m2-4pn-khu-phuc-loc-vien</loc>
@@ -13179,40 +13249,5 @@
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 		<dk:id>178635462</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-full-noi-that-kdt-fpt-ngu-hanh-son-da-nang</loc>
-		<lastmod>2026-09-07</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178635459</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/cho-thue-can-ho-2pn-to-huu-da-nang-8-5-trieu</loc>
-		<lastmod>2026-09-07</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178635456</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/can-ho-full-noi-that-may-giat-rieng-da-man-dong-1-ngu-hanh-son</loc>
-		<lastmod>2026-09-07</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178635455</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/can-ho-full-noi-that-may-giat-rieng-vu-xuan-thieu-hoa-xuan-5-5tr</loc>
-		<lastmod>2026-09-07</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178635454</dk:id>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/can-ho-gac-lung-203-tran-van-thanh-ngu-hanh-son-da-nang</loc>
-		<lastmod>2026-09-07</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-		<dk:id>178635448</dk:id>
 	</url>
 </urlset>
