@@ -662,22 +662,24 @@ Prices are expressed in Vietnamese dong (VND).
         }
 
         html {
-            --text-color: black;
+            --text-color: #1B261D;
             --text-color-inverse: white;
-            --filter-color: black;
-            --card-background-color: rgb(194,200,202);
+            --text-muted: #47553E;
+            --filter-color: #1B261D;
+            --card-background-color: #F1F2E6;
         }
         html[dark] {
-            --text-color: white;
+            --text-color: #EDF2E1;
             --text-color-inverse: black;
-            --filter-color: white;
-            --card-background-color: rgb(27,27,29);
+            --text-muted: #B6C3A8;
+            --filter-color: #EDF2E1;
+            --card-background-color: #1B2B1F;
         }
         :root {
             --status-bar-height: env(safe-area-inset-top, 0px);
         }
-        body { margin: 0; padding: 0; background: rgb(242,243,240); position: relative;width: 100%;}
-        html[dark] body { margin: 0; padding: 0; background: rgb(12,12,12);}
+        body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
+        html[dark] body { margin: 0; padding: 0; background: #0E1911;}
         html, body { height: 100%; margin: 0; padding: 0; }
         #map {
             position: fixed;
@@ -901,7 +903,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .card-metric {
             margin-left: 5px;
-            color: grey;
+            color: var(--text-muted);
         }
         .card-metric sup {
             font-size: 0.7em;
