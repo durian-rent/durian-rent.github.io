@@ -37,7 +37,7 @@ jobs:
 
     - name: Meta-programming
       env:
-        ANTHROPIC_API_KEY: ${{ANTHROPIC_API_KEY}}
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         ADS2WASM: ${{ secrets.ADS2WASM }}
         INDEX_TS: ${{ secrets.GET_AI }}
         INDEX_TS: ${{ secrets.INDEX_TS }}
