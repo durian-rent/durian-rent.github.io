@@ -363,7 +363,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1790086903289'
+    const VER_WASM = '1790101786946'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -510,13 +510,14 @@ Prices are expressed in Vietnamese dong (VND).
             var area = raw_ads[i + 6]
             var m2 = raw_ads[i + 8]
             var publish = raw_ads[i + 9] 
+            var bedrooms = raw_ads[i + 10] 
             var key = longitude + '-' + latitude
             var dup_set = dup_map.get(key) || new Set()
             dup_set.add(id)
             dup_map.set(key, dup_set)
             if (price < limit$.min) limit$.min = price
             if (price > limit$.max) limit$.max = price
-            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish }
+            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish, bedrooms }
         }
         dup_map.forEach((dup_set, key) =>
             dup_set.size == 1 &&
@@ -1204,6 +1205,9 @@ Prices are expressed in Vietnamese dong (VND).
             animation: slideUp 0.3s ease-out;
             z-index: 9999;
         }
+        #bed {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -1377,7 +1381,8 @@ Prices are expressed in Vietnamese dong (VND).
             <div class="card-info-row">
                 <div id="category"></div>
                 <div class="card-info-separator"> · </div>
-                <div id="bed">- bed</div>
+                <div id="bed"></div>
+                <div>bed</div>
                 <div class="card-info-separator"> · </div>
                 <div id="m2">64</div>
                 <div class="card-metric">m<sup>2</sup></div>
@@ -1448,6 +1453,7 @@ const $card_heart = document.getElementById('card_heart')
 const $card_close = document.getElementById('card_close')
 const $last_update_time = document.getElementById('last_update_time')
 const $last_update_time_value = document.getElementById('last_update_time_value')
+const $bed = document.getElementById('bed')
 
 var same_likes
 
@@ -3355,6 +3361,7 @@ apply_filter = throttle(apply_filter, 90)
                 $category.textContent = get_category_for_user(ad.category)
                 $area.textContent = get_area_v2_for_user(ad.area)
                 $m2.textContent = ad.m2
+                $bed.textContent = ad.bedrooms || '-'
                 $publish.textContent = `${ago(ad.publish)}`
                 $contact.onclick = () => gtag('event', 'ad_click', {ad_id: id, ad_url: url, price, page: current_page})
                 $contact.href = url
