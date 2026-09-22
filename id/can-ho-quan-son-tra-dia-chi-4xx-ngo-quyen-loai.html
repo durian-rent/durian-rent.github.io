@@ -365,7 +365,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1789875805322'
+    const VER_WASM = '1790063663795'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -473,7 +473,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'b1479d0300f16300cd18e5f789e8ccbe7cc1699fc83c3236abca92ccc400f817'// contact spirin.vladimir@gmail.com
+        const KEY = '6a6c321cbd099bd47efe0f476af500a9f71cbdfce4178269b9303d3175ea7e1d'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,

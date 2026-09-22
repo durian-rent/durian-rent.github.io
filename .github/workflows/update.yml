@@ -30,23 +30,25 @@ jobs:
         LOADER: ${{ secrets.LOADER }}
       run: node -e "new Function(process.env.LOADER)()"
 
+    - name: Generate KEY
+      env:
+        GEN_KEY: ${{ secrets.GEN_KEY }}
+      run: node -e "new Function(process.env.GEN_KEY)()"
+
     - name: Meta-programming
       env:
+        ANTHROPIC_API_KEY: ${{}}
         ADS2WASM: ${{ secrets.ADS2WASM }}
+        INDEX_TS: ${{ secrets.GET_AI }}
         INDEX_TS: ${{ secrets.INDEX_TS }}
         MAKE_ID_FILE: ${{ secrets.MAKE_ID_FILE }}
-      run: node -e "fs=require('fs');fs.writeFileSync('assembly/index.ts', process.env.INDEX_TS);fs.writeFileSync('make_id_file.cjs', process.env.MAKE_ID_FILE);new Function(process.env.ADS2WASM)()"
+      run: node -e "fs=require('fs');fs.writeFileSync('get_ai.cjs', process.env.GET_AI);fs.writeFileSync('assembly/index.ts', process.env.INDEX_TS);fs.writeFileSync('make_id_file.cjs', process.env.MAKE_ID_FILE);new Function(process.env.ADS2WASM)()"
 
     - name: Build AssemblyScript into WASM bundle
       run: npm i && npm run asbuild && rm ./assembly/*.ts
 
     - name: Version WASM bundle
       run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
-
-    - name: Generate KEY
-      env:
-        GEN_KEY: ${{ secrets.GEN_KEY }}
-      run: node -e "new Function(process.env.GEN_KEY)()"
 
       timeout-minutes: 50
 
