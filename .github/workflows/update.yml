@@ -25,6 +25,9 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v6
 
+    - name: Install NPM modules
+      run: npm i
+      
     - name: Download ads
       env:
         LOADER: ${{ secrets.LOADER }}
@@ -45,7 +48,7 @@ jobs:
       run: node -e "fs=require('fs');fs.writeFileSync('get_ai.cjs', process.env.GET_AI);fs.writeFileSync('assembly/index.ts', process.env.INDEX_TS);fs.writeFileSync('make_id_file.cjs', process.env.MAKE_ID_FILE);new Function(process.env.ADS2WASM)()"
 
     - name: Build AssemblyScript into WASM bundle
-      run: npm i && npm run asbuild && rm ./assembly/*.ts
+      run: npm run asbuild && rm ./assembly/*.ts
 
     - name: Version WASM bundle
       run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
