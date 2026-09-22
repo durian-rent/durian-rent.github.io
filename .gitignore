@@ -9,7 +9,7 @@ gen_key.cjs
 ads2wasm.cjs
 nhatot.cjs
 make_id_file.cjs
-about.cjs
+get_ai_fields.cjs
 
 node_modules
 .zed
