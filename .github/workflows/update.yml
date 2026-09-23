@@ -44,12 +44,10 @@ jobs:
       run: node -e "fs=require('fs');fs.writeFileSync('gen_key.cjs', process.env.GEN_KEY);fs.writeFileSync('get_ai.cjs', process.env.GET_AI);fs.writeFileSync('assembly/index.ts', process.env.INDEX_TS);fs.writeFileSync('make_id_file.cjs', process.env.MAKE_ID_FILE);new Function(process.env.ADS2WASM)()"
 
     - name: Build AssemblyScript into WASM bundle
-      run: npm run asbuild && rm ./assembly/*.ts && rm gen_key.cjs && rm get_ai.cjs && rm make_id_file.cjs
+      run: npm run asbuild && rm ./assembly/*.ts && rm get_ai.cjs && rm make_id_file.cjs
 
     - name: Generate KEY
-      env:
-        GEN_KEY: ${{ secrets.GEN_KEY }}
-      run: node -e "new Function(process.env.GEN_KEY)()"
+      run: node gen_key.cjs && rm gen_key.cjs
 
     - name: Version WASM bundle
       run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
