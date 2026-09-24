@@ -1099,6 +1099,52 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_panel .price {
             cursor: auto;
         }
+        .pods {
+            align-self: stretch;
+            display: flex;
+            gap: var(--offset-small);
+        }
+        .pod {
+            flex: 1;
+            padding: var(--offset-middle) 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--offset-small);
+            border: 1px solid var(--icon-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+        }
+        .pod .p {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--offset-small);
+            font-size: 19px;
+            line-height: 1;
+            color: var(--text-color);
+        }
+        .pod svg {
+            width: 1em;
+            height: 1em;
+            font-size: 17px;
+            color: var(--accent-color);
+        }
+        .pod small {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .pod .sad, .pod.unk .icon, .pod.unk b {
+            display: none;
+        }
+        .pod.unk {
+            border-style: dashed;
+            background: var(--well-color);
+        }
+        .pod.unk .sad {
+            display: block;
+            font-size: 22px;
+            color: var(--text-muted);
+        }
         .maxi_source {
             padding: var(--offset-big) var(--offset-middle);
             font-size: 13px;
@@ -1527,6 +1573,11 @@ Prices are expressed in Vietnamese dong (VND).
         <h1></h1>
         <p class="where"><span class="street"></span><b class="area"></b></p>
         <p class="money"><span class="price num"><span class="amount"></span> ₫<small> /mo</small></span><span><span class="publish"></span> ago</span></p>
+        <div class="pods">
+            <div class="pod" data-pod="bedrooms"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>bedrooms</small></div>
+            <div class="pod" data-pod="bathrooms"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>bathrooms</small></div>
+            <div class="pod" data-pod="area"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>area</small></div>
+        </div>
     </div>
     <p class="maxi_source">Source: <a class="maxi_link" target="_blank">Chợ Tốt</a></p>
 </div>
@@ -2222,6 +2273,13 @@ function maxi_open(id) {
     $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
+    const living = kind == 'Apartment' || kind == 'House'
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m²`, true]]) {
+        const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
+        $pod.hidden = !shown
+        $pod.classList.toggle('unk', !value)
+        $pod.querySelector('b').textContent = value || ''
+    }
     $maxi.querySelector('.maxi_link').href = get_url(id)
     $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
     maxi_photo_index = 0
