@@ -862,6 +862,10 @@ Prices are expressed in Vietnamese dong (VND).
             font-weight: 600;
             font-variant-numeric: tabular-nums;
         }
+        #card sup, #maxi sup {
+            font-size: 0.7em;
+            line-height: 0;
+        }
         .grip-zone {
             height: 24px;
             display: grid;
@@ -1668,7 +1672,7 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card_info">
                 <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
-                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m²</p>
+                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m<sup>2</sup></p>
                 <p class="where"><span class="street"></span> · <b class="area"></b></p>
                 <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
@@ -2394,11 +2398,11 @@ function maxi_open(id) {
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
-    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m²`, true]]) {
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
         $pod.hidden = !shown
         $pod.classList.toggle('unk', !value)
-        $pod.querySelector('b').textContent = value || ''
+        $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
     $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
