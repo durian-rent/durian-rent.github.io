@@ -1936,6 +1936,7 @@ $card.ontouchend = e => {
         } else {
             if (dx > 0) target -= frames
         }
+        if (carousel_ids.length == 2) target = Math.max(0, Math.min(1, target))
         var rest_path = Math.abs(target - carousel_pos) * step
         var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
         carousel_render(target)
@@ -2006,7 +2007,7 @@ function carousel_order(id) {
             bounds.contains([ad.longitude, ad.latitude]) &&
             map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
         ))
-        .sort((a, b) => a.longitude - b.longitude || b.latitude - a.latitude || a.id - b.id)
+        .sort((a, b) => a.price - b.price || a.id - b.id)
         .map(ad => ad.id)
 }
 
@@ -2032,7 +2033,6 @@ function carousel_open(id) {
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
-        $c.style.visibility = carousel_ids.length > 1 || i == 1 ? '' : 'hidden'
         $c.querySelector('.card_info').removeAttribute('hidden')
         fill_card($c, carousel_ids[carousel_mod($c.carousel_index)])
     })
@@ -2045,6 +2045,7 @@ const carousel_step = () => $card_centre.offsetWidth + CAROUSEL_GAP * $card.clie
 const carousel_x = (index, pos) => Math.round((($card.clientWidth - $card_centre.offsetWidth) / 2 + (index - pos) * carousel_step()) * devicePixelRatio) / devicePixelRatio
 
 function carousel_render(centre = Math.round(carousel_pos)) {
+    if (carousel_ids.length < 3) centre = Math.max(0, Math.min(carousel_ids.length - 1, centre))
     const wanted = [centre - 1, centre, centre + 1]
     const spare = $cards.filter($c => !wanted.includes($c.carousel_index))
     for (const index of wanted) {
@@ -2054,6 +2055,7 @@ function carousel_render(centre = Math.round(carousel_pos)) {
         fill_card($c, carousel_ids[carousel_mod(index)])
     }
     for (const $c of $cards) {
+        $c.style.visibility = carousel_ids.length > 2 || ($c.carousel_index >= 0 && $c.carousel_index < carousel_ids.length) ? '' : 'hidden'
         $c.style.transform = `translate3d(${carousel_x($c.carousel_index, carousel_pos)}px, 0, 0)`
     }
     const $centre = $cards.find($c => $c.carousel_index == centre)
