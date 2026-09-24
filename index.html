@@ -1050,7 +1050,7 @@ Prices are expressed in Vietnamese dong (VND).
             aspect-ratio: 4 / 3;
             overflow: hidden;
             background-color: var(--well-color);
-            touch-action: none;
+            touch-action: pan-y;
         }
         .maxi_strip {
             display: flex;
@@ -2380,7 +2380,6 @@ var maxi_start_t = null
 var maxi_prev_x = 0
 var maxi_prev_prev_x = 0
 var maxi_prev_y = 0
-var maxi_prev_prev_y = 0
 var maxi_swipe
 
 function maxi_open(id) {
@@ -2458,9 +2457,7 @@ $maxi.ontouchstart = e => {
     maxi_prev_x = maxi_start_x
     maxi_prev_y = maxi_start_y
     maxi_prev_prev_x = maxi_start_x
-    maxi_prev_prev_y = maxi_start_y
     maxi_swipe = undefined
-    $maxi.style.transition = 'none'
     $maxi_strip.style.transition = 'none'
 }
 $maxi.ontouchmove = e => {
@@ -2468,14 +2465,12 @@ $maxi.ontouchmove = e => {
     if (e.target.closest('.ctl')) return
     maxi_prev_prev_x = maxi_prev_x
     maxi_prev_x = e.changedTouches[0].screenX
-    maxi_prev_prev_y = maxi_prev_y
     maxi_prev_y = e.changedTouches[0].screenY
     var dx = maxi_prev_x - maxi_start_x
     var dy = maxi_prev_y - maxi_start_y
     if (maxi_swipe == undefined) {
         if (Math.abs(dx) + Math.abs(dy) < 6) return
         if (e.target.closest('.maxi_photos') && 2 * Math.abs(dx) > Math.abs(dy)) maxi_swipe = 'photo'
-        else if (dy > 2 * Math.abs(dx) && $maxi.scrollTop == 0) maxi_swipe = 'close'
         else maxi_swipe = 'scroll'
     }
     if (maxi_swipe == 'photo') {
@@ -2483,19 +2478,14 @@ $maxi.ontouchmove = e => {
         var width = $maxi.clientWidth
         var x = Math.max(0, Math.min(($maxi_strip.children.length - 1) * width, maxi_photo_index * width - dx))
         $maxi_strip.style.transform = `translate3d(-${x}px,0,0)`
-    } else if (maxi_swipe == 'close') {
-        e.preventDefault()
-        $maxi.style.transform = `translate3d(0,${Math.max(0, dy)}px,0)`
     }
 }
 $maxi.ontouchend = e => {
     e.stopPropagation()
     if (e.target.closest('.ctl')) return
     var end_x = e.changedTouches[0].screenX
-    var end_y = e.changedTouches[0].screenY
     var dt = Date.now() - maxi_start_t
     var dx = end_x - maxi_start_x
-    var dy = end_y - maxi_start_y
     if (maxi_swipe == 'photo') {
         var width = $maxi.clientWidth
         var count = $maxi_strip.children.length
@@ -2511,13 +2501,6 @@ $maxi.ontouchend = e => {
         $maxi_strip.style.transition = `transform ${rest_time_ms / 1000}s linear`
         $maxi_strip.style.transform = `translate3d(-${maxi_photo_index * width}px,0,0)`
         $maxi_count.textContent = `${maxi_photo_index + 1} / ${count}`
-    } else if (maxi_swipe == 'close') {
-        var height = $maxi.clientHeight
-        var last_move_direction = end_y > maxi_prev_prev_y ? 'down' : 'up'
-        var target = last_move_direction == 'down' ? height : 0
-        var rest_time_ms = Math.abs(target - Math.max(0, dy)) / Math.max(0.4, 1.5 * Math.abs(dy / dt))
-        $maxi.style.transition = `transform ${rest_time_ms / 1000}s linear`
-        $maxi.style.transform = `translate3d(0,${target}px,0)`
     }
 }
 
