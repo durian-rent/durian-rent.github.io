@@ -1765,7 +1765,15 @@ const router = () => {
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
 }
 
-addEventListener('popstate', router)
+addEventListener('popstate', e => {
+    if (maxi_entry) {
+        maxi_entry = false
+        if ($maxi.getBoundingClientRect().top < 1) maxi_close()
+        return
+    }
+    if (e.state?.maxi) return history.replaceState(null, '', '/')
+    router()
+})
 
 function show_toast(msg) {
   $toast.textContent = msg
@@ -2316,6 +2324,7 @@ var maxi_prev_prev_x = 0
 var maxi_prev_y = 0
 var maxi_prev_prev_y = 0
 var maxi_swipe
+var maxi_entry = false
 
 function maxi_open(id) {
     const ad = ads.find(ad => ad.id == id)
@@ -2349,6 +2358,8 @@ function maxi_open(id) {
     $maxi.scrollTop = 0
     $maxi.removeAttribute('hidden')
     maxi_about($c.dataset.body)
+    history.pushState({ maxi: id }, '', `/id/${id}`)
+    maxi_entry = true
 }
 
 function maxi_about(text) {
@@ -2368,7 +2379,7 @@ function maxi_close() {
 }
 
 $maxi.onclick = e => {
-    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.maxi_close')) return history.back()
     if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
     const $more = e.target.closest('.more')
     if ($more) {
@@ -2452,6 +2463,7 @@ $maxi.ontouchend = e => {
         var rest_time_ms = Math.abs(target - Math.max(0, dy)) / Math.max(0.4, 1.5 * Math.abs(dy / dt))
         $maxi.style.transition = `transform ${rest_time_ms / 1000}s linear`
         $maxi.style.transform = `translate3d(0,${target}px,0)`
+        if (target) history.back()
     }
 }
 
