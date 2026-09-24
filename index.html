@@ -2112,7 +2112,7 @@ $card.ontouchmove = e => {
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $photos_container.removeAttribute('hidden')
     } else if (carousel_swipe) {
-        carousel_pos = carousel_start_pos - dx / carousel_step()
+        carousel_pos = carousel_start_pos - dx / carousel_step
         carousel_render()
     } else {
         $photos_container.setAttribute('hidden', '')
@@ -2162,8 +2162,7 @@ $card.ontouchend = e => {
         return
     }
     if (carousel_swipe) {
-        var step = carousel_step()
-        var frames = Math.ceil(Math.abs(dx / step))
+        var frames = Math.ceil(Math.abs(dx / carousel_step))
         var last_move_direction = card_end_x > card_prev_prev_x ? 'left' : 'right'
         var target = carousel_start_pos
         if (last_move_direction == 'right') {
@@ -2172,12 +2171,12 @@ $card.ontouchend = e => {
             if (dx > 0) target -= frames
         }
         if (carousel_ids.length == 2) target = Math.max(0, Math.min(1, target))
-        var rest_path = Math.abs(target - carousel_pos) * step
+        var rest_path = Math.abs(target - carousel_pos) * carousel_step
         var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
         carousel_render(target)
         for (const $c of $cards) {
             $c.style.transition = `transform ${rest_time_ms / 1000}s linear`
-            $c.style.transform = `translate3d(${($c.carousel_index - target) * step}px, 0, 0)`
+            $c.style.transform = `translate3d(${($c.carousel_index - target) * carousel_step}px, 0, 0)`
         }
         carousel_pos = target
         return
@@ -2230,7 +2229,7 @@ var carousel_pos = 0
 var carousel_start_pos = 0
 var carousel_swipe
 var carousel_selected = null
-const CAROUSEL_GAP = 0.05
+var carousel_step = 0
 
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
@@ -2264,6 +2263,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2274,10 +2274,7 @@ function carousel_open(id) {
     carousel_render()
 }
 
-const carousel_step = () => $card_centre.getBoundingClientRect().width + CAROUSEL_GAP * $card.clientWidth
-
 function carousel_render(centre = Math.round(carousel_pos)) {
-    const step = carousel_step()
     if (carousel_ids.length < 3) centre = Math.max(0, Math.min(carousel_ids.length - 1, centre))
     const wanted = [centre - 1, centre, centre + 1]
     const spare = $cards.filter($c => !wanted.includes($c.carousel_index))
@@ -2289,7 +2286,7 @@ function carousel_render(centre = Math.round(carousel_pos)) {
     }
     for (const $c of $cards) {
         $c.style.visibility = carousel_ids.length > 2 || ($c.carousel_index >= 0 && $c.carousel_index < carousel_ids.length) ? '' : 'hidden'
-        $c.style.transform = `translate3d(${($c.carousel_index - carousel_pos) * step}px, 0, 0)`
+        $c.style.transform = `translate3d(${($c.carousel_index - carousel_pos) * carousel_step}px, 0, 0)`
     }
     const $centre = $cards.find($c => $c.carousel_index == centre)
     if ($centre != $card_centre) carousel_centre($centre)
@@ -3907,6 +3904,7 @@ apply_filter = throttle(apply_filter, 90)
                 $card.style.height = ''
                 detect_y_card_min = false
                 carousel_open(id)
+                $card.offsetHeight
                 $card.style.transition = 'transform 0.1s ease'
                 $card.style.transform = 'translate3d(0, 0, 0)'
                 card_closed = false
