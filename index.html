@@ -2238,6 +2238,7 @@ $card.ontouchend = e => {
         var rest_path = Math.abs(target - carousel_pos) * carousel_step
         var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
         carousel_render(target)
+        $card.offsetWidth
         for (const $c of $cards) {
             $c.style.transition = `transform ${rest_time_ms / 1000}s linear`
             $c.style.transform = `translate3d(${($c.carousel_index - target) * carousel_step}px, 0, 0)`
