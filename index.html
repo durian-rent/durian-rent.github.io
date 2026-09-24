@@ -2260,31 +2260,14 @@ $card.ontouchend = e => {
             carousel_unselect()
             card_closed = true
             dY = y_card_min - b
-            dT = Math.abs(dY / vY)
+            dT = Math.abs(dY / (2.5 * vY))
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
             $card.style.bottom = `-${y_card_min}px`
         } else {
             dY = 0 - b
-            dT = Math.abs(dY / vY)
+            dT = Math.abs(dY / (1.5 * vY))
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
             $card.style.bottom = 0
-        }
-    } else {
-        return //Disable min/mid views 
-        if (last_move_direction == 'down') {
-            card_start_small = true
-            dY = y_card_min - h
-            dT = Math.abs(dY / vY)
-            $card.style.transition = `height ${(dT/1000).toFixed(2)}s linear`
-            $card.style.height = y_card_min + 'px'
-            setTimeout(() => $card_info.removeAttribute('hidden'), dT)
-        } else {
-            card_start_small = false
-            dY = y_card_max - h
-            dT = Math.abs(dY / vY)
-            $card.style.transition = `height ${(dT/1000).toFixed(2)}s linear`
-            $card.style.height = y_card_max + 'px'
-            $card_info.setAttribute('hidden', '')
         }
     }
 }
