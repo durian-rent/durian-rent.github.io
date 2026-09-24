@@ -662,12 +662,22 @@ Prices are expressed in Vietnamese dong (VND).
             -webkit-tap-highlight-color: transparent;
         }
 
-        html {
+        :root {
             --text-color: #1B261D;
             --text-color-inverse: white;
             --text-muted: #47553E;
             --filter-color: #1B261D;
             --card-background-color: #F1F2E6;
+            --line-color: #AAB39E;
+            --icon-color: #677162;
+            --well-color: #BFC7B1;
+            --offset-small: 8px;
+            --offset-middle: 12px;
+            --sheet-color: #D8E0C8;
+            --deep-color: #1E3A26;
+            --on-deep-color: #F7EFD3;
+            --accent-color: #807C43;
+            --status-bar-height: env(safe-area-inset-top, 0px);
         }
         html[dark] {
             --text-color: #EDF2E1;
@@ -675,11 +685,13 @@ Prices are expressed in Vietnamese dong (VND).
             --text-muted: #B6C3A8;
             --filter-color: #EDF2E1;
             --card-background-color: #1B2B1F;
+            --line-color: #374238;
+            --icon-color: #818A7C;
+            --well-color: #242F25;
             --sheet-color: #0E1911;
-        }
-        :root {
-            --sheet-color: #D8E0C8;
-            --status-bar-height: env(safe-area-inset-top, 0px);
+            --deep-color: #24402B;
+            --on-deep-color: #FCF4D5;
+            --accent-color: #857F3B;
         }
         body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
         html[dark] body { margin: 0; padding: 0; background: #0E1911;}
@@ -817,52 +829,68 @@ Prices are expressed in Vietnamese dong (VND).
             position: fixed;
             bottom: -40vh;/*card SSR*/
             width: 100%;
-            height: 40vh;
             box-sizing: border-box;
-            overflow: hidden;
-            background-color: var(--sheet-color);
-            container-type: size;
-            transition: bottom 0.1s linear, height 0.1s linear;
-        }
-        .card_content {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            justify-content: space-between;
             display: flex;
             flex-direction: column;
-            width: 80%;
-            gap: 2vh;
-            padding: 10px;
-            padding-top: 20px;
-            box-sizing: border-box;
-            background-color: var(--card-background-color);
-            border-top-left-radius: 1vh;
-            border-top-right-radius: 1vh;
-            border-top-color: rgba(255, 255, 255, 0.2);
-            border-top-style: solid;
-            border-top-width: 1px;
-            will-change: transform;
+            gap: var(--offset-middle);
+            overflow: hidden;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            color: var(--text-color);
+            background-color: var(--sheet-color);
+            border-top: 1px solid var(--line-color);
+            border-radius: 22px 22px 0 0;
+            box-shadow: 0 4px 8px color-mix(in srgb, var(--deep-color) 12%, transparent), 0 18px 40px color-mix(in srgb, var(--deep-color) 18%, transparent);
+            transition: bottom 0.1s linear, height 0.1s linear;
         }
-        #mover {
-            z-index: 1;
-            position: absolute;
-            background-color: white;
-            border-radius: 4px;
-            width: 40px;
-            left: calc(50% - 20px);
+        #card p {
+            margin: 0;
+        }
+        #card .num {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .grip-zone {
+            height: 24px;
+            display: grid;
+            place-items: center;
+            cursor: grab;
+        }
+        .grip {
+            width: 44px;
             height: 4px;
-            top: 8px;
+            border-radius: 999px;
+            background: var(--icon-color);
+        }
+        .cards {
+            display: grid;
+            padding-bottom: calc(var(--offset-middle) + env(safe-area-inset-bottom));
+        }
+        .card_content {
+            grid-row: 1;
+            grid-column: 1;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            padding: var(--offset-middle);
+            background: var(--card-background-color);
+            border: 1px solid var(--line-color);
+            border-radius: 14px;
+            box-shadow: 0 2px 3px color-mix(in srgb, var(--deep-color) 10%, transparent), 0 8px 20px color-mix(in srgb, var(--deep-color) 12%, transparent);
+            will-change: transform;
         }
         .photo_frame {
             position: relative;
-            height: 100%;
+            aspect-ratio: 328 / 185;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--well-color);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            overflow: hidden;
-            border-radius: 4px;
+            box-shadow: inset 0 2px 3px color-mix(in srgb, var(--deep-color) 12%, transparent);
             touch-action: none;
         }
         .photos_container {
@@ -877,71 +905,92 @@ Prices are expressed in Vietnamese dong (VND).
             background-position: center;
             background-repeat: no-repeat;
         }
-        .dots {
+        .card_heart {
             position: absolute;
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
+            top: var(--offset-small);
+            right: var(--offset-small);
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: var(--card-background-color);
+            color: var(--icon-color);
+            box-shadow: 0 1px 1px color-mix(in srgb, var(--deep-color) 10%, transparent), 0 2px 5px color-mix(in srgb, var(--deep-color) 8%, transparent);
+            cursor: pointer;
+        }
+        .card_heart:focus-visible {
+            outline: 3px solid var(--text-color);
+            outline-offset: -3px;
+        }
+        .card_heart svg {
+            width: 1em;
+            height: 1em;
+            font-size: 22px;
+        }
+        .card_heart .h-on, .card_heart[aria-pressed="true"] .h-off {
+            display: none;
+        }
+        .card_heart[aria-pressed="true"] .h-on {
+            display: block;
+        }
+        .card_heart[aria-pressed="true"] {
+            color: var(--accent-color);
+        }
+        .seen {
+            position: absolute;
+            right: var(--offset-small);
+            bottom: var(--offset-small);
+            height: 24px;
+            padding: 0 var(--offset-small);
+            display: inline-flex;
             align-items: center;
-            gap: 0.5vh;
-            height: 1.5vh;
-            width: 100%;
-            bottom: 0.5vh;
-            overflow-x: hidden;
-        }
-        .dot {
-            display: flex;
-            height: 0.6vh;
-            width: 0.6vh;
-            background-color: var(--filter-color);
-            border-radius: 0.6vh;
-            opacity: 0.4;
-        }
-        .dot.active {
-            opacity: 1;
+            border-radius: 999px;
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: 13px;
         }
         .card_info {
             display: flex;
             flex-direction: column;
-            justify-content: end;
-            gap: 1vh;
-            width: 100%;
-            height: 100%;
-            container-type: size;
+            gap: var(--offset-small);
         }
-        .card-metric {
-            margin-left: 5px;
+        .money {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: var(--offset-small);
+        }
+        .price {
+            font-size: 34px;
+            line-height: 1.05;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .price small {
+            font-size: 17px;
+            font-weight: 500;
             color: var(--text-muted);
         }
-        .card-metric sup {
-            font-size: 0.7em;
-            vertical-align: super;
+        .facts {
+            font-size: 15px;
+            font-weight: 700;
         }
-        .card_content .price {
-            font-weight: bold;
+        .where {
+            font-size: 14px;
+            color: var(--text-muted);
         }
-        .card-info-row {
+        .where b {
+            color: var(--text-color);
+        }
+        .foot {
             display: flex;
-            justify-content: flex-end;
-            align-items: baseline;
-            width: 100%;
-            font-size: 12pt;
-            font-family: Inter, Arial, sans-serif;
-            color: var(--filter-color);
-        }
-        .card-info-row-last {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        .card-info-row-last div {
-            display: inline;
-        }
-        .card-info-separator {
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        .card_content .contact {
-            color: var(--filter-color);
+            align-items: center;
+            gap: var(--offset-small);
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-muted);
         }
         #filter {
             bottom: calc(env(safe-area-inset-bottom, 0px) + 7vh);
@@ -959,32 +1008,6 @@ Prices are expressed in Vietnamese dong (VND).
             right: 0vh;
             width: 10vh;
             height: 7vh;
-            touch-action: manipulation;
-            cursor: pointer;
-        }
-        .card_heart {
-            position: absolute;
-            top: 0;
-            right: 35px;
-            width: 11px;
-            height: 11px;
-            padding-right: 10px;
-            padding-left: 15px;
-            padding-bottom: 15px;
-            padding-top: 4px;
-            touch-action: manipulation;
-            cursor: pointer;
-        }
-        .card_close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            padding-right: 10px;
-            padding-left: 15px;
-            padding-bottom: 15px;
-            padding-top: 5px;
             touch-action: manipulation;
             cursor: pointer;
         }
@@ -1077,21 +1100,6 @@ Prices are expressed in Vietnamese dong (VND).
             width: 3vh;
             height: 3vh;
             pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        .icon-card-heart {
-            display: block;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        .card_heart.like .icon-card-heart {
-            stroke: #E5E8DB;
-        }
-        .icon-card-close {
-            display: block;
             stroke-width: 1;
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
@@ -1211,9 +1219,6 @@ Prices are expressed in Vietnamese dong (VND).
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             animation: slideUp 0.3s ease-out;
             z-index: 9999;
-        }
-        .card_content .bed {
-            margin-right: 5px;
         }
     </style>
 </head>
@@ -1374,56 +1379,22 @@ Prices are expressed in Vietnamese dong (VND).
     <span id="last_update_time_value"><span>
 </div>
 <div id="card">
-    <div id="mover"></div>
-    <div class="card_content">
-        <div class="photo_frame">
-            <div class="photos_container"></div>
-            <div class="dots"></div>
-        </div>
-        <div class="card_info">
-            <div class="card-info-row">
-                <div class="price"></div>
-                <div class="card-metric">VND</div>
+    <div class="grip-zone">
+        <span class="grip" aria-hidden="true"></span>
+    </div>
+    <div class="cards">
+        <div class="card_content">
+            <div class="photo_frame">
+                <div class="photos_container"></div>
+                <button type="button" class="card_heart" aria-label="Save" aria-pressed="false"><svg class="h-off" aria-hidden="true" viewBox="0 0 100 100"><path fill="none" fill-rule="nonzero" stroke="currentColor" stroke-width="7" stroke-linejoin="round" d="M53.4 40C51.3 32.7 52.4 24.7 57.5 19.1C61.5 14.8 66 11.5 72 11.5C84 11.5 93 25.5 93 38.5C93 62.5 61.4 77.3 50 88.5C38.6 77.3 7 62.5 7 38.5C7 25.5 16 11.5 28 11.5C34 11.5 38.5 14.8 42.5 19.1C47.9 25 51.2 32.4 53.4 40Z"/><path fill="currentColor" fill-rule="nonzero" d="M49.2 38.1C50.4 42 51.6 45.7 52.9 49.5C54.2 53.2 55.6 56.9 56.6 60.7C58.4 67.8 59.3 76.4 54.7 82.6L57.1 84.4C62.2 77.6 61.9 67.9 61 59.9C60 51.7 58.3 44 55.9 36.1Z"/></svg><svg class="h-on" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="nonzero" d="M53.2 29C51.9 24.1 52.8 18.8 56.4 15.2C57.2 14.4 58.1 13.6 59 12.9C62.8 9.8 67 8 72 8C79.4 8 85.6 12.2 89.8 18C94.1 23.8 96.5 31.3 96.5 38.5C96.5 51.9 87.7 62.5 78.1 70.9C69.8 78.1 60.6 83.7 52.5 91C51.1 92.3 48.9 92.3 47.5 91C39.4 83.7 30.2 78.1 21.9 70.9C12.3 62.5 3.5 51.9 3.5 38.5C3.5 31.3 5.9 23.8 10.2 18C14.4 12.2 20.6 8 28 8C30.6 8 33 8.5 35.3 9.5C40.2 11.5 42.9 16.4 44.5 21.4C45.8 25.4 47.1 29.3 48.4 33.3C50.7 40.2 53.1 47.2 55 54.3C56.9 60.8 58.7 68.4 57.6 75.2C57.4 76.1 58 77 58.9 77.2C59.9 77.4 60.8 76.8 61 75.8C62.6 68.5 61.2 60.3 59.5 53.1C57.9 45.9 55.9 38.8 54 31.6C53.7 30.8 53.5 29.9 53.2 29Z"/></svg></button>
+                <span class="seen num"></span>
             </div>
-            <div class="card-info-row">
-                <div class="category"></div>
-                <div class="card-info-separator"> · </div>
-                <div class="bed"></div>
-                <div>bed</div>
-                <div class="card-info-separator"> · </div>
-                <div class="m2"></div>
-                <div class="card-metric">m<sup>2</sup></div>
+            <div class="card_info">
+                <p class="money"><a class="price num" target="_blank"><span class="amount"></span> ₫<small> /mo</small></a></p>
+                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m²</p>
+                <p class="where"><span class="street"></span> · <b class="area"></b></p>
+                <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
-            <div class="card-info-row">
-                <div class="street card-metric"></div>
-                <div class="card-info-separator"> · </div>
-                <div class="area"></div>
-            </div>
-            <div class="card-info-row card-info-row-last">
-                <div>
-                    <div class="publish"></div> ago at <a class="contact" target="_blank">NhaTot</a>
-                </div>
-            </div>
-        </div>
-        <div class="card_heart">
-            <svg class="icon-card-heart" xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 80 80">
-            <path
-                fill="none" stroke-width="4" stroke-linejoin="round"
-                d="M40 72
-                   L12 43
-                   C2 33 2 17 15 12
-                   C24 8 34 12 40 22
-                   C46 12 56 8 65 12
-                   C78 17 78 33 68 43
-                   Z"/>
-            </svg>
-        </div>
-        <div class="card_close">
-            <svg class="icon-card-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                <line x1="4" y1="4" x2="20" y2="20"/>
-                <line x1="20" y1="4" x2="4" y2="20"/>
-            </svg>
         </div>
     </div>
 </div>
@@ -1445,12 +1416,12 @@ const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
 const $card = document.getElementById('card')
 const $card_template = $card.querySelector('.card_content')
-$card.append($card_template.cloneNode(true), $card_template.cloneNode(true))
+$card_template.after($card_template.cloneNode(true), $card_template.cloneNode(true))
 const $cards = [...$card.querySelectorAll('.card_content')]
 var $card_centre = $cards[0]
 var $photo = $card_centre.querySelector('.photo_frame')
 var $photos_container = $card_centre.querySelector('.photos_container')
-var $dots = $card_centre.querySelector('.dots')
+var $seen = $card_centre.querySelector('.seen')
 var $card_info = $card_centre.querySelector('.card_info')
 const $title = document.getElementById('title')
 const $last_update_time = document.getElementById('last_update_time')
@@ -1759,20 +1730,15 @@ window.addEventListener('appinstalled', () => {
 })
 
 $card.onclick = e => {
-    if (e.target.closest('.card_close')) {
-        window.card_was_open = false
-        $card.setAttribute('hidden', '')
-        if (y_card_min) $card.style.height = y_card_min + 'px'
-        return
-    }
     const $like = e.target.closest('.card_heart')
     if ($like) return toggle_like(Number($like.closest('.card_content').dataset.id))
-    const $contact = e.target.closest('.contact')
-    if ($contact) {
-        const id = Number($contact.closest('.card_content').dataset.id)
-        return gtag('event', 'ad_click', {ad_id: id, ad_url: $contact.href, price: ads.find(ad => ad.id == id).price, page: current_page})
-    }
-    if (e.target.classList.contains('dot') && e.target.parentElement == $dots) dots_click(e.target)
+    if (card_moved) return e.preventDefault()
+    const $c = e.target.closest('.card_content')
+    if (!$c) return
+    const id = Number($c.dataset.id)
+    const url = get_url(id)
+    gtag('event', 'ad_click', {ad_id: id, ad_url: url, price: ads.find(ad => ad.id == id).price, page: current_page})
+    if (!e.target.closest('.price')) window.open(url, '_blank')
 }
 
 function toggle_like(id) {
@@ -1785,7 +1751,7 @@ function toggle_like(id) {
         likes.add(id)
         liked = true
     }
-    $cards.forEach($c => $c.dataset.id == id && $c.querySelector('.card_heart').classList.toggle('like', liked))
+    $cards.forEach($c => $c.dataset.id == id && $c.querySelector('.card_heart').setAttribute('aria-pressed', liked))
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
@@ -1842,10 +1808,12 @@ var x_photo_min = null
 var x_photo_max = null
 var cur_x
 var photo_swipe
+var card_moved = false
 
 $card.ontouchstart = e => {
     e.stopPropagation()
-    if (e.target.closest('.contact, .card_heart, .dots')) return
+    card_moved = false
+    if (e.target.closest('.card_heart')) return
     $card.style.transition = 'none'
     card_start_t = Date.now()
     card_start_x = e.changedTouches[0].screenX
@@ -1876,7 +1844,7 @@ $card.ontouchstart = e => {
 }
 $card.ontouchmove = e => {
     e.stopPropagation()
-    if (e.target.closest('.contact, .card_heart, .dots')) return
+    if (e.target.closest('.card_heart')) return
     try{ e?.preventDefault()} catch(e) {}
     card_prev_prev_x = card_prev_x
     card_prev_x = e.changedTouches[0].screenX
@@ -1888,6 +1856,7 @@ $card.ontouchmove = e => {
 
     if (photo_swipe == undefined) {
         if (Math.abs(dx) + Math.abs(dy) < 6) return
+        card_moved = true
         photo_swipe = e.target.closest('.photo_frame') == $photo && 2 * Math.abs(dx) > Math.abs(dy)
         carousel_swipe = !photo_swipe && carousel_ids.length > 1 && 2 * Math.abs(dx) > Math.abs(dy)
     }
@@ -1925,7 +1894,7 @@ $card.ontouchmove = e => {
 }
 $card.ontouchend = e => {
     e.stopPropagation()
-    if (e.target.closest('.contact, .card_heart, .dots')) return
+    if (e.target.closest('.card_heart')) return
     card_end_t = Date.now()
     card_end_x = e.changedTouches[0].screenX
     card_end_y = e.changedTouches[0].screenY
@@ -2065,13 +2034,43 @@ function carousel_render(centre = Math.round(carousel_pos)) {
 function carousel_centre($c) {
     if ($c != $card_centre) $card_centre.dataset.photo = photo_current_index
     $card_centre = $c
+    $cards.forEach($x => $x.inert = $x != $c)
     $photo = $c.querySelector('.photo_frame')
     $photos_container = $c.querySelector('.photos_container')
-    $dots = $c.querySelector('.dots')
+    $seen = $c.querySelector('.seen')
     $card_info = $c.querySelector('.card_info')
     photo_current_index = Number($c.dataset.photo) || 0
     photo_total_count = $photos_container.children.length
     window.card_id = Number($c.dataset.id)
+}
+
+const FONT_FILES = [
+    ['/jakarta-latin.woff2', 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD'],
+    ['/jakarta-vietnamese.woff2', 'U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB'],
+    ['/jakarta-latin-ext.woff2', 'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF'],
+].map(([url, unicodeRange]) => [url, unicodeRange, unicodeRange.split(', ').map(_ => _.slice(2).split('-').map(hex => parseInt(hex, 16)))])
+const fonts_loaded = new Set()
+
+function load_fonts(text) {
+    for (const char of text) {
+        const code = char.codePointAt(0)
+        const font = FONT_FILES.find(([, , ranges]) => ranges.some(([from, to = from]) => code >= from && code <= to))
+        if (!font || fonts_loaded.has(font[0])) continue
+        const [url, unicodeRange] = font
+        fonts_loaded.add(url)
+        caches.open('fonts')
+        .then(c =>
+            c.match(url)
+            .then(r =>
+                r || fetch(url)
+                .then(r =>
+                    r.ok && c.put(url, r.clone()).then(_ => r)
+                )
+            )
+        )
+        .then(_ => _.arrayBuffer())
+        .then(_ => document.fonts.add(new FontFace('Plus Jakarta Sans', _, {weight: '400 700', display: 'swap', unicodeRange})))
+    }
 }
 
 function fill_card($c, id) {
@@ -2079,11 +2078,10 @@ function fill_card($c, id) {
     const url = get_url(id)
     const $frame = $c.querySelector('.photo_frame')
     const $strip = $c.querySelector('.photos_container')
-    const $points = $c.querySelector('.dots')
     $c.dataset.id = id
     $c.dataset.photo = 0
     const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
-    $c.querySelector('.card_heart').classList.toggle('like', likes.has(id))
+    $c.querySelector('.card_heart').setAttribute('aria-pressed', likes.has(id))
 
     var photos_urls
     try {
@@ -2093,7 +2091,6 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
-    $points.innerHTML = ''
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
     for (var i = 0, $; i < photos_urls.length; i++) {
@@ -2106,17 +2103,12 @@ function fill_card($c, id) {
             $.style.backgroundImage = `url("${photos_urls[i]}")`
             $strip.appendChild($)
         }
-        var $dot = document.createElement('div')
-        $dot.className = 'dot'
-        $points.appendChild($dot)
-        if (i == 0) {
-            $dot.classList.add('active')
-            $frame.style.backgroundImage = `url("${photos_urls[i]}")`
-        }
+        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
     }
     while ($strip.children.length > photos_urls.length) {
         $strip.lastElementChild.remove()
     }
+    $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
     var price_string_space = ''
     for (var i = 0; i < price_string.length; i++) {
@@ -2124,14 +2116,15 @@ function fill_card($c, id) {
             price_string_space = ' ' + price_string_space
         price_string_space = price_string[i] + price_string_space
     }
-    $c.querySelector('.price').textContent = price_string_space
+    $c.querySelector('.amount').textContent = price_string_space
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.m2').textContent = ad.m2
     $c.querySelector('.bed').textContent = ad.bedrooms || '-'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
-    $c.querySelector('.contact').href = url
+    $c.querySelector('.price').href = url
+    load_fonts($c.textContent)
 
     fetch(
         '/ads.bin',
@@ -2161,6 +2154,7 @@ function fill_card($c, id) {
     .then(([subject, body, street_name]) => {
         if ($c.dataset.id != id) return
         $c.querySelector('.street').textContent = street_name
+        load_fonts(street_name)
         console.log(
             'subject:', subject,
             'body:', body,
@@ -2174,14 +2168,16 @@ function to_current() {
     $photos_container.style.transform = `translate3d(-${x}px,0,0)`
     $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
 }
+function show_seen() {
+    $seen.textContent = `${photo_current_index + 1} / ${photo_total_count}`
+}
 function next_proto_right(frames) {
     if (frames == 0) return
     if (photo_current_index + frames < photo_total_count) {
-        ;[...$dots.children].forEach(_ => _.classList.remove('active'))
         photo_current_index += frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-        $dots.children[photo_current_index].classList.add('active')
+        show_seen()
         $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
        next_proto_right(frames - 1)
@@ -2190,27 +2186,14 @@ function next_proto_right(frames) {
 function next_proto_left(frames) {
     if (frames == 0) return
     if (photo_current_index - frames >= 0) {
-        ;[...$dots.children].forEach(_ => _.classList.remove('active'))
         photo_current_index -= frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-        $dots.children[photo_current_index].classList.add('active')
+        show_seen()
         $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
         next_proto_left(frames - 1)
     }
-}
-
-function dots_click($dot) {
-    var index = [...$dots.children].findIndex(_ => _ == $dot)
-    if (index == photo_current_index) return
-    
-    ;[...$dots.children].forEach(_ => _.classList.remove('active'))
-    
-    photo_current_index = index
-    var x = photo_current_index * photo_size
-    $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-    $dots.children[photo_current_index].classList.add('active')
 }
 
 $heart.onpointerup = e => {
@@ -3496,7 +3479,8 @@ apply_filter = throttle(apply_filter, 90)
                 $card.removeAttribute('hidden')
                 window.card_was_open = true
                 $card.style.bottom = 0
-                if (y_card_min) $card.style.height = y_card_min + 'px'
+                $card.style.height = ''
+                detect_y_card_min = false
                 carousel_open(id)
             })
             map.on('click', e => {
@@ -3504,6 +3488,7 @@ apply_filter = throttle(apply_filter, 90)
                     layers: ['price-hitbox']
                 })
                 if (!features || !features.length) {
+                    window.card_was_open = false
                     $card.setAttribute('hidden', '')
                     if (y_card_min) $card.style.height = y_card_min + 'px'
                     if (current_page == PAGE.SINGLE) {
