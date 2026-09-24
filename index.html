@@ -2171,6 +2171,7 @@ $card.ontouchmove = e => {
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $photos_container.removeAttribute('hidden')
     } else if (carousel_swipe) {
+        if (carousel_ids.length == 2 && (dx > 0) == (carousel_start_pos == 0)) return
         carousel_pos = carousel_start_pos - dx / carousel_step
         carousel_render()
     } else {
@@ -2222,6 +2223,7 @@ $card.ontouchend = e => {
     }
     if (carousel_swipe) {
         var frames = Math.ceil(Math.abs(dx / carousel_step))
+        if (carousel_ids.length == 2) frames = (dx > 0) == (carousel_start_pos == 0) ? 0 : 1
         var last_move_direction = card_end_x > card_prev_prev_x ? 'left' : 'right'
         var target = carousel_start_pos
         if (last_move_direction == 'right') {
@@ -2229,7 +2231,6 @@ $card.ontouchend = e => {
         } else {
             if (dx > 0) target -= frames
         }
-        if (carousel_ids.length == 2) target = Math.max(0, Math.min(1, target))
         var rest_path = Math.abs(target - carousel_pos) * carousel_step
         var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
         carousel_render(target)
