@@ -841,6 +841,7 @@ Prices are expressed in Vietnamese dong (VND).
             position: fixed;
             bottom: -40vh;/*card SSR*/
             width: 100%;
+            height: 48vh;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -874,7 +875,10 @@ Prices are expressed in Vietnamese dong (VND).
             background: var(--icon-color);
         }
         .cards {
+            flex: 1;
+            min-height: 0;
             display: grid;
+            grid-template-rows: minmax(0, 1fr);
             padding-bottom: calc(var(--offset-middle) + env(safe-area-inset-bottom));
         }
         .card_content {
@@ -895,8 +899,9 @@ Prices are expressed in Vietnamese dong (VND).
             will-change: transform;
         }
         .photo_frame {
+            flex: 6;
+            min-height: 0;
             position: relative;
-            aspect-ratio: 328 / 185;
             border-radius: var(--radius-small);
             overflow: hidden;
             background-color: var(--well-color);
@@ -964,9 +969,19 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: 13px;
         }
         .card_info {
+            flex: 4;
+            min-height: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--offset-small);
+            justify-content: space-between;
+            overflow: hidden;
+            container-type: size;
+        }
+        .card_info .price {
+            font-size: 29.6cqh;
+        }
+        .card_info .price small {
+            font-size: 14.8cqh;
         }
         .money {
             display: flex;
@@ -991,7 +1006,7 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-muted);
         }
         .facts {
-            font-size: 15px;
+            font-size: 13cqh;
             font-weight: 700;
         }
         .where {
@@ -1001,12 +1016,17 @@ Prices are expressed in Vietnamese dong (VND).
         .where b {
             color: var(--text-color);
         }
+        .card_info .where {
+            font-size: 12.2cqh;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         .foot {
-            display: flex;
-            align-items: center;
-            gap: var(--offset-small);
-            flex-wrap: wrap;
-            font-size: 14px;
+            font-size: 12.2cqh;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
             color: var(--text-muted);
         }
         #maxi {
