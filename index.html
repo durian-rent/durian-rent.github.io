@@ -2033,6 +2033,7 @@ window.addEventListener('appinstalled', () => {
 })
 
 function card_hide() {
+    card_closed = true
     carousel_unselect()
     $card.style.transition = 'transform 0.1s ease'
     $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
@@ -2079,7 +2080,9 @@ var y_card_min = null
 var detect_y_card_min = false
 
 window.addEventListener('resize', () => {
-    if (!is_touch_vertical()) $card.setAttribute('hidden', '')
+    if (is_touch_vertical()) return
+    card_closed = true
+    $card.setAttribute('hidden', '')
 })
 
 window.photo_current_index = null
@@ -2110,6 +2113,7 @@ var x_photo_max = null
 var cur_x
 var photo_swipe
 var card_moved = false
+var card_closed = true
 
 $card.ontouchstart = e => {
     e.stopPropagation()
@@ -2249,6 +2253,7 @@ $card.ontouchend = e => {
     if (card_going_close) {
         if (last_move_direction == 'down') {
             carousel_unselect()
+            card_closed = true
             dY = y_card_min - b
             dT = Math.abs(dY / vY)
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
@@ -3953,17 +3958,17 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
 
-                const closed = $card.hidden || $card.getBoundingClientRect().top >= innerHeight - 1
                 if (!filter.hasAttribute('hidden')) filter_close()
                 $card.removeAttribute('hidden')
                 $card.style.transition = 'none'
-                if (closed) $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
+                if (card_closed) $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
                 $card.style.bottom = 0
                 $card.style.height = ''
                 detect_y_card_min = false
                 carousel_open(id)
                 $card.style.transition = 'transform 0.1s ease'
                 $card.style.transform = 'translate3d(0, 0, 0)'
+                card_closed = false
             })
             map.on('click', e => {
                 features = map.queryRenderedFeatures(e.point, {
@@ -3980,7 +3985,7 @@ apply_filter = throttle(apply_filter, 90)
                 }
             })
             map.on('moveend', () => {
-                if (!carousel_selected) return
+                if (card_closed) return
                 const ids = carousel_order(card_id)
                 if (ids.join() == carousel_ids.join()) return
                 carousel_ids = ids
