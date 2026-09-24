@@ -3874,13 +3874,17 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
 
+                const closed = $card.hidden || $card.getBoundingClientRect().top >= innerHeight - 1
                 if (!filter.hasAttribute('hidden')) filter_close()
                 $card.removeAttribute('hidden')
-                $card.style.transform = ''
+                $card.style.transition = 'none'
+                if (closed) $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
                 $card.style.bottom = 0
                 $card.style.height = ''
                 detect_y_card_min = false
                 carousel_open(id)
+                $card.style.transition = 'transform 0.1s ease'
+                $card.style.transform = 'translate3d(0, 0, 0)'
             })
             map.on('click', e => {
                 features = map.queryRenderedFeatures(e.point, {
