@@ -1733,9 +1733,8 @@ window.addEventListener('appinstalled', () => {
 })
 
 function card_hide() {
-    window.card_was_open = false
-    $card.setAttribute('hidden', '')
-    if (y_card_min) $card.style.height = y_card_min + 'px'
+    $card.style.transition = 'transform 0.1s ease'
+    $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
 }
 
 $card.onclick = e => {
@@ -1781,13 +1780,8 @@ var y_card_max = null
 var y_card_min = null
 var detect_y_card_min = false
 
-window.card_was_open = false
 window.addEventListener('resize', () => {
-    if (is_touch_vertical()) {
-        if (card_was_open) $card.removeAttribute('hidden')
-    } else {
-        $card.setAttribute('hidden', '')
-    }
+    if (!is_touch_vertical()) $card.setAttribute('hidden', '')
 })
 
 window.photo_current_index = null
@@ -3493,7 +3487,7 @@ apply_filter = throttle(apply_filter, 90)
 
                 if (!filter.hasAttribute('hidden')) filter_close()
                 $card.removeAttribute('hidden')
-                window.card_was_open = true
+                $card.style.transform = ''
                 $card.style.bottom = 0
                 $card.style.height = ''
                 detect_y_card_min = false
