@@ -675,8 +675,10 @@ Prices are expressed in Vietnamese dong (VND).
             --text-muted: #B6C3A8;
             --filter-color: #EDF2E1;
             --card-background-color: #1B2B1F;
+            --sheet-color: #0E1911;
         }
         :root {
+            --sheet-color: #D8E0C8;
             --status-bar-height: env(safe-area-inset-top, 0px);
         }
         body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
@@ -814,11 +816,24 @@ Prices are expressed in Vietnamese dong (VND).
         #card {
             position: fixed;
             bottom: -40vh;/*card SSR*/
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             width: 100%;
             height: 40vh;
+            box-sizing: border-box;
+            overflow: hidden;
+            background-color: var(--sheet-color);
+            container-type: size;
+            transition: bottom 0.1s linear, height 0.1s linear;
+        }
+        .card_content {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            justify-content: space-between;
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            gap: 2vh;
             padding: 10px;
             padding-top: 20px;
             box-sizing: border-box;
@@ -828,18 +843,10 @@ Prices are expressed in Vietnamese dong (VND).
             border-top-color: rgba(255, 255, 255, 0.2);
             border-top-style: solid;
             border-top-width: 1px;
-            container-type: size;
-            transition: bottom 0.1s linear, height 0.1s linear;
-        }
-        #card_content {
-            justify-content: space-between;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
-            gap: 2vh;
+            will-change: transform;
         }
         #mover {
+            z-index: 1;
             position: absolute;
             background-color: white;
             border-radius: 4px;
@@ -848,7 +855,7 @@ Prices are expressed in Vietnamese dong (VND).
             height: 4px;
             top: 8px;
         }
-        #photo {
+        .photo_frame {
             position: relative;
             height: 100%;
             background-size: cover;
@@ -858,7 +865,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: 4px;
             touch-action: none;
         }
-        #photos_container {
+        .photos_container {
             display: flex;
             height: 100%;
             width: max-content;
@@ -870,7 +877,7 @@ Prices are expressed in Vietnamese dong (VND).
             background-position: center;
             background-repeat: no-repeat;
         }
-        #dots {
+        .dots {
             position: absolute;
             display: flex;
             justify-content: center;
@@ -893,7 +900,7 @@ Prices are expressed in Vietnamese dong (VND).
         .dot.active {
             opacity: 1;
         }
-        #card_info {
+        .card_info {
             display: flex;
             flex-direction: column;
             justify-content: end;
@@ -910,7 +917,7 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: 0.7em;
             vertical-align: super;
         }
-        #price {
+        .card_content .price {
             font-weight: bold;
         }
         .card-info-row {
@@ -933,7 +940,7 @@ Prices are expressed in Vietnamese dong (VND).
             margin-left: 10px;
             margin-right: 10px;
         }
-        #contact {
+        .card_content .contact {
             color: var(--filter-color);
         }
         #filter {
@@ -955,7 +962,7 @@ Prices are expressed in Vietnamese dong (VND).
             touch-action: manipulation;
             cursor: pointer;
         }
-        #card_heart {
+        .card_heart {
             position: absolute;
             top: 0;
             right: 35px;
@@ -968,7 +975,7 @@ Prices are expressed in Vietnamese dong (VND).
             touch-action: manipulation;
             cursor: pointer;
         }
-        #card_close {
+        .card_close {
             position: absolute;
             top: 0;
             right: 0;
@@ -1074,16 +1081,16 @@ Prices are expressed in Vietnamese dong (VND).
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
         }
-        #icon-card-heart {
+        .icon-card-heart {
             display: block;
             stroke-width: 1;
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
         }
-        #card_heart.like #icon-card-heart {
+        .card_heart.like .icon-card-heart {
             stroke: #E5E8DB;
         }
-        #icon-card-close {
+        .icon-card-close {
             display: block;
             stroke-width: 1;
             stroke: var(--filter-color);
@@ -1205,7 +1212,7 @@ Prices are expressed in Vietnamese dong (VND).
             animation: slideUp 0.3s ease-out;
             z-index: 9999;
         }
-        #bed {
+        .card_content .bed {
             margin-right: 5px;
         }
     </style>
@@ -1368,38 +1375,38 @@ Prices are expressed in Vietnamese dong (VND).
 </div>
 <div id="card">
     <div id="mover"></div>
-    <div id="card_content">
-        <div id="photo">
-            <div id="photos_container"></div>
-            <div id="dots"></div>
+    <div class="card_content">
+        <div class="photo_frame">
+            <div class="photos_container"></div>
+            <div class="dots"></div>
         </div>
-        <div id="card_info">
+        <div class="card_info">
             <div class="card-info-row">
-                <div id="price"></div>
+                <div class="price"></div>
                 <div class="card-metric">VND</div>
             </div>
             <div class="card-info-row">
-                <div id="category"></div>
+                <div class="category"></div>
                 <div class="card-info-separator"> · </div>
-                <div id="bed"></div>
+                <div class="bed"></div>
                 <div>bed</div>
                 <div class="card-info-separator"> · </div>
-                <div id="m2"></div>
+                <div class="m2"></div>
                 <div class="card-metric">m<sup>2</sup></div>
             </div>
             <div class="card-info-row">
-                <div id="street" class="card-metric"></div>
+                <div class="street card-metric"></div>
                 <div class="card-info-separator"> · </div>
-                <div id="area"></div>
+                <div class="area"></div>
             </div>
             <div class="card-info-row card-info-row-last">
                 <div>
-                    <div id="publish"></div> ago at <a id="contact" target="_blank">NhaTot</a>
+                    <div class="publish"></div> ago at <a class="contact" target="_blank">NhaTot</a>
                 </div>
             </div>
         </div>
-        <div id="card_heart">
-            <svg id="icon-card-heart" xmlns="http://www.w3.org/2000/svg"
+        <div class="card_heart">
+            <svg class="icon-card-heart" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 80 80">
             <path
                 fill="none" stroke-width="4" stroke-linejoin="round"
@@ -1412,8 +1419,8 @@ Prices are expressed in Vietnamese dong (VND).
                    Z"/>
             </svg>
         </div>
-        <div id="card_close">
-            <svg id="icon-card-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+        <div class="card_close">
+            <svg class="icon-card-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                 <line x1="4" y1="4" x2="20" y2="20"/>
                 <line x1="20" y1="4" x2="4" y2="20"/>
             </svg>
@@ -1437,23 +1444,17 @@ const $logo = document.getElementById('logo')
 const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
 const $card = document.getElementById('card')
-const $card_info = document.getElementById('card_info')
-const $photo = document.getElementById('photo')
-const $photos_container = document.getElementById('photos_container')
-const $price = document.getElementById('price')
-const $dots = document.getElementById('dots')
-const $street = document.getElementById('street')
-const $category = document.getElementById('category')
-const $area = document.getElementById('area')
-const $m2 = document.getElementById('m2')
-const $publish = document.getElementById('publish')
+const $card_template = $card.querySelector('.card_content')
+$card.append($card_template.cloneNode(true), $card_template.cloneNode(true))
+const $cards = [...$card.querySelectorAll('.card_content')]
+var $card_centre = $cards[0]
+var $photo = $card_centre.querySelector('.photo_frame')
+var $photos_container = $card_centre.querySelector('.photos_container')
+var $dots = $card_centre.querySelector('.dots')
+var $card_info = $card_centre.querySelector('.card_info')
 const $title = document.getElementById('title')
-const $contact = document.getElementById('contact')
-const $card_heart = document.getElementById('card_heart')
-const $card_close = document.getElementById('card_close')
 const $last_update_time = document.getElementById('last_update_time')
 const $last_update_time_value = document.getElementById('last_update_time_value')
-const $bed = document.getElementById('bed')
 
 var same_likes
 
@@ -1757,10 +1758,21 @@ window.addEventListener('appinstalled', () => {
     gtag('event', 'installed')
 })
 
-$card_close.onclick = () => {
-    window.card_was_open = false
-    $card.setAttribute('hidden', '')
-    if (y_card_min) $card.style.height = y_card_min + 'px'
+$card.onclick = e => {
+    if (e.target.closest('.card_close')) {
+        window.card_was_open = false
+        $card.setAttribute('hidden', '')
+        if (y_card_min) $card.style.height = y_card_min + 'px'
+        return
+    }
+    const $like = e.target.closest('.card_heart')
+    if ($like) return toggle_like(Number($like.closest('.card_content').dataset.id))
+    const $contact = e.target.closest('.contact')
+    if ($contact) {
+        const id = Number($contact.closest('.card_content').dataset.id)
+        return gtag('event', 'ad_click', {ad_id: id, ad_url: $contact.href, price: ads.find(ad => ad.id == id).price, page: current_page})
+    }
+    if (e.target.classList.contains('dot') && e.target.parentElement == $dots) dots_click(e.target)
 }
 
 function toggle_like(id) {
@@ -1773,7 +1785,7 @@ function toggle_like(id) {
         likes.add(id)
         liked = true
     }
-    if (window.card_id == id) $card_heart.classList.toggle('like', liked)
+    $cards.forEach($c => $c.dataset.id == id && $c.querySelector('.card_heart').classList.toggle('like', liked))
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
@@ -1788,8 +1800,6 @@ function toggle_like(id) {
     }
     return likes
 }
-
-$card_heart.onclick = () => toggle_like(card_id)
 
 var card_height = null
 var y_card_max = null
@@ -1813,6 +1823,7 @@ new ResizeObserver(() => {
     $photos_container.style.transition = 'none'
     photo_size = $photo.getBoundingClientRect().width
     //to_current()
+    if (carousel_ids.length) carousel_render()
 }).observe($photo)
 
 var card_start_t = null
@@ -1834,15 +1845,13 @@ var photo_swipe
 
 $card.ontouchstart = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    if (e.target.closest('.contact, .card_heart, .dots')) return
     $card.style.transition = 'none'
     card_start_t = Date.now()
     card_start_x = e.changedTouches[0].screenX
     card_start_y = e.changedTouches[0].screenY
+    card_prev_x = card_start_x
+    card_prev_y = card_start_y
     card_prev_prev_x = card_start_x
     card_prev_prev_y = card_start_y
     var rect = $card.getBoundingClientRect()
@@ -1861,14 +1870,13 @@ $card.ontouchstart = e => {
     x_photo_max = (photo_total_count - 1) * photo_size
     cur_x = photo_current_index * photo_size
     photo_swipe = undefined
+    carousel_swipe = undefined
+    carousel_start_pos = carousel_pos
+    for (const $c of $cards) $c.style.transition = 'none'
 }
 $card.ontouchmove = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    if (e.target.closest('.contact, .card_heart, .dots')) return
     try{ e?.preventDefault()} catch(e) {}
     card_prev_prev_x = card_prev_x
     card_prev_x = e.changedTouches[0].screenX
@@ -1879,16 +1887,18 @@ $card.ontouchmove = e => {
     var dy = card_prev_y - card_start_y
 
     if (photo_swipe == undefined) {
-        photo_swipe = (
-            e.target.id == 'photo' ||
-            e.target.classList.contains('photo')
-        ) && 2 * Math.abs(dx) > Math.abs(dy)
+        if (Math.abs(dx) + Math.abs(dy) < 6) return
+        photo_swipe = e.target.closest('.photo_frame') == $photo && 2 * Math.abs(dx) > Math.abs(dy)
+        carousel_swipe = !photo_swipe && carousel_ids.length > 1 && 2 * Math.abs(dx) > Math.abs(dy)
     }
     
     if (photo_swipe) {
         var x = Math.max(x_photo_min, Math.min(x_photo_max, cur_x - dx))
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $photos_container.removeAttribute('hidden')
+    } else if (carousel_swipe) {
+        carousel_pos = carousel_start_pos - dx / carousel_step()
+        carousel_render()
     } else {
         $photos_container.setAttribute('hidden', '')
         var last_move_direction = dy > 0 ? 'down' : 'up'
@@ -1915,11 +1925,7 @@ $card.ontouchmove = e => {
 }
 $card.ontouchend = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    if (e.target.closest('.contact, .card_heart, .dots')) return
     card_end_t = Date.now()
     card_end_x = e.changedTouches[0].screenX
     card_end_y = e.changedTouches[0].screenY
@@ -1938,6 +1944,27 @@ $card.ontouchend = e => {
             if (dx < 0) to_current() 
             else next_proto_left(frames)
         }
+        return
+    }
+    if (carousel_swipe) {
+        var step = carousel_step()
+        var frames = Math.ceil(Math.abs(dx / step))
+        var last_move_direction = card_end_x > card_prev_prev_x ? 'left' : 'right'
+        var target = carousel_start_pos
+        if (last_move_direction == 'right') {
+            if (dx < 0) target += frames
+        } else {
+            if (dx > 0) target -= frames
+        }
+        var rest_path = Math.abs(target - carousel_pos) * step
+        var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
+        carousel_render(target)
+        var left = ($card.clientWidth - $card_centre.offsetWidth) / 2
+        for (const $c of $cards) {
+            $c.style.transition = `transform ${rest_time_ms / 1000}s linear`
+            $c.style.transform = `translate3d(${left + ($c.carousel_index - target) * step}px, 0, 0)`
+        }
+        carousel_pos = target
         return
     }
     var dY = null // future rest path for animation
@@ -1981,6 +2008,167 @@ $card.ontouchend = e => {
     }
 }
 
+var carousel_ids = []
+var carousel_pos = 0
+var carousel_start_pos = 0
+var carousel_swipe
+const CAROUSEL_GAP = 0.05
+
+const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
+
+function carousel_order(id) {
+    const bounds = map.getBounds()
+    return ads
+        .filter(ad => ad.id == id || (
+            bounds.contains([ad.longitude, ad.latitude]) &&
+            map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
+        ))
+        .sort((a, b) => a.longitude - b.longitude || b.latitude - a.latitude || a.id - b.id)
+        .map(ad => ad.id)
+}
+
+function carousel_open(id) {
+    carousel_ids = carousel_order(id)
+    carousel_pos = carousel_ids.indexOf(id)
+    $card_centre = $cards[1]
+    $cards.forEach(($c, i) => {
+        $c.carousel_index = carousel_pos + i - 1
+        $c.style.transition = 'none'
+        $c.style.visibility = carousel_ids.length > 1 || i == 1 ? '' : 'hidden'
+        $c.querySelector('.card_info').removeAttribute('hidden')
+        fill_card($c, carousel_ids[carousel_mod($c.carousel_index)])
+    })
+    carousel_centre($cards[1])
+    carousel_render()
+}
+
+const carousel_step = () => $card_centre.offsetWidth + CAROUSEL_GAP * $card.clientWidth
+
+function carousel_render(centre = Math.round(carousel_pos)) {
+    const step = carousel_step()
+    const left = ($card.clientWidth - $card_centre.offsetWidth) / 2
+    const wanted = [centre - 1, centre, centre + 1]
+    const spare = $cards.filter($c => !wanted.includes($c.carousel_index))
+    for (const index of wanted) {
+        if ($cards.some($c => $c.carousel_index == index)) continue
+        const $c = spare.pop()
+        $c.carousel_index = index
+        fill_card($c, carousel_ids[carousel_mod(index)])
+    }
+    for (const $c of $cards) {
+        $c.style.transform = `translate3d(${left + ($c.carousel_index - carousel_pos) * step}px, 0, 0)`
+    }
+    const $centre = $cards.find($c => $c.carousel_index == centre)
+    if ($centre != $card_centre) carousel_centre($centre)
+}
+
+function carousel_centre($c) {
+    if ($c != $card_centre) $card_centre.dataset.photo = photo_current_index
+    $card_centre = $c
+    $photo = $c.querySelector('.photo_frame')
+    $photos_container = $c.querySelector('.photos_container')
+    $dots = $c.querySelector('.dots')
+    $card_info = $c.querySelector('.card_info')
+    photo_current_index = Number($c.dataset.photo) || 0
+    photo_total_count = $photos_container.children.length
+    window.card_id = Number($c.dataset.id)
+}
+
+function fill_card($c, id) {
+    const ad = ads.find(ad => ad.id == id)
+    const url = get_url(id)
+    const $frame = $c.querySelector('.photo_frame')
+    const $strip = $c.querySelector('.photos_container')
+    const $points = $c.querySelector('.dots')
+    $c.dataset.id = id
+    $c.dataset.photo = 0
+    const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
+    $c.querySelector('.card_heart').classList.toggle('like', likes.has(id))
+
+    var photos_urls
+    try {
+        photos_urls = get_ad_img_urls(id)
+        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+    } catch (e) {
+        console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
+        photos_urls = []
+    }
+    $points.innerHTML = ''
+    $strip.style.transition = 'none'
+    $strip.style.transform = `translate3d(0,0,0)`
+    for (var i = 0, $; i < photos_urls.length; i++) {
+        if ($strip.children[i]) {
+            $ = $strip.children[i]
+            $.style.backgroundImage = `url("${photos_urls[i]}")`
+        } else {
+            $ = document.createElement('div')
+            $.className = 'photo'
+            $.style.backgroundImage = `url("${photos_urls[i]}")`
+            $strip.appendChild($)
+        }
+        var $dot = document.createElement('div')
+        $dot.className = 'dot'
+        $points.appendChild($dot)
+        if (i == 0) {
+            $dot.classList.add('active')
+            $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+        }
+    }
+    while ($strip.children.length > photos_urls.length) {
+        $strip.lastElementChild.remove()
+    }
+    var price_string = String(ad.price).split('').reverse()
+    var price_string_space = ''
+    for (var i = 0; i < price_string.length; i++) {
+        if (i != 0 && i % 3 == 0)
+            price_string_space = ' ' + price_string_space
+        price_string_space = price_string[i] + price_string_space
+    }
+    $c.querySelector('.price').textContent = price_string_space
+    $c.querySelector('.category').textContent = get_category_for_user(ad.category)
+    $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
+    $c.querySelector('.m2').textContent = ad.m2
+    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
+    $c.querySelector('.street').textContent = ''
+    $c.querySelector('.contact').href = url
+
+    fetch(
+        '/ads.bin',
+        {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
+    )
+    .then(_ => _.arrayBuffer())
+    .then(ab => {
+        const view = new DataView(ab)
+        const decoder = new TextDecoder('utf-8')
+        var offset = 0
+
+        const subjectLen = view.getUint32(offset, false)
+        offset += 4
+        const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
+        offset += subjectLen
+
+        const bodyLen = view.getUint32(offset, false)
+        offset += 4
+        const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
+        offset += bodyLen
+
+        const streetLen = view.getUint32(offset, false)
+        offset += 4
+        const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
+        return [subject, body, street_name]
+    })
+    .then(([subject, body, street_name]) => {
+        if ($c.dataset.id != id) return
+        $c.querySelector('.street').textContent = street_name
+        console.log(
+            'subject:', subject,
+            'body:', body,
+            'street_name:', street_name
+        )
+    })
+}
+
 function to_current() {
     var x = photo_current_index * photo_size
     $photos_container.style.transform = `translate3d(-${x}px,0,0)`
@@ -2013,9 +2201,8 @@ function next_proto_left(frames) {
     }
 }
 
-$dots.onclick = e => {
-    if (!e.target.classList.contains('dot')) return
-    var index = [...$dots.children].findIndex(_ => _ == e.target)
+function dots_click($dot) {
+    var index = [...$dots.children].findIndex(_ => _ == $dot)
     if (index == photo_current_index) return
     
     ;[...$dots.children].forEach(_ => _.classList.remove('active'))
@@ -3306,99 +3493,11 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
 
-                window.card_id = id
-                const ad = ads.find(ad => ad.id == id)
                 $card.removeAttribute('hidden')
                 window.card_was_open = true
                 $card.style.bottom = 0
                 if (y_card_min) $card.style.height = y_card_min + 'px'
-                $card_info.removeAttribute('hidden')
-                const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
-                $card_heart.classList.toggle('like', likes.has(id))
-
-                var photos_urls
-                try {
-                    photos_urls = get_ad_img_urls(id)
-                    if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
-                } catch (e) {
-                    console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
-                    photos_urls = []
-                }
-                $dots.innerHTML = ''
-                photo_total_count = photos_urls.length
-                photo_current_index = 0
-                $photos_container.style.transform = `translate3d(0,0,0)`
-                $photo.style.backgroundImage = `url("${photos_urls[i]}")`
-                for (var i = 0, $; i < photos_urls.length; i++) {
-                    if ($photos_container.children[i]) {
-                        $ = $photos_container.children[i]
-                        $.style.backgroundImage = `url("${photos_urls[i]}")`
-                    } else {
-                        $ = document.createElement('div')
-                        $.className = 'photo'
-                        $.style.backgroundImage = `url("${photos_urls[i]}")`
-                        $photos_container.appendChild($)
-                    }
-                    var $dot = document.createElement('div')
-                    $dot.className = 'dot'
-                    $dots.appendChild($dot)
-                    if (i == 0) {
-                        $dot.classList.add('active')
-                        $photo.style.backgroundImage = `url("${photos_urls[i]}")`
-                    }
-                }
-                while ($photos_container.children.length > photos_urls.length) {
-                    $photos_container.lastElementChild.remove()
-                }
-                var price_string = String(price).split('').reverse()
-                var price_string_space = ''
-                for (var i = 0; i < price_string.length; i++) {
-                    if (i != 0 && i % 3 == 0)
-                        price_string_space = ' ' + price_string_space
-                    price_string_space = price_string[i] + price_string_space
-                }
-                $price.textContent = price_string_space
-                $category.textContent = get_category_for_user(ad.category)
-                $area.textContent = get_area_v2_for_user(ad.area)
-                $m2.textContent = ad.m2
-                $bed.textContent = ad.bedrooms || '-'
-                $publish.textContent = `${ago(ad.publish)}`
-                $contact.onclick = () => gtag('event', 'ad_click', {ad_id: id, ad_url: url, price, page: current_page})
-                $contact.href = url
-                
-                fetch(
-                    '/ads.bin',
-                    {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
-                )
-                .then(_ => _.arrayBuffer())
-                .then(ab => {
-                    const view = new DataView(ab)
-                    const decoder = new TextDecoder('utf-8')
-                    var offset = 0
-                    
-                    const subjectLen = view.getUint32(offset, false)
-                    offset += 4
-                    const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
-                    offset += subjectLen
-                    
-                    const bodyLen = view.getUint32(offset, false)
-                    offset += 4
-                    const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
-                    offset += bodyLen
-                    
-                    const streetLen = view.getUint32(offset, false)
-                    offset += 4
-                    const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
-                    return [subject, body, street_name]
-                })
-                .then(([subject, body, street_name]) => {
-                    $street.textContent = street_name
-                    console.log(
-                        'subject:', subject,
-                        'body:', body,
-                        'street_name:', street_name
-                    )
-                })
+                carousel_open(id)
             })
             map.on('click', e => {
                 features = map.queryRenderedFeatures(e.point, {
