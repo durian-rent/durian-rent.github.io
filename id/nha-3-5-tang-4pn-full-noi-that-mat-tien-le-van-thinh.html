@@ -363,7 +363,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1790121575518'
+    const VER_WASM = '1790250104888'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -471,7 +471,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '367578a542786bb1163c3331a09c7bed16bf3fc14774b7e5dd7322b610491d71'// contact spirin.vladimir@gmail.com
+        const KEY = '8a4ecdf541358040c05fe46d20cb971a4454c284252b8fc9c0362e81e5dc53c9'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -586,6 +586,13 @@ Prices are expressed in Vietnamese dong (VND).
             'price-circle-filtered': {
                 'circle-color': ['#555', '#888']
             },
+            'price-circle': {
+                'circle-color': [
+                    ['match', ['feature-state', 'mode'], 'selected', '#F5D766', '#E5E8DB'],
+                    ['match', ['feature-state', 'mode'], 'selected', '#E5C762', '#E5E8DB']
+                ],
+                'circle-stroke-color': ['#857F3B', '#807C43']
+            },
             background: {
                 "background-color": ["#0E1911", "#E5E8DB"]
             },
@@ -662,12 +669,26 @@ Prices are expressed in Vietnamese dong (VND).
             -webkit-tap-highlight-color: transparent;
         }
 
-        html {
+        :root {
             --text-color: #1B261D;
             --text-color-inverse: white;
             --text-muted: #47553E;
             --filter-color: #1B261D;
             --card-background-color: #F1F2E6;
+            --line-color: #AAB39E;
+            --icon-color: #677162;
+            --well-color: #BFC7B1;
+            --offset-small: 8px;
+            --offset-middle: 12px;
+            --offset-big: 24px;
+            --sheet-color: #D8E0C8;
+            --deep-color: #1E3A26;
+            --on-deep-color: #F7EFD3;
+            --accent-color: #807C43;
+            --radius-small: 12px;
+            --radius-big: 22px;
+            --shadow: 0 2px 6px rgba(29, 51, 33, 0.16);
+            --status-bar-height: env(safe-area-inset-top, 0px);
         }
         html[dark] {
             --text-color: #EDF2E1;
@@ -675,9 +696,14 @@ Prices are expressed in Vietnamese dong (VND).
             --text-muted: #B6C3A8;
             --filter-color: #EDF2E1;
             --card-background-color: #1B2B1F;
-        }
-        :root {
-            --status-bar-height: env(safe-area-inset-top, 0px);
+            --line-color: #374238;
+            --icon-color: #818A7C;
+            --well-color: #242F25;
+            --sheet-color: #0E1911;
+            --deep-color: #24402B;
+            --on-deep-color: #FCF4D5;
+            --accent-color: #857F3B;
+            --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
         html[dark] body { margin: 0; padding: 0; background: #0E1911;}
@@ -814,51 +840,72 @@ Prices are expressed in Vietnamese dong (VND).
         #card {
             position: fixed;
             bottom: -40vh;/*card SSR*/
+            width: 100%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 40vh;
-            padding: 10px;
-            padding-top: 20px;
-            box-sizing: border-box;
-            background-color: var(--card-background-color);
-            border-top-left-radius: 1vh;
-            border-top-right-radius: 1vh;
-            border-top-color: rgba(255, 255, 255, 0.2);
-            border-top-style: solid;
-            border-top-width: 1px;
-            container-type: size;
+            gap: var(--offset-middle);
+            overflow: hidden;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            color: var(--text-color);
+            background-color: var(--sheet-color);
+            border-top: 1px solid var(--line-color);
+            border-radius: var(--radius-big) var(--radius-big) 0 0;
+            box-shadow: var(--shadow);
             transition: bottom 0.1s linear, height 0.1s linear;
         }
-        #card_content {
-            justify-content: space-between;
+        #card p {
+            margin: 0;
+        }
+        #card .num, #maxi .num {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .grip-zone {
+            height: 24px;
+            display: grid;
+            place-items: center;
+            cursor: grab;
+        }
+        .grip {
+            width: 44px;
+            height: 4px;
+            border-radius: var(--radius-small);
+            background: var(--icon-color);
+        }
+        .cards {
+            display: grid;
+            padding-bottom: calc(var(--offset-middle) + env(safe-area-inset-bottom));
+        }
+        .card_content {
+            grid-row: 1;
+            grid-column: 1;
+            justify-self: center;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            height: 100%;
-            width: 100%;
-            gap: 2vh;
+            gap: var(--offset-small);
+            padding: var(--offset-middle);
+            background: var(--card-background-color);
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-small);
+            box-shadow: var(--shadow);
+            will-change: transform;
         }
-        #mover {
-            position: absolute;
-            background-color: white;
-            border-radius: 4px;
-            width: 40px;
-            left: calc(50% - 20px);
-            height: 4px;
-            top: 8px;
-        }
-        #photo {
+        .photo_frame {
             position: relative;
-            height: 100%;
+            aspect-ratio: 328 / 185;
+            border-radius: var(--radius-small);
+            overflow: hidden;
+            background-color: var(--well-color);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            overflow: hidden;
-            border-radius: 4px;
             touch-action: none;
         }
-        #photos_container {
+        .photos_container {
             display: flex;
             height: 100%;
             width: max-content;
@@ -870,74 +917,281 @@ Prices are expressed in Vietnamese dong (VND).
             background-position: center;
             background-repeat: no-repeat;
         }
-        #dots {
+        .card_heart {
             position: absolute;
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
+            top: var(--offset-small);
+            right: var(--offset-small);
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: var(--radius-big);
+            display: grid;
+            place-items: center;
+            background: var(--card-background-color);
+            color: var(--icon-color);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+        .card_heart:focus-visible {
+            outline: 3px solid var(--text-color);
+            outline-offset: -3px;
+        }
+        .card_heart svg {
+            width: 1em;
+            height: 1em;
+            font-size: 22px;
+        }
+        .card_heart .h-on, .card_heart[aria-pressed="true"] .h-off {
+            display: none;
+        }
+        .card_heart[aria-pressed="true"] .h-on {
+            display: block;
+        }
+        .card_heart[aria-pressed="true"] {
+            color: var(--accent-color);
+        }
+        .seen {
+            position: absolute;
+            right: var(--offset-small);
+            bottom: var(--offset-small);
+            height: 24px;
+            padding: 0 var(--offset-small);
+            display: inline-flex;
             align-items: center;
-            gap: 0.5vh;
-            height: 1.5vh;
-            width: 100%;
-            bottom: 0.5vh;
-            overflow-x: hidden;
+            border-radius: var(--radius-small);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: 13px;
         }
-        .dot {
-            display: flex;
-            height: 0.6vh;
-            width: 0.6vh;
-            background-color: var(--filter-color);
-            border-radius: 0.6vh;
-            opacity: 0.4;
-        }
-        .dot.active {
-            opacity: 1;
-        }
-        #card_info {
+        .card_info {
             display: flex;
             flex-direction: column;
-            justify-content: end;
-            gap: 1vh;
-            width: 100%;
-            height: 100%;
-            container-type: size;
+            gap: var(--offset-small);
         }
-        .card-metric {
-            margin-left: 5px;
+        .money {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: var(--offset-small);
+        }
+        .price {
+            padding: 0;
+            border: 0;
+            background: none;
+            font-family: inherit;
+            font-size: 34px;
+            line-height: 1.05;
+            color: var(--text-color);
+            text-align: left;
+            cursor: pointer;
+        }
+        .price small {
+            font-size: 17px;
+            font-weight: 500;
             color: var(--text-muted);
         }
-        .card-metric sup {
-            font-size: 0.7em;
-            vertical-align: super;
+        .facts {
+            font-size: 15px;
+            font-weight: 700;
         }
-        #price {
-            font-weight: bold;
+        .where {
+            font-size: 14px;
+            color: var(--text-color);
         }
-        .card-info-row {
+        .where b {
+            color: var(--text-color);
+        }
+        .foot {
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            gap: var(--offset-small);
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        #maxi {
+            position: fixed;
+            inset: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            color: var(--text-color);
+            background-color: var(--sheet-color);
+        }
+        #maxi p, #maxi h1 {
+            margin: 0;
+        }
+        .maxi_photos {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background-color: var(--well-color);
+            touch-action: none;
+        }
+        .maxi_strip {
+            display: flex;
+            height: 100%;
+            width: max-content;
+        }
+        .maxi_strip .photo {
+            width: 100vw;
+        }
+        .maxi_count {
+            position: absolute;
+            right: var(--offset-middle);
+            bottom: calc(var(--offset-big) + var(--offset-small));
+            height: 24px;
+            padding: 0 var(--offset-small);
+            display: inline-flex;
+            align-items: center;
+            border-radius: var(--radius-small);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: 13px;
+        }
+        .maxi_over {
+            position: absolute;
+            top: calc(env(safe-area-inset-top, 0px) + var(--offset-middle));
+            left: var(--offset-middle);
+            right: var(--offset-middle);
+            display: flex;
+            justify-content: space-between;
+        }
+        .maxi_over .ctl {
+            border: 0;
+        }
+        .maxi_over .card_heart {
+            position: static;
+        }
+        .maxi_over svg {
+            width: 1em;
+            height: 1em;
+            font-size: 17px;
+        }
+        .maxi_panel {
+            position: relative;
+            margin-top: calc(var(--offset-big) * -1);
+            padding: var(--offset-big) var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--offset-small);
+            border-radius: var(--radius-big) var(--radius-big) 0 0;
+            background-color: inherit;
+            text-align: center;
+        }
+        .maxi_panel h1 {
+            font-size: 22px;
+            line-height: 1.2;
+        }
+        .maxi_panel .where {
+            font-size: 14px;
+            color: var(--text-color);
+        }
+        .maxi_panel .street:not(:empty)::after {
+            content: " · ";
+        }
+        .maxi_panel .money {
             align-items: baseline;
-            width: 100%;
-            font-size: 12pt;
-            font-family: Inter, Arial, sans-serif;
-            color: var(--filter-color);
+            gap: var(--offset-small);
+            font-size: 14px;
+            color: var(--text-muted);
         }
-        .card-info-row-last {
-            margin-top: 10px;
-            margin-bottom: 10px;
+        .maxi_panel .price {
+            cursor: auto;
         }
-        .card-info-row-last div {
-            display: inline;
+        .pods {
+            align-self: stretch;
+            display: flex;
+            gap: var(--offset-small);
         }
-        .card-info-separator {
-            margin-left: 10px;
-            margin-right: 10px;
+        .pod {
+            flex: 1;
+            padding: var(--offset-middle) 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--offset-small);
+            border: 1px solid var(--icon-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
         }
-        #contact {
-            color: var(--filter-color);
+        .pod .p {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--offset-small);
+            font-size: 19px;
+            line-height: 1;
+            color: var(--text-color);
+        }
+        .pod svg {
+            width: 1em;
+            height: 1em;
+            font-size: 17px;
+            color: var(--accent-color);
+        }
+        .pod small {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .pod .sad, .pod.unk .icon, .pod.unk b {
+            display: none;
+        }
+        .pod.unk {
+            border-style: dashed;
+            background: var(--well-color);
+        }
+        .pod.unk .sad {
+            display: block;
+            font-size: 22px;
+            color: var(--text-muted);
+        }
+        .maxi_about {
+            padding: 0 var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+        }
+        .maxi_about h2 {
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.2;
+        }
+        .maxi_about .desc {
+            white-space: pre-line;
+            font-size: 15px;
+            line-height: 1.5;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 5;
+        }
+        .maxi_about[data-open] .desc {
+            display: block;
+        }
+        .maxi_about .more {
+            height: 44px;
+            border: 1px solid var(--icon-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+        .maxi_source {
+            padding: var(--offset-big) var(--offset-middle);
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .maxi_source a {
+            color: inherit;
         }
         #filter {
-            bottom: calc(env(safe-area-inset-bottom, 0px) + 7vh);
+            top: calc(env(safe-area-inset-top, 20px) + 21vh);
             right: 0vh;
             width: 10vh;
             height: 48vh;
@@ -948,38 +1202,34 @@ Prices are expressed in Vietnamese dong (VND).
             cursor: ns-resize;
         }
         #toggler {
-            bottom: env(safe-area-inset-bottom, 0px);
+            top: calc(env(safe-area-inset-top, 20px) + 14vh);
             right: 0vh;
-            width: 10vh;
+            width: 7vh;
             height: 7vh;
+            box-sizing: border-box;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             touch-action: manipulation;
             cursor: pointer;
         }
-        #card_heart {
-            position: absolute;
-            top: 0;
-            right: 35px;
-            width: 11px;
-            height: 11px;
-            padding-right: 10px;
-            padding-left: 15px;
-            padding-bottom: 15px;
-            padding-top: 4px;
-            touch-action: manipulation;
-            cursor: pointer;
-        }
-        #card_close {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            padding-right: 10px;
-            padding-left: 15px;
-            padding-bottom: 15px;
-            padding-top: 5px;
-            touch-action: manipulation;
-            cursor: pointer;
+        .ctl {
+            box-sizing: border-box;
+            width: 36px;
+            height: 36px;
+            max-width: 100%;
+            max-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--icon-color);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            color: var(--text-color);
+            font-size: 17px;
+            font-weight: 700;
+            box-shadow: var(--shadow);
         }
         #close {
             top: env(safe-area-inset-top, 20px);
@@ -1017,29 +1267,17 @@ Prices are expressed in Vietnamese dong (VND).
             -webkit-user-select: none;
             cursor: pointer;
         }
-        #icon-filter {
+        #icon-filter, #icon-dong {
             display: block;
-            bottom: 2vh;
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
+            position: static;
+            width: 1em;
+            height: 1em;
+            max-width: 50%;
+            max-height: 50%;
             pointer-events: none;
-            stroke: var(--filter-color);
-            fill: var(--filter-color);
-            stroke-width: 1;
-            vector-effect: non-scaling-stroke;
         }
         #icon-dong {
-            display: block;
-            bottom: 2vh;
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
-            pointer-events: none;
-            stroke: var(--filter-color);
-            fill: var(--filter-color);
-            stroke-width: 1;
-            vector-effect: non-scaling-stroke;
+            fill: currentColor;
         }
         #icon-heart {
             display: block;
@@ -1070,21 +1308,6 @@ Prices are expressed in Vietnamese dong (VND).
             width: 3vh;
             height: 3vh;
             pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        #icon-card-heart {
-            display: block;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        #card_heart.like #icon-card-heart {
-            stroke: #E5E8DB;
-        }
-        #icon-card-close {
-            display: block;
             stroke-width: 1;
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
@@ -1205,9 +1428,6 @@ Prices are expressed in Vietnamese dong (VND).
             animation: slideUp 0.3s ease-out;
             z-index: 9999;
         }
-        #bed {
-            margin-right: 5px;
-        }
     </style>
 </head>
 <body>
@@ -1284,25 +1504,15 @@ Prices are expressed in Vietnamese dong (VND).
     </div>
 </div>
 <div id="toggler" hidden>
-    <svg id="icon-filter" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-        <line x1="4" y1="6"  x2="20" y2="6"/>
-        <circle cx="10" cy="6" r="2.2"/>
-
-        <line x1="4" y1="12" x2="20" y2="12"/>
-        <circle cx="14" cy="12" r="2.2"/>
-
-        <line x1="4" y1="18" x2="20" y2="18"/>
-        <circle cx="8" cy="18" r="2.2"/>
-    </svg>
-    <svg hidden id="icon-dong" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-        <circle cx="12" cy="12" r="11" fill="none"/>
-        <text x="12" y="12"
-        font-size="clamp(100%, calc(90% + 1vw), 160%)"
-        stroke="currentColor"
-        stroke-width="0"
-        dominant-baseline="central"
-        text-anchor="middle">₫</text>
-    </svg>
+    <span class="ctl">
+        <svg id="icon-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg>
+        <svg hidden id="icon-dong" viewBox="0 0 24 24" aria-hidden="true">
+            <text x="12" y="12"
+            font-size="clamp(100%, calc(90% + 1vw), 160%)"
+            dominant-baseline="central"
+            text-anchor="middle">₫</text>
+        </svg>
+    </span>
 </div>
 <div id="close" hidden>
     <svg id="icon-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -1367,58 +1577,50 @@ Prices are expressed in Vietnamese dong (VND).
     <span id="last_update_time_value"><span>
 </div>
 <div id="card">
-    <div id="mover"></div>
-    <div id="card_content">
-        <div id="photo">
-            <div id="photos_container"></div>
-            <div id="dots"></div>
-        </div>
-        <div id="card_info">
-            <div class="card-info-row">
-                <div id="price">12 000 000</div>
-                <div class="card-metric">VND</div>
+    <div class="grip-zone">
+        <span class="grip" aria-hidden="true"></span>
+    </div>
+    <div class="cards">
+        <div class="card_content">
+            <div class="photo_frame">
+                <div class="photos_container"></div>
+                <button type="button" class="card_heart" aria-label="Save" aria-pressed="false"><svg class="h-off" aria-hidden="true" viewBox="0 0 100 100"><path fill="none" fill-rule="nonzero" stroke="currentColor" stroke-width="7" stroke-linejoin="round" d="M53.4 40C51.3 32.7 52.4 24.7 57.5 19.1C61.5 14.8 66 11.5 72 11.5C84 11.5 93 25.5 93 38.5C93 62.5 61.4 77.3 50 88.5C38.6 77.3 7 62.5 7 38.5C7 25.5 16 11.5 28 11.5C34 11.5 38.5 14.8 42.5 19.1C47.9 25 51.2 32.4 53.4 40Z"/><path fill="currentColor" fill-rule="nonzero" d="M49.2 38.1C50.4 42 51.6 45.7 52.9 49.5C54.2 53.2 55.6 56.9 56.6 60.7C58.4 67.8 59.3 76.4 54.7 82.6L57.1 84.4C62.2 77.6 61.9 67.9 61 59.9C60 51.7 58.3 44 55.9 36.1Z"/></svg><svg class="h-on" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="nonzero" d="M53.2 29C51.9 24.1 52.8 18.8 56.4 15.2C57.2 14.4 58.1 13.6 59 12.9C62.8 9.8 67 8 72 8C79.4 8 85.6 12.2 89.8 18C94.1 23.8 96.5 31.3 96.5 38.5C96.5 51.9 87.7 62.5 78.1 70.9C69.8 78.1 60.6 83.7 52.5 91C51.1 92.3 48.9 92.3 47.5 91C39.4 83.7 30.2 78.1 21.9 70.9C12.3 62.5 3.5 51.9 3.5 38.5C3.5 31.3 5.9 23.8 10.2 18C14.4 12.2 20.6 8 28 8C30.6 8 33 8.5 35.3 9.5C40.2 11.5 42.9 16.4 44.5 21.4C45.8 25.4 47.1 29.3 48.4 33.3C50.7 40.2 53.1 47.2 55 54.3C56.9 60.8 58.7 68.4 57.6 75.2C57.4 76.1 58 77 58.9 77.2C59.9 77.4 60.8 76.8 61 75.8C62.6 68.5 61.2 60.3 59.5 53.1C57.9 45.9 55.9 38.8 54 31.6C53.7 30.8 53.5 29.9 53.2 29Z"/></svg></button>
+                <span class="seen num"></span>
             </div>
-            <div class="card-info-row">
-                <div id="category"></div>
-                <div class="card-info-separator"> · </div>
-                <div id="bed"></div>
-                <div>bed</div>
-                <div class="card-info-separator"> · </div>
-                <div id="m2">90</div>
-                <div class="card-metric">m<sup>2</sup></div>
+            <div class="card_info">
+                <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
+                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m²</p>
+                <p class="where"><span class="street"></span> · <b class="area"></b></p>
+                <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
-            <div class="card-info-row">
-                <div id="street" class="card-metric"></div>
-                <div class="card-info-separator"> · </div>
-                <div id="area"></div>
-            </div>
-            <div class="card-info-row card-info-row-last">
-                <div>
-                    <div id="publish"></div> ago at <a id="contact" target="_blank">NhaTot</a>
-                </div>
-            </div>
-        </div>
-        <div id="card_heart">
-            <svg id="icon-card-heart" xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 80 80">
-            <path
-                fill="none" stroke-width="4" stroke-linejoin="round"
-                d="M40 72
-                   L12 43
-                   C2 33 2 17 15 12
-                   C24 8 34 12 40 22
-                   C46 12 56 8 65 12
-                   C78 17 78 33 68 43
-                   Z"/>
-            </svg>
-        </div>
-        <div id="card_close">
-            <svg id="icon-card-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                <line x1="4" y1="4" x2="20" y2="20"/>
-                <line x1="20" y1="4" x2="4" y2="20"/>
-            </svg>
         </div>
     </div>
+</div>
+<div id="maxi" hidden>
+    <div class="maxi_photos">
+        <div class="maxi_strip"></div>
+        <span class="maxi_count num"></span>
+        <div class="maxi_over">
+            <button type="button" class="ctl maxi_close" aria-label="Back to the map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+            <button type="button" class="ctl card_heart" aria-label="Save" aria-pressed="false"><svg class="h-off" aria-hidden="true" viewBox="0 0 100 100"><path fill="none" fill-rule="nonzero" stroke="currentColor" stroke-width="7" stroke-linejoin="round" d="M53.4 40C51.3 32.7 52.4 24.7 57.5 19.1C61.5 14.8 66 11.5 72 11.5C84 11.5 93 25.5 93 38.5C93 62.5 61.4 77.3 50 88.5C38.6 77.3 7 62.5 7 38.5C7 25.5 16 11.5 28 11.5C34 11.5 38.5 14.8 42.5 19.1C47.9 25 51.2 32.4 53.4 40Z"/><path fill="currentColor" fill-rule="nonzero" d="M49.2 38.1C50.4 42 51.6 45.7 52.9 49.5C54.2 53.2 55.6 56.9 56.6 60.7C58.4 67.8 59.3 76.4 54.7 82.6L57.1 84.4C62.2 77.6 61.9 67.9 61 59.9C60 51.7 58.3 44 55.9 36.1Z"/></svg><svg class="h-on" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="nonzero" d="M53.2 29C51.9 24.1 52.8 18.8 56.4 15.2C57.2 14.4 58.1 13.6 59 12.9C62.8 9.8 67 8 72 8C79.4 8 85.6 12.2 89.8 18C94.1 23.8 96.5 31.3 96.5 38.5C96.5 51.9 87.7 62.5 78.1 70.9C69.8 78.1 60.6 83.7 52.5 91C51.1 92.3 48.9 92.3 47.5 91C39.4 83.7 30.2 78.1 21.9 70.9C12.3 62.5 3.5 51.9 3.5 38.5C3.5 31.3 5.9 23.8 10.2 18C14.4 12.2 20.6 8 28 8C30.6 8 33 8.5 35.3 9.5C40.2 11.5 42.9 16.4 44.5 21.4C45.8 25.4 47.1 29.3 48.4 33.3C50.7 40.2 53.1 47.2 55 54.3C56.9 60.8 58.7 68.4 57.6 75.2C57.4 76.1 58 77 58.9 77.2C59.9 77.4 60.8 76.8 61 75.8C62.6 68.5 61.2 60.3 59.5 53.1C57.9 45.9 55.9 38.8 54 31.6C53.7 30.8 53.5 29.9 53.2 29Z"/></svg></button>
+        </div>
+    </div>
+    <div class="maxi_panel">
+        <h1></h1>
+        <p class="where"><span class="street"></span><b class="area"></b></p>
+        <p class="money"><span class="price num"><span class="amount"></span> ₫<small> /mo</small></span><span><span class="publish"></span> ago</span></p>
+        <div class="pods">
+            <div class="pod" data-pod="bedrooms"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>bedrooms</small></div>
+            <div class="pod" data-pod="bathrooms"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>bathrooms</small></div>
+            <div class="pod" data-pod="area"><span class="p"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg><svg class="sad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.03 4.97 L15.22 6.87 L17.35 6.76 L17.65 9.02 L19.62 9.91 L18.98 12.09 L20.4 13.8 L18.95 15.47 L19.54 17.67 L17.55 18.51 L17.21 20.76 L15.08 20.6 L13.86 22.48 L12 21.35 L10.14 22.48 L8.92 20.6 L6.79 20.76 L6.45 18.51 L4.46 17.67 L5.05 15.47 L3.6 13.8 L5.02 12.09 L4.38 9.91 L6.35 9.02 L6.65 6.76 L8.78 6.87 L9.97 4.97"/><path d="M12 4.9 C12.1 3.8 12.8 2.8 14 2.1"/><path d="M8.1 11.2 L10.1 10.5"/><path d="M15.9 11.2 L13.9 10.5"/><circle cx="9.4" cy="13" r="0.75" fill="currentColor"/><circle cx="14.6" cy="13" r="0.75" fill="currentColor"/><path d="M9.6 18 C11 16.6 13 16.6 14.4 18"/></svg><b class="num"></b></span><small>area</small></div>
+        </div>
+    </div>
+    <section class="maxi_about">
+        <h2>About this place</h2>
+        <p class="desc" lang="vi"></p>
+        <button type="button" class="more">Show more</button>
+    </section>
+    <p class="maxi_source">Source: <a class="maxi_link" target="_blank">Chợ Tốt</a></p>
 </div>
 <div id="toast" hidden></div>
 <script>
@@ -1437,23 +1639,17 @@ const $logo = document.getElementById('logo')
 const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
 const $card = document.getElementById('card')
-const $card_info = document.getElementById('card_info')
-const $photo = document.getElementById('photo')
-const $photos_container = document.getElementById('photos_container')
-const $price = document.getElementById('price')
-const $dots = document.getElementById('dots')
-const $street = document.getElementById('street')
-const $category = document.getElementById('category')
-const $area = document.getElementById('area')
-const $m2 = document.getElementById('m2')
-const $publish = document.getElementById('publish')
+const $card_template = $card.querySelector('.card_content')
+$card_template.after($card_template.cloneNode(true), $card_template.cloneNode(true))
+const $cards = [...$card.querySelectorAll('.card_content')]
+var $card_centre = $cards[0]
+var $photo = $card_centre.querySelector('.photo_frame')
+var $photos_container = $card_centre.querySelector('.photos_container')
+var $seen = $card_centre.querySelector('.seen')
+var $card_info = $card_centre.querySelector('.card_info')
 const $title = document.getElementById('title')
-const $contact = document.getElementById('contact')
-const $card_heart = document.getElementById('card_heart')
-const $card_close = document.getElementById('card_close')
 const $last_update_time = document.getElementById('last_update_time')
 const $last_update_time_value = document.getElementById('last_update_time_value')
-const $bed = document.getElementById('bed')
 
 var same_likes
 
@@ -1757,10 +1953,18 @@ window.addEventListener('appinstalled', () => {
     gtag('event', 'installed')
 })
 
-$card_close.onclick = () => {
-    window.card_was_open = false
-    $card.setAttribute('hidden', '')
-    if (y_card_min) $card.style.height = y_card_min + 'px'
+function card_hide() {
+    carousel_unselect()
+    $card.style.transition = 'transform 0.1s ease'
+    $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
+}
+
+$card.onclick = e => {
+    const $like = e.target.closest('.card_heart')
+    if ($like) return toggle_like(Number($like.closest('.card_content').dataset.id))
+    if (card_moved) return e.preventDefault()
+    const $c = e.target.closest('.card_content')
+    if ($c) maxi_open(Number($c.dataset.id))
 }
 
 function toggle_like(id) {
@@ -1773,7 +1977,8 @@ function toggle_like(id) {
         likes.add(id)
         liked = true
     }
-    if (window.card_id == id) $card_heart.classList.toggle('like', liked)
+    $cards.forEach($c => $c.dataset.id == id && $c.querySelector('.card_heart').setAttribute('aria-pressed', liked))
+    if ($maxi.dataset.id == id) $maxi.querySelector('.card_heart').setAttribute('aria-pressed', liked)
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
@@ -1789,20 +1994,13 @@ function toggle_like(id) {
     return likes
 }
 
-$card_heart.onclick = () => toggle_like(card_id)
-
 var card_height = null
 var y_card_max = null
 var y_card_min = null
 var detect_y_card_min = false
 
-window.card_was_open = false
 window.addEventListener('resize', () => {
-    if (is_touch_vertical()) {
-        if (card_was_open) $card.removeAttribute('hidden')
-    } else {
-        $card.setAttribute('hidden', '')
-    }
+    if (!is_touch_vertical()) $card.setAttribute('hidden', '')
 })
 
 window.photo_current_index = null
@@ -1813,6 +2011,7 @@ new ResizeObserver(() => {
     $photos_container.style.transition = 'none'
     photo_size = $photo.getBoundingClientRect().width
     //to_current()
+    if (carousel_ids.length) carousel_render()
 }).observe($photo)
 
 var card_start_t = null
@@ -1831,18 +2030,18 @@ var x_photo_min = null
 var x_photo_max = null
 var cur_x
 var photo_swipe
+var card_moved = false
 
 $card.ontouchstart = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    card_moved = false
+    if (e.target.closest('.card_heart')) return
     $card.style.transition = 'none'
     card_start_t = Date.now()
     card_start_x = e.changedTouches[0].screenX
     card_start_y = e.changedTouches[0].screenY
+    card_prev_x = card_start_x
+    card_prev_y = card_start_y
     card_prev_prev_x = card_start_x
     card_prev_prev_y = card_start_y
     var rect = $card.getBoundingClientRect()
@@ -1861,14 +2060,13 @@ $card.ontouchstart = e => {
     x_photo_max = (photo_total_count - 1) * photo_size
     cur_x = photo_current_index * photo_size
     photo_swipe = undefined
+    carousel_swipe = undefined
+    carousel_start_pos = carousel_pos
+    for (const $c of $cards) $c.style.transition = 'none'
 }
 $card.ontouchmove = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    if (e.target.closest('.card_heart')) return
     try{ e?.preventDefault()} catch(e) {}
     card_prev_prev_x = card_prev_x
     card_prev_x = e.changedTouches[0].screenX
@@ -1879,16 +2077,19 @@ $card.ontouchmove = e => {
     var dy = card_prev_y - card_start_y
 
     if (photo_swipe == undefined) {
-        photo_swipe = (
-            e.target.id == 'photo' ||
-            e.target.classList.contains('photo')
-        ) && 2 * Math.abs(dx) > Math.abs(dy)
+        if (Math.abs(dx) + Math.abs(dy) < 6) return
+        card_moved = true
+        photo_swipe = e.target.closest('.photo_frame') == $photo && 2 * Math.abs(dx) > Math.abs(dy)
+        carousel_swipe = !photo_swipe && carousel_ids.length > 1 && 2 * Math.abs(dx) > Math.abs(dy)
     }
     
     if (photo_swipe) {
         var x = Math.max(x_photo_min, Math.min(x_photo_max, cur_x - dx))
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         $photos_container.removeAttribute('hidden')
+    } else if (carousel_swipe) {
+        carousel_pos = carousel_start_pos - dx / carousel_step()
+        carousel_render()
     } else {
         $photos_container.setAttribute('hidden', '')
         var last_move_direction = dy > 0 ? 'down' : 'up'
@@ -1915,11 +2116,7 @@ $card.ontouchmove = e => {
 }
 $card.ontouchend = e => {
     e.stopPropagation()
-    if (e.target.id == 'contact') return
-    if (e.target.id == 'card_heart') return
-    if (e.target.id == 'icon-card-heart') return
-    if (e.target.classList.contains('dot')) return
-    if (e.target.id == 'dots') return
+    if (e.target.closest('.card_heart')) return
     card_end_t = Date.now()
     card_end_x = e.changedTouches[0].screenX
     card_end_y = e.changedTouches[0].screenY
@@ -1940,6 +2137,27 @@ $card.ontouchend = e => {
         }
         return
     }
+    if (carousel_swipe) {
+        var step = carousel_step()
+        var frames = Math.ceil(Math.abs(dx / step))
+        var last_move_direction = card_end_x > card_prev_prev_x ? 'left' : 'right'
+        var target = carousel_start_pos
+        if (last_move_direction == 'right') {
+            if (dx < 0) target += frames
+        } else {
+            if (dx > 0) target -= frames
+        }
+        if (carousel_ids.length == 2) target = Math.max(0, Math.min(1, target))
+        var rest_path = Math.abs(target - carousel_pos) * step
+        var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
+        carousel_render(target)
+        for (const $c of $cards) {
+            $c.style.transition = `transform ${rest_time_ms / 1000}s linear`
+            $c.style.transform = `translate3d(${($c.carousel_index - target) * step}px, 0, 0)`
+        }
+        carousel_pos = target
+        return
+    }
     var dY = null // future rest path for animation
     var dT = null // future rest time for animation
     var vY = Math.max(0.4, 1.5 * Math.abs(dy / dt))
@@ -1951,6 +2169,7 @@ $card.ontouchend = e => {
 
     if (card_going_close) {
         if (last_move_direction == 'down') {
+            carousel_unselect()
             dY = y_card_min - b
             dT = Math.abs(dY / vY)
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
@@ -1981,19 +2200,370 @@ $card.ontouchend = e => {
     }
 }
 
+var carousel_ids = []
+var carousel_pos = 0
+var carousel_start_pos = 0
+var carousel_swipe
+var carousel_selected = null
+const CAROUSEL_GAP = 0.05
+
+const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
+
+function carousel_order(id) {
+    const bounds = map.getBounds()
+    return ads
+        .filter(ad => ad.id == id || (
+            bounds.contains([ad.longitude, ad.latitude]) &&
+            map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
+        ))
+        .sort((a, b) => a.price - b.price || a.id - b.id)
+        .map(ad => ad.id)
+}
+
+function carousel_select(id) {
+    if (carousel_selected?.id == id) return
+    carousel_unselect()
+    carousel_selected = { id, mode: map.getFeatureState({ source: 'prices', id }).mode }
+    map.setFeatureState({ source: 'prices', id }, { mode: 'selected', hover: false })
+}
+
+function carousel_unselect() {
+    if (!carousel_selected) return
+    const { id, mode } = carousel_selected
+    carousel_selected = null
+    if (map.getFeatureState({ source: 'prices', id }).mode == 'selected') map.setFeatureState({ source: 'prices', id }, { mode })
+}
+
+function carousel_open(id) {
+    carousel_unselect()
+    carousel_ids = carousel_order(id)
+    carousel_pos = carousel_ids.indexOf(id)
+    $card_centre = $cards[1]
+    $cards.forEach(($c, i) => {
+        $c.carousel_index = carousel_pos + i - 1
+        $c.style.transition = 'none'
+        $c.querySelector('.card_info').removeAttribute('hidden')
+        fill_card($c, carousel_ids[carousel_mod($c.carousel_index)])
+    })
+    carousel_centre($cards[1])
+    carousel_render()
+}
+
+const carousel_step = () => $card_centre.getBoundingClientRect().width + CAROUSEL_GAP * $card.clientWidth
+
+function carousel_render(centre = Math.round(carousel_pos)) {
+    const step = carousel_step()
+    if (carousel_ids.length < 3) centre = Math.max(0, Math.min(carousel_ids.length - 1, centre))
+    const wanted = [centre - 1, centre, centre + 1]
+    const spare = $cards.filter($c => !wanted.includes($c.carousel_index))
+    for (const index of wanted) {
+        if ($cards.some($c => $c.carousel_index == index)) continue
+        const $c = spare.pop()
+        $c.carousel_index = index
+        fill_card($c, carousel_ids[carousel_mod(index)])
+    }
+    for (const $c of $cards) {
+        $c.style.visibility = carousel_ids.length > 2 || ($c.carousel_index >= 0 && $c.carousel_index < carousel_ids.length) ? '' : 'hidden'
+        $c.style.transform = `translate3d(${($c.carousel_index - carousel_pos) * step}px, 0, 0)`
+    }
+    const $centre = $cards.find($c => $c.carousel_index == centre)
+    if ($centre != $card_centre) carousel_centre($centre)
+}
+
+function carousel_centre($c) {
+    if ($c != $card_centre) $card_centre.dataset.photo = photo_current_index
+    $card_centre = $c
+    $cards.forEach($x => $x.inert = $x != $c)
+    $photo = $c.querySelector('.photo_frame')
+    $photos_container = $c.querySelector('.photos_container')
+    $seen = $c.querySelector('.seen')
+    $card_info = $c.querySelector('.card_info')
+    photo_current_index = Number($c.dataset.photo) || 0
+    photo_total_count = $photos_container.children.length
+    window.card_id = Number($c.dataset.id)
+    carousel_select(window.card_id)
+}
+
+const $maxi = document.getElementById('maxi')
+const $maxi_strip = $maxi.querySelector('.maxi_strip')
+const $maxi_count = $maxi.querySelector('.maxi_count')
+var maxi_photo_index = 0
+var maxi_start_x = 0
+var maxi_start_y = 0
+var maxi_start_t = null
+var maxi_prev_x = 0
+var maxi_prev_prev_x = 0
+var maxi_prev_y = 0
+var maxi_prev_prev_y = 0
+var maxi_swipe
+
+function maxi_open(id) {
+    const ad = ads.find(ad => ad.id == id)
+    const kind = get_category_for_user(ad.category)
+    const district = get_area_v2_for_user(ad.area)
+    const $c = $cards.find($c => $c.dataset.id == id)
+    $maxi.dataset.id = id
+    $maxi.querySelector('h1').textContent = ad.bedrooms && (kind == 'Apartment' || kind == 'House')
+        ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+        : `${kind} in ${district}`
+    $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
+    $maxi.querySelector('.area').textContent = district
+    $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
+    $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
+    $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
+    const living = kind == 'Apartment' || kind == 'House'
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m²`, true]]) {
+        const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
+        $pod.hidden = !shown
+        $pod.classList.toggle('unk', !value)
+        $pod.querySelector('b').textContent = value || ''
+    }
+    $maxi.querySelector('.maxi_link').href = get_url(id)
+    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    maxi_photo_index = 0
+    $maxi_strip.style.transition = 'none'
+    $maxi_strip.style.transform = 'translate3d(0,0,0)'
+    $maxi_count.textContent = $maxi_strip.children.length ? `1 / ${$maxi_strip.children.length}` : ''
+    $maxi.style.transition = 'none'
+    $maxi.style.transform = 'translate3d(0,0,0)'
+    $maxi.scrollTop = 0
+    $maxi.removeAttribute('hidden')
+    maxi_about($c.dataset.body)
+}
+
+function maxi_about(text) {
+    const $about = $maxi.querySelector('.maxi_about')
+    const $desc = $about.querySelector('.desc')
+    const $more = $about.querySelector('.more')
+    $about.hidden = !text
+    $about.removeAttribute('data-open')
+    $desc.textContent = text || ''
+    $more.textContent = 'Show more'
+    $more.hidden = $desc.scrollHeight <= $desc.clientHeight
+}
+
+function maxi_close() {
+    $maxi.style.transition = 'transform 0.1s ease'
+    $maxi.style.transform = `translate3d(0, ${$maxi.clientHeight}px, 0)`
+}
+
+$maxi.onclick = e => {
+    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
+    const $more = e.target.closest('.more')
+    if ($more) {
+        const $about = $more.closest('.maxi_about')
+        $about.toggleAttribute('data-open')
+        return $more.textContent = $about.hasAttribute('data-open') ? 'Show less' : 'Show more'
+    }
+    const $link = e.target.closest('.maxi_link')
+    if ($link) {
+        const id = Number($maxi.dataset.id)
+        gtag('event', 'ad_click', {ad_id: id, ad_url: $link.href, price: ads.find(ad => ad.id == id).price, page: current_page})
+    }
+}
+
+$maxi.ontouchstart = e => {
+    e.stopPropagation()
+    if (e.target.closest('.ctl')) return
+    maxi_start_t = Date.now()
+    maxi_start_x = e.changedTouches[0].screenX
+    maxi_start_y = e.changedTouches[0].screenY
+    maxi_prev_x = maxi_start_x
+    maxi_prev_y = maxi_start_y
+    maxi_prev_prev_x = maxi_start_x
+    maxi_prev_prev_y = maxi_start_y
+    maxi_swipe = undefined
+    $maxi.style.transition = 'none'
+    $maxi_strip.style.transition = 'none'
+}
+$maxi.ontouchmove = e => {
+    e.stopPropagation()
+    if (e.target.closest('.ctl')) return
+    maxi_prev_prev_x = maxi_prev_x
+    maxi_prev_x = e.changedTouches[0].screenX
+    maxi_prev_prev_y = maxi_prev_y
+    maxi_prev_y = e.changedTouches[0].screenY
+    var dx = maxi_prev_x - maxi_start_x
+    var dy = maxi_prev_y - maxi_start_y
+    if (maxi_swipe == undefined) {
+        if (Math.abs(dx) + Math.abs(dy) < 6) return
+        if (e.target.closest('.maxi_photos') && 2 * Math.abs(dx) > Math.abs(dy)) maxi_swipe = 'photo'
+        else if (dy > 2 * Math.abs(dx) && $maxi.scrollTop == 0) maxi_swipe = 'close'
+        else maxi_swipe = 'scroll'
+    }
+    if (maxi_swipe == 'photo') {
+        e.preventDefault()
+        var width = $maxi.clientWidth
+        var x = Math.max(0, Math.min(($maxi_strip.children.length - 1) * width, maxi_photo_index * width - dx))
+        $maxi_strip.style.transform = `translate3d(-${x}px,0,0)`
+    } else if (maxi_swipe == 'close') {
+        e.preventDefault()
+        $maxi.style.transform = `translate3d(0,${Math.max(0, dy)}px,0)`
+    }
+}
+$maxi.ontouchend = e => {
+    e.stopPropagation()
+    if (e.target.closest('.ctl')) return
+    var end_x = e.changedTouches[0].screenX
+    var end_y = e.changedTouches[0].screenY
+    var dt = Date.now() - maxi_start_t
+    var dx = end_x - maxi_start_x
+    var dy = end_y - maxi_start_y
+    if (maxi_swipe == 'photo') {
+        var width = $maxi.clientWidth
+        var count = $maxi_strip.children.length
+        var from = Math.max(0, Math.min((count - 1) * width, maxi_photo_index * width - dx))
+        var frames = Math.ceil(Math.abs(dx / width))
+        var last_move_direction = end_x > maxi_prev_prev_x ? 'left' : 'right'
+        if (last_move_direction == 'right') {
+            if (dx < 0) maxi_photo_index = Math.min(count - 1, maxi_photo_index + frames)
+        } else {
+            if (dx > 0) maxi_photo_index = Math.max(0, maxi_photo_index - frames)
+        }
+        var rest_time_ms = Math.abs(maxi_photo_index * width - from) / Math.max(0.4, 1.5 * Math.abs(dx / dt))
+        $maxi_strip.style.transition = `transform ${rest_time_ms / 1000}s linear`
+        $maxi_strip.style.transform = `translate3d(-${maxi_photo_index * width}px,0,0)`
+        $maxi_count.textContent = `${maxi_photo_index + 1} / ${count}`
+    } else if (maxi_swipe == 'close') {
+        var height = $maxi.clientHeight
+        var last_move_direction = end_y > maxi_prev_prev_y ? 'down' : 'up'
+        var target = last_move_direction == 'down' ? height : 0
+        var rest_time_ms = Math.abs(target - Math.max(0, dy)) / Math.max(0.4, 1.5 * Math.abs(dy / dt))
+        $maxi.style.transition = `transform ${rest_time_ms / 1000}s linear`
+        $maxi.style.transform = `translate3d(0,${target}px,0)`
+    }
+}
+
+const FONT_URL = '/jakarta-latin.woff2'
+var font_loaded = false
+
+function load_font() {
+    if (font_loaded) return
+    font_loaded = true
+    caches.open('fonts')
+    .then(c =>
+        c.match(FONT_URL)
+        .then(r =>
+            r || fetch(FONT_URL)
+            .then(r =>
+                r.ok && c.put(FONT_URL, r.clone()).then(_ => r)
+            )
+        )
+    )
+    .then(_ => _.arrayBuffer())
+    .then(_ => document.fonts.add(new FontFace('Plus Jakarta Sans', _, {weight: '400 700', display: 'swap'})))
+}
+
+function fill_card($c, id) {
+    const ad = ads.find(ad => ad.id == id)
+    const url = get_url(id)
+    const $frame = $c.querySelector('.photo_frame')
+    const $strip = $c.querySelector('.photos_container')
+    $c.dataset.id = id
+    $c.dataset.photo = 0
+    $c.dataset.body = ''
+    const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
+    $c.querySelector('.card_heart').setAttribute('aria-pressed', likes.has(id))
+
+    var photos_urls
+    try {
+        photos_urls = get_ad_img_urls(id)
+        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+    } catch (e) {
+        console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
+        photos_urls = []
+    }
+    $strip.style.transition = 'none'
+    $strip.style.transform = `translate3d(0,0,0)`
+    for (var i = 0, $; i < photos_urls.length; i++) {
+        if ($strip.children[i]) {
+            $ = $strip.children[i]
+            $.style.backgroundImage = `url("${photos_urls[i]}")`
+        } else {
+            $ = document.createElement('div')
+            $.className = 'photo'
+            $.style.backgroundImage = `url("${photos_urls[i]}")`
+            $strip.appendChild($)
+        }
+        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+    }
+    while ($strip.children.length > photos_urls.length) {
+        $strip.lastElementChild.remove()
+    }
+    $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
+    var price_string = String(ad.price).split('').reverse()
+    var price_string_space = ''
+    for (var i = 0; i < price_string.length; i++) {
+        if (i != 0 && i % 3 == 0)
+            price_string_space = ' ' + price_string_space
+        price_string_space = price_string[i] + price_string_space
+    }
+    $c.querySelector('.amount').textContent = price_string_space
+    $c.querySelector('.category').textContent = get_category_for_user(ad.category)
+    $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
+    $c.querySelector('.m2').textContent = ad.m2
+    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
+    $c.querySelector('.street').textContent = ''
+    load_font()
+
+    fetch(
+        '/ads.bin',
+        {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
+    )
+    .then(_ => _.arrayBuffer())
+    .then(ab => {
+        const view = new DataView(ab)
+        const decoder = new TextDecoder('utf-8')
+        var offset = 0
+
+        const subjectLen = view.getUint32(offset, false)
+        offset += 4
+        const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
+        offset += subjectLen
+
+        const bodyLen = view.getUint32(offset, false)
+        offset += 4
+        const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
+        offset += bodyLen
+
+        const streetLen = view.getUint32(offset, false)
+        offset += 4
+        const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
+        return [subject, body, street_name]
+    })
+    .then(([subject, body, street_name]) => {
+        if ($c.dataset.id != id) return
+        $c.querySelector('.street').textContent = street_name
+        $c.dataset.body = body
+        if ($maxi.dataset.id == id) {
+            $maxi.querySelector('.street').textContent = street_name
+            maxi_about(body)
+        }
+        console.log(
+            'subject:', subject,
+            'body:', body,
+            'street_name:', street_name
+        )
+    })
+}
+
 function to_current() {
     var x = photo_current_index * photo_size
     $photos_container.style.transform = `translate3d(-${x}px,0,0)`
     $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
 }
+function show_seen() {
+    $seen.textContent = `${photo_current_index + 1} / ${photo_total_count}`
+}
 function next_proto_right(frames) {
     if (frames == 0) return
     if (photo_current_index + frames < photo_total_count) {
-        ;[...$dots.children].forEach(_ => _.classList.remove('active'))
         photo_current_index += frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-        $dots.children[photo_current_index].classList.add('active')
+        show_seen()
         $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
        next_proto_right(frames - 1)
@@ -2002,28 +2572,14 @@ function next_proto_right(frames) {
 function next_proto_left(frames) {
     if (frames == 0) return
     if (photo_current_index - frames >= 0) {
-        ;[...$dots.children].forEach(_ => _.classList.remove('active'))
         photo_current_index -= frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-        $dots.children[photo_current_index].classList.add('active')
+        show_seen()
         $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
         next_proto_left(frames - 1)
     }
-}
-
-$dots.onclick = e => {
-    if (!e.target.classList.contains('dot')) return
-    var index = [...$dots.children].findIndex(_ => _ == e.target)
-    if (index == photo_current_index) return
-    
-    ;[...$dots.children].forEach(_ => _.classList.remove('active'))
-    
-    photo_current_index = index
-    var x = photo_current_index * photo_size
-    $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-    $dots.children[photo_current_index].classList.add('active')
 }
 
 $heart.onpointerup = e => {
@@ -2141,16 +2697,21 @@ var step
 var min$
 var max$
 
+function filter_close() {
+    filter.setAttribute('hidden', '')
+    $icon_dong.setAttribute('hidden', '')
+    $icon_filter.removeAttribute('hidden')
+    filter.onwheel = null
+}
+
 toggler.onpointerup = e => {
     if (filter.hasAttribute('hidden')) {
+        card_hide()
         filter.removeAttribute('hidden')
         $icon_dong.removeAttribute('hidden')
         $icon_filter.setAttribute('hidden', '')
     } else {
-        filter.setAttribute('hidden', '')
-        $icon_dong.setAttribute('hidden', '')
-        $icon_filter.removeAttribute('hidden')
-        filter.onwheel = null
+        filter_close()
         return
     }
     rect_scale = scale.getBoundingClientRect()
@@ -2941,7 +3502,14 @@ apply_filter = throttle(apply_filter, 90)
                                 ['*', circle_radius, hover_scale]//normal
                             ]
                         ],
-                        'circle-color': '#E5E8DB',
+                        'circle-color': theme.paint['price-circle']['circle-color'][+!dark],
+                        'circle-stroke-color': theme.paint['price-circle']['circle-stroke-color'][+!dark],
+                        'circle-stroke-width': [
+                            'match',
+                            ['feature-state', 'mode'],
+                            'selected', 1,
+                            0
+                        ],
                         'circle-opacity':
                         [
                             "step",
@@ -3306,107 +3874,24 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
 
-                window.card_id = id
-                const ad = ads.find(ad => ad.id == id)
+                const closed = $card.hidden || $card.getBoundingClientRect().top >= innerHeight - 1
+                if (!filter.hasAttribute('hidden')) filter_close()
                 $card.removeAttribute('hidden')
-                window.card_was_open = true
+                $card.style.transition = 'none'
+                if (closed) $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
                 $card.style.bottom = 0
-                if (y_card_min) $card.style.height = y_card_min + 'px'
-                $card_info.removeAttribute('hidden')
-                const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
-                $card_heart.classList.toggle('like', likes.has(id))
-
-                var photos_urls
-                try {
-                    photos_urls = get_ad_img_urls(id)
-                    if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
-                } catch (e) {
-                    console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
-                    photos_urls = []
-                }
-                $dots.innerHTML = ''
-                photo_total_count = photos_urls.length
-                photo_current_index = 0
-                $photos_container.style.transform = `translate3d(0,0,0)`
-                $photo.style.backgroundImage = `url("${photos_urls[i]}")`
-                for (var i = 0, $; i < photos_urls.length; i++) {
-                    if ($photos_container.children[i]) {
-                        $ = $photos_container.children[i]
-                        $.style.backgroundImage = `url("${photos_urls[i]}")`
-                    } else {
-                        $ = document.createElement('div')
-                        $.className = 'photo'
-                        $.style.backgroundImage = `url("${photos_urls[i]}")`
-                        $photos_container.appendChild($)
-                    }
-                    var $dot = document.createElement('div')
-                    $dot.className = 'dot'
-                    $dots.appendChild($dot)
-                    if (i == 0) {
-                        $dot.classList.add('active')
-                        $photo.style.backgroundImage = `url("${photos_urls[i]}")`
-                    }
-                }
-                while ($photos_container.children.length > photos_urls.length) {
-                    $photos_container.lastElementChild.remove()
-                }
-                var price_string = String(price).split('').reverse()
-                var price_string_space = ''
-                for (var i = 0; i < price_string.length; i++) {
-                    if (i != 0 && i % 3 == 0)
-                        price_string_space = ' ' + price_string_space
-                    price_string_space = price_string[i] + price_string_space
-                }
-                $price.textContent = price_string_space
-                $category.textContent = get_category_for_user(ad.category)
-                $area.textContent = get_area_v2_for_user(ad.area)
-                $m2.textContent = ad.m2
-                $bed.textContent = ad.bedrooms || '-'
-                $publish.textContent = `${ago(ad.publish)}`
-                $contact.onclick = () => gtag('event', 'ad_click', {ad_id: id, ad_url: url, price, page: current_page})
-                $contact.href = url
-                
-                fetch(
-                    '/ads.bin',
-                    {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
-                )
-                .then(_ => _.arrayBuffer())
-                .then(ab => {
-                    const view = new DataView(ab)
-                    const decoder = new TextDecoder('utf-8')
-                    var offset = 0
-                    
-                    const subjectLen = view.getUint32(offset, false)
-                    offset += 4
-                    const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
-                    offset += subjectLen
-                    
-                    const bodyLen = view.getUint32(offset, false)
-                    offset += 4
-                    const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
-                    offset += bodyLen
-                    
-                    const streetLen = view.getUint32(offset, false)
-                    offset += 4
-                    const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
-                    return [subject, body, street_name]
-                })
-                .then(([subject, body, street_name]) => {
-                    $street.textContent = street_name
-                    console.log(
-                        'subject:', subject,
-                        'body:', body,
-                        'street_name:', street_name
-                    )
-                })
+                $card.style.height = ''
+                detect_y_card_min = false
+                carousel_open(id)
+                $card.style.transition = 'transform 0.1s ease'
+                $card.style.transform = 'translate3d(0, 0, 0)'
             })
             map.on('click', e => {
                 features = map.queryRenderedFeatures(e.point, {
                     layers: ['price-hitbox']
                 })
                 if (!features || !features.length) {
-                    $card.setAttribute('hidden', '')
-                    if (y_card_min) $card.style.height = y_card_min + 'px'
+                    card_hide()
                     if (current_page == PAGE.SINGLE) {
                         current_page = PAGE.MAIN
                         history.pushState({}, '', '/')
@@ -3414,6 +3899,23 @@ apply_filter = throttle(apply_filter, 90)
                     }
                     return
                 }
+            })
+            map.on('moveend', () => {
+                if (!carousel_selected) return
+                const ids = carousel_order(card_id)
+                if (ids.join() == carousel_ids.join()) return
+                carousel_ids = ids
+                carousel_pos = ids.indexOf(card_id)
+                const sides = $cards.filter($c => $c != $card_centre).sort((a, b) => a.carousel_index - b.carousel_index)
+                $card_centre.carousel_index = carousel_pos
+                sides[0].carousel_index = carousel_pos - 1
+                sides[1].carousel_index = carousel_pos + 1
+                for (const $c of sides) {
+                    $c.style.transition = 'none'
+                    const id = carousel_ids[carousel_mod($c.carousel_index)]
+                    if ($c.dataset.id != id) fill_card($c, id)
+                }
+                carousel_render()
             })
 
             navigator.geolocation && navigator.permissions?.query({ name: 'geolocation' })
