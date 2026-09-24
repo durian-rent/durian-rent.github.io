@@ -880,6 +880,7 @@ Prices are expressed in Vietnamese dong (VND).
         .card_content {
             grid-row: 1;
             grid-column: 1;
+            justify-self: center;
             position: relative;
             width: 80%;
             box-sizing: border-box;
@@ -2150,11 +2151,9 @@ $card.ontouchend = e => {
         var rest_path = Math.abs(target - carousel_pos) * step
         var rest_time_ms = rest_path / Math.max(0.4, 1.5 * Math.abs(dx / dt))
         carousel_render(target)
-        var xs = []
-        for (const $c of $cards) xs.push(carousel_x($c.carousel_index, target))
-        for (const [i, $c] of $cards.entries()) {
+        for (const $c of $cards) {
             $c.style.transition = `transform ${rest_time_ms / 1000}s linear`
-            $c.style.transform = `translate3d(${xs[i]}px, 0, 0)`
+            $c.style.transform = `translate3d(${($c.carousel_index - target) * step}px, 0, 0)`
         }
         carousel_pos = target
         return
@@ -2250,11 +2249,10 @@ function carousel_open(id) {
     carousel_render()
 }
 
-const carousel_step = () => $card_centre.offsetWidth + CAROUSEL_GAP * $card.clientWidth
-
-const carousel_x = (index, pos) => Math.round((($card.clientWidth - $card_centre.offsetWidth) / 2 + (index - pos) * carousel_step()) * devicePixelRatio) / devicePixelRatio
+const carousel_step = () => $card_centre.getBoundingClientRect().width + CAROUSEL_GAP * $card.clientWidth
 
 function carousel_render(centre = Math.round(carousel_pos)) {
+    const step = carousel_step()
     if (carousel_ids.length < 3) centre = Math.max(0, Math.min(carousel_ids.length - 1, centre))
     const wanted = [centre - 1, centre, centre + 1]
     const spare = $cards.filter($c => !wanted.includes($c.carousel_index))
@@ -2266,7 +2264,7 @@ function carousel_render(centre = Math.round(carousel_pos)) {
     }
     for (const $c of $cards) {
         $c.style.visibility = carousel_ids.length > 2 || ($c.carousel_index >= 0 && $c.carousel_index < carousel_ids.length) ? '' : 'hidden'
-        $c.style.transform = `translate3d(${carousel_x($c.carousel_index, carousel_pos)}px, 0, 0)`
+        $c.style.transform = `translate3d(${($c.carousel_index - carousel_pos) * step}px, 0, 0)`
     }
     const $centre = $cards.find($c => $c.carousel_index == centre)
     if ($centre != $card_centre) carousel_centre($centre)
