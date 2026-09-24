@@ -3914,7 +3914,7 @@ apply_filter = throttle(apply_filter, 90)
             map.on('moveend', () => {
                 if (card_closed) return
                 const ids = carousel_order(card_id)
-                if (ids.join() == carousel_ids.join()) return
+                if (ids.length == carousel_ids.length && ids.every((id, i) => carousel_ids[i] == id)) return
                 carousel_ids = ids
                 carousel_pos = ids.indexOf(card_id)
                 const sides = $cards.filter($c => $c != $card_centre).sort((a, b) => a.carousel_index - b.carousel_index)
