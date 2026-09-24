@@ -586,6 +586,13 @@ Prices are expressed in Vietnamese dong (VND).
             'price-circle-filtered': {
                 'circle-color': ['#555', '#888']
             },
+            'price-circle': {
+                'circle-color': [
+                    ['match', ['feature-state', 'mode'], 'selected', '#F5D766', '#E5E8DB'],
+                    ['match', ['feature-state', 'mode'], 'selected', '#E5C762', '#E5E8DB']
+                ],
+                'circle-stroke-color': ['#857F3B', '#807C43']
+            },
             background: {
                 "background-color": ["#0E1911", "#E5E8DB"]
             },
@@ -1733,6 +1740,7 @@ window.addEventListener('appinstalled', () => {
 })
 
 function card_hide() {
+    carousel_unselect()
     $card.style.transition = 'transform 0.1s ease'
     $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
 }
@@ -1952,6 +1960,7 @@ $card.ontouchend = e => {
 
     if (card_going_close) {
         if (last_move_direction == 'down') {
+            carousel_unselect()
             dY = y_card_min - b
             dT = Math.abs(dY / vY)
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
@@ -1986,6 +1995,7 @@ var carousel_ids = []
 var carousel_pos = 0
 var carousel_start_pos = 0
 var carousel_swipe
+var carousel_selected = null
 const CAROUSEL_GAP = 0.05
 
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
@@ -2001,7 +2011,22 @@ function carousel_order(id) {
         .map(ad => ad.id)
 }
 
+function carousel_select(id) {
+    if (carousel_selected?.id == id) return
+    carousel_unselect()
+    carousel_selected = { id, mode: map.getFeatureState({ source: 'prices', id }).mode }
+    map.setFeatureState({ source: 'prices', id }, { mode: 'selected', hover: false })
+}
+
+function carousel_unselect() {
+    if (!carousel_selected) return
+    const { id, mode } = carousel_selected
+    carousel_selected = null
+    if (map.getFeatureState({ source: 'prices', id }).mode == 'selected') map.setFeatureState({ source: 'prices', id }, { mode })
+}
+
 function carousel_open(id) {
+    carousel_unselect()
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
@@ -2048,6 +2073,7 @@ function carousel_centre($c) {
     photo_current_index = Number($c.dataset.photo) || 0
     photo_total_count = $photos_container.children.length
     window.card_id = Number($c.dataset.id)
+    carousel_select(window.card_id)
 }
 
 const FONT_URL = '/jakarta-latin.woff2'
@@ -3112,7 +3138,14 @@ apply_filter = throttle(apply_filter, 90)
                                 ['*', circle_radius, hover_scale]//normal
                             ]
                         ],
-                        'circle-color': '#E5E8DB',
+                        'circle-color': theme.paint['price-circle']['circle-color'][+!dark],
+                        'circle-stroke-color': theme.paint['price-circle']['circle-stroke-color'][+!dark],
+                        'circle-stroke-width': [
+                            'match',
+                            ['feature-state', 'mode'],
+                            'selected', 1,
+                            0
+                        ],
                         'circle-opacity':
                         [
                             "step",
