@@ -3900,6 +3900,23 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
             })
+            map.on('moveend', () => {
+                if (!carousel_selected) return
+                const ids = carousel_order(card_id)
+                if (ids.join() == carousel_ids.join()) return
+                carousel_ids = ids
+                carousel_pos = ids.indexOf(card_id)
+                const sides = $cards.filter($c => $c != $card_centre).sort((a, b) => a.carousel_index - b.carousel_index)
+                $card_centre.carousel_index = carousel_pos
+                sides[0].carousel_index = carousel_pos - 1
+                sides[1].carousel_index = carousel_pos + 1
+                for (const $c of sides) {
+                    $c.style.transition = 'none'
+                    const id = carousel_ids[carousel_mod($c.carousel_index)]
+                    if ($c.dataset.id != id) fill_card($c, id)
+                }
+                carousel_render()
+            })
 
             navigator.geolocation && navigator.permissions?.query({ name: 'geolocation' })
             .then(geo_permission => {
