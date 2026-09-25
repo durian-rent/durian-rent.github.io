@@ -363,7 +363,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1790298418890'
+    const VER_WASM = '1790319563804'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -471,7 +471,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '259e63390deaf60cef266abe5aa9e1309cb719a47cbffbbfe5af7b6b32951a4a'// contact spirin.vladimir@gmail.com
+        const KEY = '52ea64d620092aa4a671143d30b97c1611119e49acb023bc33bd874beb8058c3'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -589,7 +589,7 @@ Prices are expressed in Vietnamese dong (VND).
             'price-circle': {
                 'circle-color': [
                     ['match', ['feature-state', 'mode'], 'selected', '#F5D766', '#E5E8DB'],
-                    ['match', ['feature-state', 'mode'], 'selected', '#E5C762', '#E5E8DB']
+                    ['match', ['feature-state', 'mode'], 'selected', '#E5C762', '#0E1911']
                 ],
                 'circle-stroke-color': ['#857F3B', '#807C43']
             },
