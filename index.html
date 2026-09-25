@@ -2311,7 +2311,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + parseFloat(getComputedStyle($card).getPropertyValue('--offset-big'))
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
