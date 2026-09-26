@@ -803,7 +803,7 @@ Prices are expressed in Vietnamese dong (VND).
             width: 100%;
         }
 
-        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-heart, #icon-share, #icon-close, #scale, #min, #max, #track, #icon-track {
+        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-share, #icon-close, #scale, #min, #max, #track {
             position: absolute;
         }
         #last_update_time {
@@ -1266,10 +1266,17 @@ Prices are expressed in Vietnamese dong (VND).
         #track {
             top: calc(env(safe-area-inset-top, 20px) + 7vh);
             right: 0vh;
-            width: 10vh;
+            width: 7vh;
             height: 7vh;
             touch-action: manipulation;
             cursor: pointer;
+        }
+        #heart, #track {
+            box-sizing: border-box;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #heart {
             top: env(safe-area-inset-top, 20px);
@@ -1303,16 +1310,41 @@ Prices are expressed in Vietnamese dong (VND).
         #icon-dong {
             fill: currentColor;
         }
-        #icon-heart {
+        #icon-heart, #icon-track {
             display: block;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
+            width: 1em;
+            height: 1em;
+            max-width: 50%;
+            max-height: 50%;
             pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
+        }
+        #icon-track {
+            stroke: currentColor;
+            stroke-width: 1.75;
+        }
+        #heart .ctl {
+            position: relative;
+        }
+        #likes_count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(40%, -40%);
+            min-width: 16px;
+            height: 16px;
+            padding: 0 calc(var(--offset-small) / 2);
+            box-sizing: border-box;
+            border-radius: var(--radius-big);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            font-size: 10px;
+            line-height: 16px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        #likes_count:empty {
+            display: none;
         }
         #icon-share {
             display: block;
@@ -1328,17 +1360,6 @@ Prices are expressed in Vietnamese dong (VND).
         #icon-close {
             display: block;
             top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
-            pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        #icon-track {
-            display: block;
-            top: env(safe-area-inset-top, 20px);
             right: 2vh;
             width: 3vh;
             height: 3vh;
@@ -1393,11 +1414,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #logo {
             position: absolute;
-            left: 2vh;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
+            left: var(--offset-middle);
+            top: calc(env(safe-area-inset-top, 20px) + var(--offset-middle));
             color: black;
-            width: 7vh;
-            height: 9vh;
+            width: 5vh;
+            height: 6vh;
             color: var(--filter-color);
             pointer-events: none;
             user-select: none;
@@ -1604,7 +1625,8 @@ Prices are expressed in Vietnamese dong (VND).
     </svg>
 </div>
 <div id="track" hidden>
-    <svg id="icon-track" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+    <span class="ctl">
+    <svg id="icon-track" viewBox="0 0 24 24" fill="none" stroke-linecap="round" preserveAspectRatio="xMidYMid meet">
         <circle cx="12" cy="12" r="6" fill="none"/>
         <!-- center dot -->
         <circle cx="12" cy="12" r="3" fill="none"/>
@@ -1617,13 +1639,13 @@ Prices are expressed in Vietnamese dong (VND).
         <!-- right -->
         <line x1="19" y1="12" x2="22" y2="12"/>
     </svg>
+    </span>
 </div>
 <div id="heart" hidden>
-    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 80 80">
-
+    <span class="ctl">
+    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <path
-        fill="none" stroke="var(--text-color)" stroke-width="4" stroke-linejoin="round"
+        fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"
         d="M40 72
            L12 43
            C2 33 2 17 15 12
@@ -1631,19 +1653,9 @@ Prices are expressed in Vietnamese dong (VND).
            C46 12 56 8 65 12
            C78 17 78 33 68 43
            Z"/>
-
-    <text
-        id="likes_count"
-        x="40"
-        y="40"
-        fill="var(--text-color)"
-        font-size="30"
-        font-family="sans-serif"
-        font-weight="bold"
-        text-anchor="middle"
-        dominant-baseline="middle"></text>
-
     </svg>
+    <b id="likes_count"></b>
+    </span>
 </div>
 <div id="share" hidden>
     <svg id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
@@ -1672,7 +1684,7 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card_info">
                 <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
-                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
                 <p class="where"><span class="street"></span> · <b class="area"></b></p>
                 <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
@@ -2311,7 +2323,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + parseFloat(getComputedStyle($card).getPropertyValue('--offset-big'))
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2372,23 +2384,25 @@ function maxi_open(id) {
     const district = get_area_v2_for_user(ad.area)
     const $c = $cards.find($c => $c.dataset.id == id)
     $maxi.dataset.id = id
-    $maxi.querySelector('h1').textContent = ad.bedrooms && (kind == 'Apartment' || kind == 'House')
-        ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
-        : `${kind} in ${district}`
+    $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
+        ? `${kind} in ${district}`
+        : ad.bedrooms > 0
+            ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+            : `Studio in ${district}`
     $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
     $maxi.querySelector('.area').textContent = district
     $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
-    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
         $pod.hidden = !shown
         $pod.classList.toggle('unk', !value)
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    $maxi_strip.innerHTML = $c.photos.map(url => `<div class="photo" style="background-image: url(&quot;${url}&quot;)"></div>`).join('')
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -2527,22 +2541,29 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
+    $c.photos = photos_urls
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
+    $frame.style.backgroundImage = ''
     for (var i = 0, $; i < photos_urls.length; i++) {
-        if ($strip.children[i]) {
-            $ = $strip.children[i]
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-        } else {
-            $ = document.createElement('div')
-            $.className = 'photo'
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-            $strip.appendChild($)
+        $ = $strip.children[i] || $strip.appendChild(document.createElement('div'))
+        $.className = 'photo'
+        $.style.backgroundImage = ''
+        const img = new Image()
+        const index = i
+        img.onload = () => {
+            if ($c.dataset.id != id) return
+            $strip.children[index].style.backgroundImage = `url("${img.src}")`
+            if (index == ($c == $card_centre ? photo_current_index : Number($c.dataset.photo))) $frame.style.backgroundImage = `url("${img.src}")`
         }
-        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+        img.src = photos_urls[i]
     }
     while ($strip.children.length > photos_urls.length) {
         $strip.lastElementChild.remove()
+    }
+    if ($c == $card_centre) {
+        photo_current_index = 0
+        photo_total_count = photos_urls.length
     }
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
@@ -2556,7 +2577,11 @@ function fill_card($c, id) {
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.m2').textContent = ad.m2
-    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
+        ? ''
+        : ad.bedrooms > 0
+            ? ` · ${ad.bedrooms} bed`
+            : ' · Studio'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
     load_font()
