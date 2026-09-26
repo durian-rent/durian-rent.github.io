@@ -1393,6 +1393,57 @@ Prices are expressed in Vietnamese dong (VND).
             box-shadow: var(--shadow);
             cursor: grab;
         }
+        .filters_tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--offset-small);
+        }
+        .filters_pane label {
+            position: relative;
+            cursor: pointer;
+        }
+        .filters_pane input[type=checkbox], .filters_pane input[type=radio] {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .filters_tiles label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--offset-small) 0;
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .filters_tiles svg {
+            width: 22px;
+            height: 22px;
+            color: var(--icon-color);
+        }
+        .filters_pane small {
+            font-weight: 500;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+        .filters_pane label:has(:checked) {
+            border-color: var(--deep-color);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+        }
+        .filters_pane label:has(:checked) svg, .filters_pane label:has(:checked) small {
+            color: var(--on-deep-color);
+        }
+        .filters_pane label:has(:focus-visible) {
+            outline: 2px solid var(--text-color);
+        }
         #filters footer {
             padding: var(--offset-middle) var(--offset-middle) calc(var(--offset-middle) + env(safe-area-inset-bottom));
             border-top: 1px solid var(--line-color);
@@ -1715,6 +1766,10 @@ Prices are expressed in Vietnamese dong (VND).
             <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>Price a month<output class="filters_price"></output></p>
             <div class="filters_hist"></div>
             <div class="filters_range"><input type="range" name="price_min" step="0.5" aria-label="Minimum price"><input type="range" name="price_max" step="0.5" aria-label="Maximum price"></div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Type</p>
+            <div class="filters_tiles"></div>
         </section>
     </div>
     <footer><button type="button" class="filters_show">Show <span class="filters_count"></span> places</button></footer>
@@ -2834,8 +2889,21 @@ var filters = new URLSearchParams(localStorage.filters || '')
 const passes = ad =>
     !(filters.has('price_min') && ad.price < filters.get('price_min') * 1e6)
     && !(filters.has('price_max') && ad.price > filters.get('price_max') * 1e6)
+    && !(filters.has('category') && !filters.getAll('category').includes(String(ad.category)))
+
+const FILTERS_ICONS = {
+    1010: '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
+    1020: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    1030: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+    1040: '<path d="M11 20H2"/><path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.561z"/><path d="M11 4H8a2 2 0 0 0-2 2v14"/><path d="M14 12h.01"/><path d="M22 20h-3"/>',
+    1050: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>'
+}
 
 function filters_build() {
+    const count = key => [...ads.reduce((m, ad) => m.set(ad[key], (m.get(ad[key]) || 0) + 1), new Map())].sort((a, b) => b[1] - a[1])
+    $filters.querySelector('.filters_tiles').innerHTML = count('category').map(([c, n]) =>
+        `<label><input type="checkbox" name="category" value="${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${FILTERS_ICONS[c] || ''}</svg>${get_category_for_user(c)}<small>${n.toLocaleString('en')}</small></label>`
+    ).join('')
     const bins = Array(20).fill(0)
     for (const ad of ads) bins[Math.min(19, Math.max(0, Math.floor((ad.price / 1e6 - limit$.min) / range$ * 20)))] += 1
     const top = Math.max(...bins)
