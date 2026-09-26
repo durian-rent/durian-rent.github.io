@@ -2311,7 +2311,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + parseFloat(getComputedStyle($card).getPropertyValue('--offset-big'))
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2388,7 +2388,7 @@ function maxi_open(id) {
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    $maxi_strip.innerHTML = $c.photos.map(url => `<div class="photo" style="background-image: url(&quot;${url}&quot;)"></div>`).join('')
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -2527,22 +2527,29 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
+    $c.photos = photos_urls
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
+    $frame.style.backgroundImage = ''
     for (var i = 0, $; i < photos_urls.length; i++) {
-        if ($strip.children[i]) {
-            $ = $strip.children[i]
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-        } else {
-            $ = document.createElement('div')
-            $.className = 'photo'
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-            $strip.appendChild($)
+        $ = $strip.children[i] || $strip.appendChild(document.createElement('div'))
+        $.className = 'photo'
+        $.style.backgroundImage = ''
+        const img = new Image()
+        const index = i
+        img.onload = () => {
+            if ($c.dataset.id != id) return
+            $strip.children[index].style.backgroundImage = `url("${img.src}")`
+            if (index == ($c == $card_centre ? photo_current_index : Number($c.dataset.photo))) $frame.style.backgroundImage = `url("${img.src}")`
         }
-        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+        img.src = photos_urls[i]
     }
     while ($strip.children.length > photos_urls.length) {
         $strip.lastElementChild.remove()
+    }
+    if ($c == $card_centre) {
+        photo_current_index = 0
+        photo_total_count = photos_urls.length
     }
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
