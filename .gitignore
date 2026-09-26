@@ -9,6 +9,7 @@ parser
 
 gen_key.cjs
 ads2wasm.cjs
+old_new.cjs
 nhatot.cjs
 make_id_file.cjs
 get_ai.cjs
