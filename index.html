@@ -199,6 +199,10 @@ Prices are expressed in Vietnamese dong (VND).
       const { exports } = await WebAssembly.instantiate(module, adaptedImports);
       const memory = exports.memory || imports.env.memory;
       const adaptedExports = Object.setPrototypeOf({
+        get_all_categories() {
+          // assembly/index/get_all_categories() => ~lib/array/Array<i32>
+          return __liftArray(__getI32, 2, exports.get_all_categories() >>> 0);
+        },
         get_category_for_user(category) {
           // assembly/index/get_category_for_user(f64) => ~lib/string/String
           return __liftString(exports.get_category_for_user(category) >>> 0);
@@ -333,6 +337,14 @@ Prices are expressed in Vietnamese dong (VND).
         throw TypeError("value must not be null");
       }
       let __dataview = new DataView(memory.buffer);
+      function __getI32(pointer) {
+        try {
+          return __dataview.getInt32(pointer, true);
+        } catch {
+          __dataview = new DataView(memory.buffer);
+          return __dataview.getInt32(pointer, true);
+        }
+      }
       function __getU32(pointer) {
         try {
           return __dataview.getUint32(pointer, true);
@@ -363,7 +375,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1790397310464'
+    const VER_WASM = '1790397310465'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
