@@ -1672,7 +1672,7 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card_info">
                 <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
-                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
                 <p class="where"><span class="street"></span> · <b class="area"></b></p>
                 <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
@@ -2311,7 +2311,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + parseFloat(getComputedStyle($card).getPropertyValue('--offset-big'))
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2372,23 +2372,25 @@ function maxi_open(id) {
     const district = get_area_v2_for_user(ad.area)
     const $c = $cards.find($c => $c.dataset.id == id)
     $maxi.dataset.id = id
-    $maxi.querySelector('h1').textContent = ad.bedrooms && (kind == 'Apartment' || kind == 'House')
-        ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
-        : `${kind} in ${district}`
+    $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
+        ? `${kind} in ${district}`
+        : ad.bedrooms > 0
+            ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+            : `Studio in ${district}`
     $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
     $maxi.querySelector('.area').textContent = district
     $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
-    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
         $pod.hidden = !shown
         $pod.classList.toggle('unk', !value)
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    $maxi_strip.innerHTML = $c.photos.map(url => `<div class="photo" style="background-image: url(&quot;${url}&quot;)"></div>`).join('')
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -2527,22 +2529,29 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
+    $c.photos = photos_urls
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
+    $frame.style.backgroundImage = ''
     for (var i = 0, $; i < photos_urls.length; i++) {
-        if ($strip.children[i]) {
-            $ = $strip.children[i]
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-        } else {
-            $ = document.createElement('div')
-            $.className = 'photo'
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-            $strip.appendChild($)
+        $ = $strip.children[i] || $strip.appendChild(document.createElement('div'))
+        $.className = 'photo'
+        $.style.backgroundImage = ''
+        const img = new Image()
+        const index = i
+        img.onload = () => {
+            if ($c.dataset.id != id) return
+            $strip.children[index].style.backgroundImage = `url("${img.src}")`
+            if (index == ($c == $card_centre ? photo_current_index : Number($c.dataset.photo))) $frame.style.backgroundImage = `url("${img.src}")`
         }
-        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+        img.src = photos_urls[i]
     }
     while ($strip.children.length > photos_urls.length) {
         $strip.lastElementChild.remove()
+    }
+    if ($c == $card_centre) {
+        photo_current_index = 0
+        photo_total_count = photos_urls.length
     }
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
@@ -2556,7 +2565,11 @@ function fill_card($c, id) {
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.m2').textContent = ad.m2
-    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
+        ? ''
+        : ad.bedrooms > 0
+            ? ` · ${ad.bedrooms} bed`
+            : ' · Studio'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
     load_font()
