@@ -1749,6 +1749,10 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
+    if (maxi_opened && !history.state?.maxi) return maxi_close()
+    if (!maxi_opened && history.state?.maxi) {
+        return $cards.some($c => $c.dataset.id == history.state.maxi) ? maxi_open(history.state.maxi) : history.back()
+    }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -2377,6 +2381,7 @@ var maxi_prev_x = 0
 var maxi_prev_prev_x = 0
 var maxi_prev_y = 0
 var maxi_swipe
+var maxi_opened = false
 
 function maxi_open(id) {
     const ad = ads.find(ad => ad.id == id)
@@ -2412,6 +2417,8 @@ function maxi_open(id) {
     $maxi.scrollTop = 0
     $maxi.removeAttribute('hidden')
     maxi_about($c.dataset.body)
+    maxi_opened = true
+    if (!history.state?.maxi) history.pushState({maxi: id}, '')
 }
 
 function maxi_about(text) {
@@ -2426,12 +2433,13 @@ function maxi_about(text) {
 }
 
 function maxi_close() {
+    maxi_opened = false
     $maxi.style.transition = 'transform 0.1s ease'
     $maxi.style.transform = `translate3d(0, ${$maxi.clientHeight}px, 0)`
 }
 
 $maxi.onclick = e => {
-    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.maxi_close')) return history.state?.maxi ? history.back() : maxi_close()
     if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
     const $more = e.target.closest('.more')
     if ($more) {
