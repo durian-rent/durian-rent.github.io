@@ -803,7 +803,7 @@ Prices are expressed in Vietnamese dong (VND).
             width: 100%;
         }
 
-        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-heart, #icon-share, #icon-close, #scale, #min, #max, #track, #icon-track {
+        #toggler, #close, #heart, #share, #icon-filter, #icon-share, #icon-close, #track {
             position: absolute;
         }
         #last_update_time {
@@ -1214,17 +1214,6 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_source a {
             color: inherit;
         }
-        #filter {
-            top: calc(env(safe-area-inset-top, 20px) + 21vh);
-            right: 0vh;
-            width: 10vh;
-            height: 48vh;
-            touch-action: none;
-            font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-        }
-        #filter:hover {
-            cursor: ns-resize;
-        }
         #toggler {
             top: calc(env(safe-area-inset-top, 20px) + 14vh);
             right: 0vh;
@@ -1255,6 +1244,239 @@ Prices are expressed in Vietnamese dong (VND).
             font-weight: 700;
             box-shadow: var(--shadow);
         }
+        #filters {
+            position: fixed;
+            top: calc(var(--status-bar-height) + 10vh);
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            color: var(--text-color);
+            background-color: var(--sheet-color);
+            border-top: 1px solid var(--line-color);
+            box-shadow: var(--shadow);
+            transform: translate3d(0, 100%, 0);
+            z-index: 1;
+        }
+        #filters header {
+            display: flex;
+            align-items: center;
+            gap: var(--offset-small);
+            padding: 0 var(--offset-middle) var(--offset-small);
+        }
+        #filters h2 {
+            flex: 1;
+            margin: 0;
+            font-size: 22px;
+        }
+        #filters button {
+            font: inherit;
+            cursor: pointer;
+        }
+        .filters_reset {
+            display: flex;
+            align-items: center;
+            gap: var(--offset-small);
+            border: 0;
+            background: none;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .filters_reset svg, .filters_close svg, .filters_head svg {
+            width: 18px;
+            height: 18px;
+            flex: none;
+        }
+        .filters_close {
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            color: var(--text-color);
+        }
+        .filters_pane {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 0 var(--offset-middle);
+        }
+        .filters_pane section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            padding: var(--offset-middle) 0;
+            border-top: 1px solid var(--line-color);
+        }
+        .filters_pane section:first-child {
+            border-top: 0;
+            padding-top: 0;
+        }
+        .filters_head {
+            display: flex;
+            align-items: center;
+            gap: var(--offset-small);
+            margin: 0;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .filters_head svg {
+            color: var(--icon-color);
+        }
+        .filters_head output {
+            margin-left: auto;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+        .filters_hist {
+            display: flex;
+            align-items: flex-end;
+            height: 36px;
+        }
+        .filters_hist i {
+            flex: 1;
+            border-left: 1px solid var(--sheet-color);
+            background: var(--well-color);
+        }
+        .filters_hist i[data-in] {
+            background: var(--accent-color);
+        }
+        .filters_range {
+            position: relative;
+            height: 24px;
+        }
+        .filters_range::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            margin: auto 0;
+            height: 2px;
+            background: var(--line-color);
+        }
+        .filters_range input {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .filters_range input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            pointer-events: auto;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-big);
+            border: 1px solid var(--line-color);
+            background: var(--card-background-color);
+            box-shadow: var(--shadow);
+            cursor: grab;
+        }
+        .filters_range input::-moz-range-thumb {
+            pointer-events: auto;
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-big);
+            border: 1px solid var(--line-color);
+            background: var(--card-background-color);
+            box-shadow: var(--shadow);
+            cursor: grab;
+        }
+        .filters_tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--offset-small);
+        }
+        .filters_pane label {
+            position: relative;
+            cursor: pointer;
+        }
+        .filters_pane input[type=checkbox], .filters_pane input[type=radio] {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .filters_tiles label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--offset-small) 0;
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .filters_tiles svg {
+            width: 22px;
+            height: 22px;
+            color: var(--icon-color);
+        }
+        .filters_pane small {
+            font-weight: 500;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+        .filters_seg {
+            display: flex;
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-small);
+            overflow: hidden;
+            background: var(--card-background-color);
+        }
+        .filters_seg label {
+            flex: 1;
+            padding: var(--offset-small) 0;
+            border-left: 1px solid var(--line-color);
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .filters_seg label:first-child {
+            border-left: 0;
+        }
+        .filters_pane label:has(:checked) {
+            border-color: var(--deep-color);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+        }
+        .filters_pane label:has(:checked) svg, .filters_pane label:has(:checked) small {
+            color: var(--on-deep-color);
+        }
+        .filters_pane label:has(:focus-visible) {
+            outline: 2px solid var(--text-color);
+        }
+        #filters footer {
+            padding: var(--offset-middle) var(--offset-middle) calc(var(--offset-middle) + env(safe-area-inset-bottom));
+            border-top: 1px solid var(--line-color);
+        }
+        .filters_show {
+            width: 100%;
+            padding: var(--offset-middle);
+            border: 0;
+            border-radius: var(--radius-small);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: 16px;
+            font-weight: 700;
+        }
         #close {
             top: env(safe-area-inset-top, 20px);
             right: 0vh;
@@ -1266,10 +1488,17 @@ Prices are expressed in Vietnamese dong (VND).
         #track {
             top: calc(env(safe-area-inset-top, 20px) + 7vh);
             right: 0vh;
-            width: 10vh;
+            width: 7vh;
             height: 7vh;
             touch-action: manipulation;
             cursor: pointer;
+        }
+        #heart, #track {
+            box-sizing: border-box;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #heart {
             top: env(safe-area-inset-top, 20px);
@@ -1291,7 +1520,7 @@ Prices are expressed in Vietnamese dong (VND).
             -webkit-user-select: none;
             cursor: pointer;
         }
-        #icon-filter, #icon-dong {
+        #icon-filter {
             display: block;
             position: static;
             width: 1em;
@@ -1300,19 +1529,41 @@ Prices are expressed in Vietnamese dong (VND).
             max-height: 50%;
             pointer-events: none;
         }
-        #icon-dong {
-            fill: currentColor;
-        }
-        #icon-heart {
+        #icon-heart, #icon-track {
             display: block;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
+            width: 1em;
+            height: 1em;
+            max-width: 50%;
+            max-height: 50%;
             pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
+        }
+        #icon-track {
+            stroke: currentColor;
+            stroke-width: 1.75;
+        }
+        #heart .ctl {
+            position: relative;
+        }
+        #likes_count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(40%, -40%);
+            min-width: 16px;
+            height: 16px;
+            padding: 0 calc(var(--offset-small) / 2);
+            box-sizing: border-box;
+            border-radius: var(--radius-big);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            font-size: 10px;
+            line-height: 16px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        #likes_count:empty {
+            display: none;
         }
         #icon-share {
             display: block;
@@ -1336,74 +1587,25 @@ Prices are expressed in Vietnamese dong (VND).
             stroke: var(--filter-color);
             vector-effect: non-scaling-stroke;
         }
-        #icon-track {
-            display: block;
-            top: env(safe-area-inset-top, 20px);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
-            pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        #scale {
-            bottom: 0vh;
-            right: 3.2vh;/* 2 + (3 / 2) - (0.6 / 2) = 2 + 1.5 - 0.3  */
-            width: 0.6vh;
-            height: 43vh;
-            border-color: var(--filter-color);
-            border-width: thin;
-            border-radius: 1vh;
-            border-style: solid;
-        }
-        #min, #max {
-            bottom: 0vh;
-            right: 2vh;/* scale right - (width handler - width scale)/2 =  5 - (5-1)/2 = 3*/
-            width: 3vh;
-            line-height: 3vh; /* same as height */
-            height: 3vh;
-            border-radius: 50%;
-            background: var(--filter-color);
-            text-align: center;
-            font-size: 2vh;
-            color: var(--text-color-inverse);
-            user-select: none;
-            -webkit-user-select: none;
-            cursor: ns-resize;
-        }
-        .label {
-            font-variant-numeric: tabular-nums;
-            width: 4ch;
-            text-align: right;
-            font-size: 1.3vh;
-            line-height: 2vh;
-            color: var(--filter-color);
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translate(-180%, -50%);
-            white-space: nowrap;
-        }
-        #min svg,
-        #max svg {
-            width: 100%;
-            height: 100%;
-            fill: currentColor;
-        }
         #logo {
             position: absolute;
-            left: 2vh;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            color: black;
+            left: 0;
+            top: env(safe-area-inset-top, 20px);
+            box-sizing: border-box;
             width: 7vh;
-            height: 9vh;
+            height: 7vh;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--filter-color);
             pointer-events: none;
             user-select: none;
             -webkit-user-select: none;
         }
         #logo svg {
+            width: 85%;
+            height: 85%;
             pointer-events: none;
         }
         #icon-install-apk,
@@ -1455,6 +1657,7 @@ Prices are expressed in Vietnamese dong (VND).
 <body>
 <div id="map"></div>
 <div id="logo" hidden>
+    <span class="ctl">
     <svg id="_Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 454 539">
       <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
       <defs>
@@ -1549,6 +1752,7 @@ Prices are expressed in Vietnamese dong (VND).
         <path class="st4" d="M245.9,24.7c-.8,18.1-2.6,45.9-4.6,74.8-.1,2-.3,4.1-.4,6.1-.2,2.8-.4,5.6-.6,8.4-.2,3.3-.5,6.7-.7,10-2.1,28.4-4.2,55.7-5.7,73.7-1.5-18.1-3.6-45.3-5.7-73.7-.2-3.3-.5-6.6-.7-10-.2-2.8-.4-5.6-.6-8.4-.1-2-.3-4.1-.4-6.1-2-28.9-3.8-56.7-4.6-74.8,0-15.7,23.9-15.7,24,0Z"/>
       </g>
     </svg>
+    </span>
 </div>
 
 <div id="icon-install-apk" hidden>
@@ -1569,32 +1773,44 @@ Prices are expressed in Vietnamese dong (VND).
         <text x="66" y="62" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="500" fill="currentColor">iOS</text>
     </svg>
 </div>
-<div id="filter" hidden>
-    <div id="scale"></div>
-    <div id="max">
-        <span class="label"></span>
-        <svg viewBox="0 0 24 24">
-            <line stroke="currentColor" stroke-width="2.5" stroke-linecap="round" x1="12" y1="16" x2="8" y2="9"/>
-            <line stroke="currentColor" stroke-width="2.5" stroke-linecap="round" x1="12" y1="16" x2="16" y2="9"/>
-        </svg>
+<form id="filters" inert>
+    <div class="grip-zone"><div class="grip"></div></div>
+    <header>
+        <h2>Filters</h2>
+        <button type="button" class="filters_reset"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset</button>
+        <button type="button" class="filters_close" aria-label="Close filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    </header>
+    <div class="filters_pane">
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>Price a month<output class="filters_price"></output></p>
+            <div class="filters_hist"></div>
+            <div class="filters_range"><input type="range" name="price_min" step="0.5" aria-label="Minimum price"><input type="range" name="price_max" step="0.5" aria-label="Maximum price"></div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Type</p>
+            <div class="filters_tiles"></div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>Bedrooms</p>
+            <div class="filters_seg">
+                <label><input type="radio" name="bedrooms" value="" checked>Any</label>
+                <label><input type="radio" name="bedrooms" value="0">Studio</label>
+                <label><input type="radio" name="bedrooms" value="1">1</label>
+                <label><input type="radio" name="bedrooms" value="2">2</label>
+                <label><input type="radio" name="bedrooms" value="3">3</label>
+                <label><input type="radio" name="bedrooms" value="4">4+</label>
+            </div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>Size<output class="filters_m2"></output></p>
+            <div class="filters_range"><input type="range" name="m2_min" min="0" max="200" step="10" value="0" aria-label="Minimum size"><input type="range" name="m2_max" min="0" max="200" step="10" value="200" aria-label="Maximum size"></div>
+        </section>
     </div>
-    <div id="min">
-        <span class="label"></span>
-        <svg viewBox="0 0 24 24">
-            <line stroke="currentColor" stroke-width="2.5" stroke-linecap="round" x1="12" y1="8"  x2="8" y2="15"/>
-            <line stroke="currentColor" stroke-width="2.5" stroke-linecap="round" x1="12" y1="8"  x2="16" y2="15"/>
-        </svg>
-    </div>
-</div>
+    <footer><button type="button" class="filters_show">Show <span class="filters_count"></span> places</button></footer>
+</form>
 <div id="toggler" hidden>
     <span class="ctl">
         <svg id="icon-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg>
-        <svg hidden id="icon-dong" viewBox="0 0 24 24" aria-hidden="true">
-            <text x="12" y="12"
-            font-size="clamp(100%, calc(90% + 1vw), 160%)"
-            dominant-baseline="central"
-            text-anchor="middle">₫</text>
-        </svg>
     </span>
 </div>
 <div id="close" hidden>
@@ -1604,7 +1820,8 @@ Prices are expressed in Vietnamese dong (VND).
     </svg>
 </div>
 <div id="track" hidden>
-    <svg id="icon-track" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+    <span class="ctl">
+    <svg id="icon-track" viewBox="0 0 24 24" fill="none" stroke-linecap="round" preserveAspectRatio="xMidYMid meet">
         <circle cx="12" cy="12" r="6" fill="none"/>
         <!-- center dot -->
         <circle cx="12" cy="12" r="3" fill="none"/>
@@ -1617,13 +1834,13 @@ Prices are expressed in Vietnamese dong (VND).
         <!-- right -->
         <line x1="19" y1="12" x2="22" y2="12"/>
     </svg>
+    </span>
 </div>
 <div id="heart" hidden>
-    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 80 80">
-
+    <span class="ctl">
+    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <path
-        fill="none" stroke="var(--text-color)" stroke-width="4" stroke-linejoin="round"
+        fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"
         d="M40 72
            L12 43
            C2 33 2 17 15 12
@@ -1631,19 +1848,9 @@ Prices are expressed in Vietnamese dong (VND).
            C46 12 56 8 65 12
            C78 17 78 33 68 43
            Z"/>
-
-    <text
-        id="likes_count"
-        x="40"
-        y="40"
-        fill="var(--text-color)"
-        font-size="30"
-        font-family="sans-serif"
-        font-weight="bold"
-        text-anchor="middle"
-        dominant-baseline="middle"></text>
-
     </svg>
+    <b id="likes_count"></b>
+    </span>
 </div>
 <div id="share" hidden>
     <svg id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
@@ -1672,7 +1879,7 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card_info">
                 <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
-                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
                 <p class="where"><span class="street"></span> · <b class="area"></b></p>
                 <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
@@ -1707,8 +1914,7 @@ Prices are expressed in Vietnamese dong (VND).
 </div>
 <div id="toast" hidden></div>
 <script>
-const $min_label = min.firstElementChild
-const $max_label = max.firstElementChild
+const $filters = document.getElementById('filters')
 const $close = document.getElementById('close')
 const $heart = document.getElementById('heart')
 const $share = document.getElementById('share')
@@ -1717,7 +1923,6 @@ const $track = document.getElementById('track')
 const $track_circle_inner = $track.querySelectorAll('circle')[1]
 const $likes_count = document.getElementById('likes_count')
 const $icon_filter = document.getElementById('icon-filter')
-const $icon_dong = document.getElementById('icon-dong')
 const $logo = document.getElementById('logo')
 const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
@@ -1737,6 +1942,10 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
+    if (maxi_opened && !history.state?.maxi) return maxi_close()
+    if (!maxi_opened && history.state?.maxi) {
+        return $cards.some($c => $c.dataset.id == history.state.maxi) ? maxi_open(history.state.maxi) : history.back()
+    }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -1796,9 +2005,7 @@ const router = () => {
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
     $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
-    filter.setAttribute('hidden', '')
-    $icon_filter.removeAttribute('hidden')
-    $icon_dong.setAttribute('hidden', '')
+    filters_hide()
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
     $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
@@ -1818,13 +2025,14 @@ const router = () => {
                     ? ad.id == ad_current.id
                         ? 'selected'
                         : 'other'
-                    : ad.price < min$ || ad.price > max$
-                        ? 'filtered'
-                        : 'normal',
+                    : passes(ad)
+                        ? 'normal'
+                        : 'filtered',
                 liked: likes.includes(ad.id)
             }
         )
     )
+    if (current_page == PAGE.MAIN) apply_filter()
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
 }
 
@@ -2286,7 +2494,7 @@ function carousel_order(id) {
     return ads
         .filter(ad => ad.id == id || (
             bounds.contains([ad.longitude, ad.latitude]) &&
-            map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
+            !['filtered', 'hidden'].includes(map.getFeatureState({ source: 'prices', id: ad.id }).mode)
         ))
         .sort((a, b) => a.price - b.price || a.id - b.id)
         .map(ad => ad.id)
@@ -2311,7 +2519,7 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
+    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + parseFloat(getComputedStyle($card).getPropertyValue('--offset-big'))
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2365,6 +2573,7 @@ var maxi_prev_x = 0
 var maxi_prev_prev_x = 0
 var maxi_prev_y = 0
 var maxi_swipe
+var maxi_opened = false
 
 function maxi_open(id) {
     const ad = ads.find(ad => ad.id == id)
@@ -2372,23 +2581,25 @@ function maxi_open(id) {
     const district = get_area_v2_for_user(ad.area)
     const $c = $cards.find($c => $c.dataset.id == id)
     $maxi.dataset.id = id
-    $maxi.querySelector('h1').textContent = ad.bedrooms && (kind == 'Apartment' || kind == 'House')
-        ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
-        : `${kind} in ${district}`
+    $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
+        ? `${kind} in ${district}`
+        : ad.bedrooms > 0
+            ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+            : `Studio in ${district}`
     $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
     $maxi.querySelector('.area').textContent = district
     $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
-    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
+    for (const [name, value, shown] of [['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
         $pod.hidden = !shown
         $pod.classList.toggle('unk', !value)
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    $maxi_strip.innerHTML = $c.photos.map(url => `<div class="photo" style="background-image: url(&quot;${url}&quot;)"></div>`).join('')
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -2398,6 +2609,8 @@ function maxi_open(id) {
     $maxi.scrollTop = 0
     $maxi.removeAttribute('hidden')
     maxi_about($c.dataset.body)
+    maxi_opened = true
+    if (!history.state?.maxi) history.pushState({maxi: id}, '')
 }
 
 function maxi_about(text) {
@@ -2412,12 +2625,13 @@ function maxi_about(text) {
 }
 
 function maxi_close() {
+    maxi_opened = false
     $maxi.style.transition = 'transform 0.1s ease'
     $maxi.style.transform = `translate3d(0, ${$maxi.clientHeight}px, 0)`
 }
 
 $maxi.onclick = e => {
-    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.maxi_close')) return history.state?.maxi ? history.back() : maxi_close()
     if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
     const $more = e.target.closest('.more')
     if ($more) {
@@ -2527,22 +2741,29 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
+    $c.photos = photos_urls
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
+    $frame.style.backgroundImage = ''
     for (var i = 0, $; i < photos_urls.length; i++) {
-        if ($strip.children[i]) {
-            $ = $strip.children[i]
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-        } else {
-            $ = document.createElement('div')
-            $.className = 'photo'
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-            $strip.appendChild($)
+        $ = $strip.children[i] || $strip.appendChild(document.createElement('div'))
+        $.className = 'photo'
+        $.style.backgroundImage = ''
+        const img = new Image()
+        const index = i
+        img.onload = () => {
+            if ($c.dataset.id != id) return
+            $strip.children[index].style.backgroundImage = `url("${img.src}")`
+            if (index == ($c == $card_centre ? photo_current_index : Number($c.dataset.photo))) $frame.style.backgroundImage = `url("${img.src}")`
         }
-        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+        img.src = photos_urls[i]
     }
     while ($strip.children.length > photos_urls.length) {
         $strip.lastElementChild.remove()
+    }
+    if ($c == $card_centre) {
+        photo_current_index = 0
+        photo_total_count = photos_urls.length
     }
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
@@ -2556,7 +2777,11 @@ function fill_card($c, id) {
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.m2').textContent = ad.m2
-    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
+        ? ''
+        : ad.bedrooms > 0
+            ? ` · ${ad.bedrooms} bed`
+            : ' · Studio'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
     load_font()
@@ -2663,9 +2888,7 @@ $heart.onpointerup = e => {
     }
     $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
-    filter.setAttribute('hidden', '')
-    $icon_filter.removeAttribute('hidden')
-    $icon_dong.setAttribute('hidden', '')
+    filters_hide()
 }
 
 $share.onclick = () => {
@@ -2694,203 +2917,106 @@ $close.onpointerup = e => {
     }
 }
 
-const limit = {
-    min: null,
-    max: null
-}
-var range
-const step$ = 0.1
-const get_label = y => {
-    const abs_pos = (y - limit.min) / range
-    const pos$ = limit$.min + range$ * abs_pos
-    return pos$.toFixed(1)
-}
-const get_y_by_$ = $ => {
-    const abs_pos = ($ - limit$.min) / range$
-    const y = limit.min + range * abs_pos
-    return y
-}
-var rect_scale, rect_min
-var min_y, max_y
+var filters_closed = true
+var filters = new URLSearchParams(localStorage.filters || '')
 
-function pointerdown(e) {
-    const el = e.currentTarget
-    el.setPointerCapture(e.pointerId)
-    let y = e.clientY
-    const pos = y - rect_scale.bottom + rect_min.height / 2
-    const dist_min = Math.abs(min_y - pos)
-    const dist_max = Math.abs(max_y - pos)
-    var target = dist_min < dist_max ? min : max
-    function pointermove(e) {
-        const dy = e.clientY - y
-        y = e.clientY
+const passes = ad =>
+    !(filters.has('price_min') && ad.price < filters.get('price_min') * 1e6)
+    && !(filters.has('price_max') && ad.price > filters.get('price_max') * 1e6)
+    && !(filters.has('category') && !filters.getAll('category').includes(String(ad.category)))
+    && !(filters.has('bedrooms') && (filters.get('bedrooms') == 0 ? ad.bedrooms > 0 : filters.get('bedrooms') == 4 ? ad.bedrooms < 4 : ad.bedrooms != filters.get('bedrooms')))
+    && !(filters.has('m2_min') && ad.m2 < filters.get('m2_min'))
+    && !(filters.has('m2_max') && !(ad.m2 > 0 && ad.m2 <= filters.get('m2_max')))
 
-        if (target == min) {
-            update_min_y(dy)
-        }
-        if (target == max) {
-            update_max_y(dy)
-        }
+const FILTERS_ICONS = {
+    1010: '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
+    1020: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    1030: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+    1040: '<path d="M11 20H2"/><path d="M11 4.562v16.157a1 1 0 0 0 1.242.97L19 20V5.562a2 2 0 0 0-1.515-1.94l-4-1A2 2 0 0 0 11 4.561z"/><path d="M11 4H8a2 2 0 0 0-2 2v14"/><path d="M14 12h.01"/><path d="M22 20h-3"/>',
+    1050: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>'
+}
+
+function filters_build() {
+    const count = key => [...ads.reduce((m, ad) => m.set(ad[key], (m.get(ad[key]) || 0) + 1), new Map())].sort((a, b) => b[1] - a[1])
+    $filters.querySelector('.filters_tiles').innerHTML = count('category').map(([c, n]) =>
+        `<label><input type="checkbox" name="category" value="${c}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${FILTERS_ICONS[c] || ''}</svg>${get_category_for_user(c)}<small>${n.toLocaleString('en')}</small></label>`
+    ).join('')
+    const bins = Array(20).fill(0)
+    for (const ad of ads) bins[Math.min(19, Math.max(0, Math.floor((ad.price / 1e6 - limit$.min) / range$ * 20)))] += 1
+    const top = Math.max(...bins)
+    $filters.querySelector('.filters_hist').innerHTML = bins.map(n => `<i style="height: ${Math.max(4, n / top * 100)}%"></i>`).join('')
+    const x = $filters.elements
+    x.price_min.min = x.price_max.min = limit$.min
+    x.price_min.max = x.price_max.max = limit$.max
+    x.price_min.defaultValue = limit$.min
+    x.price_max.defaultValue = limit$.max
+    for (const $i of x) {
+        if ($i.type == 'range') $i.value = filters.get($i.name) ?? $i.defaultValue
+        else if ($i.name) $i.checked = $i.value ? filters.getAll($i.name).includes($i.value) : !filters.has($i.name)
     }
-
-    function pointerup(e) {
-        el.releasePointerCapture(e.pointerId)
-        el.removeEventListener('pointermove', pointermove)
-        el.removeEventListener('pointerup', pointerup)
-        el.removeEventListener('pointercancel', pointerup)
-    }
-
-    el.addEventListener('pointermove', pointermove)
-    el.addEventListener('pointerup', pointerup)
-    el.addEventListener('pointercancel', pointerup)
+    filters_render()
 }
 
-var steps_count
-var step
-var min$
-var max$
+function filters_read() {
+    filters = new URLSearchParams()
+    for (const $i of $filters.elements) if ($i.type == 'range' ? $i.value != $i.defaultValue : $i.checked && $i.value) filters.append($i.name, $i.value)
+    localStorage.filters = filters
+}
 
-function filter_close() {
-    filter.setAttribute('hidden', '')
-    $icon_dong.setAttribute('hidden', '')
-    $icon_filter.removeAttribute('hidden')
-    filter.onwheel = null
+function filters_render() {
+    const x = $filters.elements
+    const price_any = x.price_min.value == x.price_min.defaultValue && x.price_max.value == x.price_max.defaultValue
+    $filters.querySelector('.filters_price').textContent = price_any ? 'Any' : `${+x.price_min.value} – ${+x.price_max.value}${x.price_max.value == x.price_max.max ? '+' : ''} M ₫`
+    $filters.querySelector('.filters_m2').innerHTML = x.m2_min.value == 0 && x.m2_max.value == 200 ? 'Any' : `${x.m2_min.value} – ${x.m2_max.value}${x.m2_max.value == 200 ? '+' : ''} m<sup>2</sup>`
+    for (const [i, $bin] of [...$filters.querySelector('.filters_hist').children].entries()) {
+        const price = limit$.min + (i + 0.5) * range$ / 20
+        $bin.toggleAttribute('data-in', price >= x.price_min.value && price <= x.price_max.value)
+    }
+    $filters.querySelector('.filters_count').textContent = ads.filter(passes).length.toLocaleString('en')
+}
+
+function filters_show() {
+    if (!$filters.querySelector('.filters_hist').children.length) filters_build()
+    load_font()
+    card_hide()
+    filters_closed = false
+    $filters.inert = false
+    $filters.style.transition = 'transform 0.1s ease'
+    $filters.style.transform = 'translate3d(0, 0, 0)'
+}
+
+function filters_hide() {
+    filters_closed = true
+    $filters.inert = true
+    $filters.style.transition = 'transform 0.1s ease'
+    $filters.style.transform = 'translate3d(0, 100%, 0)'
 }
 
 toggler.onpointerup = e => {
-    if (filter.hasAttribute('hidden')) {
-        card_hide()
-        filter.removeAttribute('hidden')
-        $icon_dong.removeAttribute('hidden')
-        $icon_filter.setAttribute('hidden', '')
-    } else {
-        filter_close()
+    if (filters_closed) filters_show()
+    else filters_hide()
+}
+
+$filters.oninput = e => {
+    const x = $filters.elements
+    if (e.target == x.price_min && +x.price_min.value > +x.price_max.value) x.price_max.value = x.price_min.value
+    if (e.target == x.price_max && +x.price_max.value < +x.price_min.value) x.price_min.value = x.price_max.value
+    if (e.target == x.m2_min && +x.m2_min.value > +x.m2_max.value) x.m2_max.value = x.m2_min.value
+    if (e.target == x.m2_max && +x.m2_max.value < +x.m2_min.value) x.m2_min.value = x.m2_max.value
+    filters_read()
+    filters_render()
+    apply_filter()
+}
+
+$filters.onclick = e => {
+    if (e.target.closest('.filters_reset')) {
+        $filters.reset()
+        filters_read()
+        filters_render()
+        apply_filter()
         return
     }
-    rect_scale = scale.getBoundingClientRect()
-    rect_min = min.getBoundingClientRect()
-    limit.min = 0
-    limit.max = 0 - (rect_scale.height - rect_min.height)
-    range = limit.max - limit.min
-    steps_count = (limit$.max - limit$.min) / step$
-    step = (limit.max - limit.min) / steps_count
-
-    min$ = +localStorage.getItem('min$')
-    max$ = +localStorage.getItem('max$')
-
-    min_y = min$ ? get_y_by_$(min$ / 1e6) : limit.min
-    max_y = max$ ? get_y_by_$(max$ / 1e6) : limit.max
-
-    min.style.transform = `translate3d(0, ${min_y}px, 0)`
-    max.style.transform = `translate3d(0, ${max_y}px, 0)`
-    $min_label.textContent = get_label(min_y)
-    $max_label.textContent = get_label(max_y)
-    min$ = $min_label.textContent * 1e6,
-    max$ = $max_label.textContent * 1e6,
-    apply_filter()
-
-    filter.addEventListener('pointerdown', pointerdown)
-
-    toggler.onwheel = onwheel
-    filter.onwheel = onwheel
-
-    function onwheel(e) {
-        e.preventDefault()
-        const DOWN = e.deltaY > 0
-        const UP   = e.deltaY < 0
-        if (!e.deltaY) return
-        const dy = DOWN ? -step : step
-        const pos = e.clientY - rect_scale.bottom + rect_min.height / 2
-        const dist_min = Math.abs(min_y - pos)
-        const dist_max = Math.abs(max_y - pos)
-        var target = null
-        if (dist_min < dist_max) {
-            if (DOWN) {
-                if (min_y == limit.min) {
-                    target = null
-                    // swith target max
-                    if (max_y == min_y - rect_min.height) {
-                        target = null // max near min
-                    } else {
-                        target = max
-                    }
-                } else {
-                    target = min
-                }
-            }
-            if (UP) {
-                if (min_y == max_y + rect_min.height) {
-                    target = null
-                    /*
-                    // switch target max
-                    if (max_y == limit.max) {
-                        target = null // max & min at top border
-                    } else {
-                        target = max
-                    }
-                    */
-                } else {
-                    target = min
-                }
-            }
-        } else {
-            if (DOWN) {
-                if (max_y == min_y - rect_min.height) {
-                    target = null
-                    /*
-                    // swith target min
-                    if (min_y == limit.min) {
-                        target = null // max & min at lower border
-                    } else {
-                        target = min
-                    }
-                    */
-                } else {
-                    target = max
-                }
-            }
-            if (UP) {
-                if (max_y == limit.max) {
-                    target = null
-                    //target min
-                    if (min_y == max_y + rect_min.height) {
-                        target = null // max & min at top border
-                    } else {
-                        target = min
-                    }
-                } else {
-                    target = max
-                }
-            }
-        }
-        if (target == min) {
-            update_min_y(dy)
-        } else if (target == max) {
-            update_max_y(dy)
-        }
-    }
-}
-
-update_min_y = dy => {
-    min_y += dy
-    if (min_y > limit.min) min_y = limit.min
-    if (min_y - rect_min.height < max_y) min_y = max_y + rect_min.height
-    min.style.transform = `translate3d(0, ${min_y}px, 0)`
-    $min_label.textContent = get_label(min_y)
-    min$ = $min_label.textContent * 1e6,
-    localStorage.setItem('min$', min$)
-    apply_filter()
-}
-
-update_max_y = dy => {
-    max_y += dy
-    if (max_y < limit.max) max_y = limit.max
-    if (max_y + rect_min.height > min_y) max_y = min_y - rect_min.height
-    max.style.transform = `translate3d(0, ${max_y}px, 0)`
-    $max_label.textContent = get_label(max_y)
-    max$ = $max_label.textContent * 1e6
-    localStorage.setItem('max$', max$)
-    apply_filter()
+    if (e.target.closest('.filters_close, .filters_show')) filters_hide()
 }
 
 function throttle(func, wait, options) {
@@ -2961,11 +3087,7 @@ ago = t => {
 }
 
 apply_filter = () => {
-    map.setFilter('price-text', [
-        'all',
-        ['>=', ['get', 'price'], min$],
-        ['<=', ['get', 'price'], max$]
-    ])
+    map.setFilter('price-text', ['in', ['id'], ['literal', ads.filter(passes).map(ad => ad.id)]])
     ads.forEach(ad =>
         map.setFeatureState(
             {
@@ -2973,16 +3095,13 @@ apply_filter = () => {
                 id: ad.id
             },
             {
-                mode: ad.price > max$ || ad.price < min$
-                    ? dup_map.has(ad.longitude + '-' + ad.latitude)
-                        ? [...dup_map.get(ad.longitude + '-' + ad.latitude)].some(id => {
-                            const ad = ads.find(_ => _.id == id)
-                            return ad.price <= max$ && ad.price >= min$
-                        })
+                mode: passes(ad)
+                    ? 'normal'
+                    : dup_map.has(ad.longitude + '-' + ad.latitude)
+                        ? [...dup_map.get(ad.longitude + '-' + ad.latitude)].some(id => passes(ads.find(_ => _.id == id)))
                             ? 'hidden'
                             : 'filtered'
                         : 'filtered'
-                    : 'normal'
             }
         )
     )
@@ -3927,7 +4046,7 @@ apply_filter = throttle(apply_filter, 90)
                     return
                 }
 
-                if (!filter.hasAttribute('hidden')) filter_close()
+                if (!filters_closed) filters_hide()
                 $card.removeAttribute('hidden')
                 $card.style.transition = 'none'
                 if (card_closed) $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
