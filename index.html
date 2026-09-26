@@ -1433,6 +1433,25 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-muted);
             font-variant-numeric: tabular-nums;
         }
+        .filters_seg {
+            display: flex;
+            border: 1px solid var(--line-color);
+            border-radius: var(--radius-small);
+            overflow: hidden;
+            background: var(--card-background-color);
+        }
+        .filters_seg label {
+            flex: 1;
+            padding: var(--offset-small) 0;
+            border-left: 1px solid var(--line-color);
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .filters_seg label:first-child {
+            border-left: 0;
+        }
         .filters_pane label:has(:checked) {
             border-color: var(--deep-color);
             background: var(--deep-color);
@@ -1770,6 +1789,21 @@ Prices are expressed in Vietnamese dong (VND).
         <section>
             <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Type</p>
             <div class="filters_tiles"></div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/><path d="M12 4v6"/><path d="M2 18h20"/></svg>Bedrooms</p>
+            <div class="filters_seg">
+                <label><input type="radio" name="bedrooms" value="" checked>Any</label>
+                <label><input type="radio" name="bedrooms" value="0">Studio</label>
+                <label><input type="radio" name="bedrooms" value="1">1</label>
+                <label><input type="radio" name="bedrooms" value="2">2</label>
+                <label><input type="radio" name="bedrooms" value="3">3</label>
+                <label><input type="radio" name="bedrooms" value="4">4+</label>
+            </div>
+        </section>
+        <section>
+            <p class="filters_head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>Size<output class="filters_m2"></output></p>
+            <div class="filters_range"><input type="range" name="m2_min" min="0" max="200" step="10" value="0" aria-label="Minimum size"><input type="range" name="m2_max" min="0" max="200" step="10" value="200" aria-label="Maximum size"></div>
         </section>
     </div>
     <footer><button type="button" class="filters_show">Show <span class="filters_count"></span> places</button></footer>
@@ -2890,6 +2924,9 @@ const passes = ad =>
     !(filters.has('price_min') && ad.price < filters.get('price_min') * 1e6)
     && !(filters.has('price_max') && ad.price > filters.get('price_max') * 1e6)
     && !(filters.has('category') && !filters.getAll('category').includes(String(ad.category)))
+    && !(filters.has('bedrooms') && (filters.get('bedrooms') == 0 ? ad.bedrooms > 0 : filters.get('bedrooms') == 4 ? ad.bedrooms < 4 : ad.bedrooms != filters.get('bedrooms')))
+    && !(filters.has('m2_min') && ad.m2 < filters.get('m2_min'))
+    && !(filters.has('m2_max') && !(ad.m2 > 0 && ad.m2 <= filters.get('m2_max')))
 
 const FILTERS_ICONS = {
     1010: '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>',
@@ -2930,6 +2967,7 @@ function filters_render() {
     const x = $filters.elements
     const price_any = x.price_min.value == x.price_min.defaultValue && x.price_max.value == x.price_max.defaultValue
     $filters.querySelector('.filters_price').textContent = price_any ? 'Any' : `${+x.price_min.value} – ${+x.price_max.value}${x.price_max.value == x.price_max.max ? '+' : ''} M ₫`
+    $filters.querySelector('.filters_m2').innerHTML = x.m2_min.value == 0 && x.m2_max.value == 200 ? 'Any' : `${x.m2_min.value} – ${x.m2_max.value}${x.m2_max.value == 200 ? '+' : ''} m<sup>2</sup>`
     for (const [i, $bin] of [...$filters.querySelector('.filters_hist').children].entries()) {
         const price = limit$.min + (i + 0.5) * range$ / 20
         $bin.toggleAttribute('data-in', price >= x.price_min.value && price <= x.price_max.value)
@@ -2963,6 +3001,8 @@ $filters.oninput = e => {
     const x = $filters.elements
     if (e.target == x.price_min && +x.price_min.value > +x.price_max.value) x.price_max.value = x.price_min.value
     if (e.target == x.price_max && +x.price_max.value < +x.price_min.value) x.price_min.value = x.price_max.value
+    if (e.target == x.m2_min && +x.m2_min.value > +x.m2_max.value) x.m2_max.value = x.m2_min.value
+    if (e.target == x.m2_max && +x.m2_max.value < +x.m2_min.value) x.m2_min.value = x.m2_max.value
     filters_read()
     filters_render()
     apply_filter()
