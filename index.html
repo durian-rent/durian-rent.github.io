@@ -2290,7 +2290,8 @@ var carousel_pos = 0
 var carousel_start_pos = 0
 var carousel_swipe
 var carousel_selected = null
-var carousel_step = 0
+const offsetBig = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--offset-big'))
+const carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
 
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
@@ -2324,7 +2325,6 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
