@@ -373,7 +373,7 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
+    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4}
 
     const VER_WASM = '1790499242589'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
@@ -1754,6 +1754,15 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
+    if (window.current_page == PAGE.MAXI && history.state?.page != PAGE.MAXI) {
+        current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        return maxi_close()
+    }
+    if (history.state?.page == PAGE.MAXI) {
+        if (!$cards.some($c => $c.dataset.id == history.state.id)) return history.back()
+        current_page = PAGE.MAXI
+        return maxi_open(history.state.id)
+    }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -2065,7 +2074,11 @@ $card.onclick = e => {
     if ($like) return toggle_like(Number($like.closest('.card_content').dataset.id))
     if (card_moved) return e.preventDefault()
     const $c = e.target.closest('.card_content')
-    if ($c) maxi_open(Number($c.dataset.id))
+    if ($c) {
+        current_page = PAGE.MAXI
+        history.pushState({page: PAGE.MAXI, id: Number($c.dataset.id)}, '')
+        router()
+    }
 }
 
 function toggle_like(id) {
@@ -2440,7 +2453,7 @@ function maxi_close() {
 }
 
 $maxi.onclick = e => {
-    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.maxi_close')) return history.back()
     if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
     const $more = e.target.closest('.more')
     if ($more) {
