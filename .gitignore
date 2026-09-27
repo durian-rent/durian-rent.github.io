@@ -14,6 +14,7 @@ nhatot.cjs
 make_id_file.cjs
 get_ai.cjs
 bedrooms.cjs
+bathrooms.cjs
 
 node_modules
 .zed
