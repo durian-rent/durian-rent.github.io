@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Cho thuê 3 Phòng Ngủ Monarchy, Hướng Đông Nam, Lô góc 30tr/tháng" />
+    <meta name="description" content="căn hộ full nội thất" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -375,7 +375,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4}
 
-    const VER_WASM = '1790499242589'
+    const VER_WASM = '1790519541876'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -483,7 +483,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'b3d46ef069a4a76d2c4bfa45915b09ade71d5dbf2a9592741b70e5ad887225c3'// contact spirin.vladimir@gmail.com
+        const KEY = '57a3f6341ecbb3ae473f43f82f5e097a1e79dad9ac219083bf1a93c41bcd426b'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -623,9 +623,9 @@ Prices are expressed in Vietnamese dong (VND).
                 "line-color": ["#2C4232", "#F3F4ED"]
             },
             highway_name_other: {
-                "text-color": ["rgba(80, 78, 78, 1)", "#bbb"],
+                "text-color": ["#A8B39F", "#bbb"],
                 "text-halo-blur": [0, 1],
-                "text-halo-color": ["rgba(0, 0, 0, 1)", "#fff"],
+                "text-halo-color": ["#0E1911", "#fff"],
                 "text-halo-width": [1, 2]
             },
             railway: {
@@ -1323,17 +1323,19 @@ Prices are expressed in Vietnamese dong (VND).
         #icon-dong {
             fill: currentColor;
         }
-        #icon-heart, #icon-track {
+        #icon-heart {
             display: block;
             width: 1em;
             height: 1em;
-            max-width: 50%;
             max-height: 50%;
+            max-width: 50%;
             pointer-events: none;
         }
         #icon-track {
+            display: block;
             stroke: currentColor;
-            stroke-width: 1.75;
+            width: 75%;
+            pointer-events: none;
         }
         #likes_count {
             position: absolute;
