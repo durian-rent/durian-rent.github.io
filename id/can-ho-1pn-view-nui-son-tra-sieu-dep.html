@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Cho thuê căn hộ 1PN Trần Thánh Tông, Sơn Trà, Đà Nẵng - 11 triệu" />
+    <meta name="description" content="Căn hộ 1PN view núi Sơn Trà siêu đẹp" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -375,7 +375,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
 
-    const VER_WASM = '1790477905847'
+    const VER_WASM = '1790495268103'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -483,7 +483,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '7379c171a38949307b2594e097179213b229c416d75e631056e5fc63060a9727'// contact spirin.vladimir@gmail.com
+        const KEY = 'e403bc19adede45daa35b429cb94b097c1394b07856482d1405664d9907e1286'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -523,13 +523,14 @@ Prices are expressed in Vietnamese dong (VND).
             var m2 = raw_ads[i + 8]
             var publish = raw_ads[i + 9] 
             var bedrooms = raw_ads[i + 10] 
+            var bathrooms = raw_ads[i + 11] 
             var key = longitude + '-' + latitude
             var dup_set = dup_map.get(key) || new Set()
             dup_set.add(id)
             dup_map.set(key, dup_set)
             if (price < limit$.min) limit$.min = price
             if (price > limit$.max) limit$.max = price
-            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish, bedrooms }
+            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish, bedrooms, bathrooms }
         }
         dup_map.forEach((dup_set, key) =>
             dup_set.size == 1 &&
@@ -2393,7 +2394,11 @@ function maxi_open(id) {
     $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
-    for (const [name, value, shown] of [['bedrooms', ad.bedrooms, living], ['bathrooms', 0, kind != 'Land Plot'], ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]]) {
+    for (const [name, value, shown] of [
+        ['bedrooms', ad.bedrooms, living],
+        ['bathrooms', ad.bathrooms, kind != 'Land Plot'],
+        ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]
+    ]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
         $pod.hidden = !shown
         $pod.classList.toggle('unk', !value)
