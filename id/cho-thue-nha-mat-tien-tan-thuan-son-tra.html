@@ -375,9 +375,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3}
+    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4}
 
-    const VER_WASM = '1790495268103'
+    const VER_WASM = '1790576071536'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -485,7 +485,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'e403bc19adede45daa35b429cb94b097c1394b07856482d1405664d9907e1286'// contact spirin.vladimir@gmail.com
+        const KEY = '5cb28608d247fa92acbfdd6524abf0850b97c175b0d7ce00980019c27b392f3b'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -625,9 +625,9 @@ Prices are expressed in Vietnamese dong (VND).
                 "line-color": ["#2C4232", "#F3F4ED"]
             },
             highway_name_other: {
-                "text-color": ["rgba(80, 78, 78, 1)", "#bbb"],
+                "text-color": ["#A8B39F", "#bbb"],
                 "text-halo-blur": [0, 1],
-                "text-halo-color": ["rgba(0, 0, 0, 1)", "#fff"],
+                "text-halo-color": ["#0E1911", "#fff"],
                 "text-halo-width": [1, 2]
             },
             railway: {
@@ -818,7 +818,7 @@ Prices are expressed in Vietnamese dong (VND).
             width: 100%;
         }
 
-        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-heart, #icon-share, #icon-close, #scale, #min, #max, #track, #icon-track {
+        #filter, #toggler, #close, #heart, #share, #icon-filter, #icon-dong, #icon-share, #icon-close, #scale, #min, #max, #track {
             position: absolute;
         }
         #last_update_time {
@@ -923,9 +923,6 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-small);
             overflow: hidden;
             background-color: var(--well-color);
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             touch-action: none;
         }
         .photos_container {
@@ -937,9 +934,16 @@ Prices are expressed in Vietnamese dong (VND).
             flex: 0 0 auto;
             width: 100%;
             height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            position: relative;
+        }
+        .photo img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .photo .deactive {
+            visibility: hidden;
         }
         .card_heart {
             position: absolute;
@@ -1281,10 +1285,17 @@ Prices are expressed in Vietnamese dong (VND).
         #track {
             top: calc(env(safe-area-inset-top, 20px) + 7vh);
             right: 0vh;
-            width: 10vh;
+            width: 7vh;
             height: 7vh;
             touch-action: manipulation;
             cursor: pointer;
+        }
+        #heart, #track {
+            box-sizing: border-box;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #heart {
             top: env(safe-area-inset-top, 20px);
@@ -1320,14 +1331,33 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #icon-heart {
             display: block;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
+            width: 1em;
+            height: 1em;
+            max-height: 50%;
+            max-width: 50%;
             pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
+        }
+        #icon-track {
+            display: block;
+            stroke: currentColor;
+            width: 75%;
+            pointer-events: none;
+        }
+        #likes_count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 var(--offset-small);
+            border-radius: var(--radius-big);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            font-size: 11px;
+            line-height: 18px;
+            font-variant-numeric: tabular-nums;
+        }
+        #likes_count:empty {
+            display: none;
         }
         #icon-share {
             display: block;
@@ -1343,17 +1373,6 @@ Prices are expressed in Vietnamese dong (VND).
         #icon-close {
             display: block;
             top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            right: 2vh;
-            width: 3vh;
-            height: 3vh;
-            pointer-events: none;
-            stroke-width: 1;
-            stroke: var(--filter-color);
-            vector-effect: non-scaling-stroke;
-        }
-        #icon-track {
-            display: block;
-            top: env(safe-area-inset-top, 20px);
             right: 2vh;
             width: 3vh;
             height: 3vh;
@@ -1408,17 +1427,23 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #logo {
             position: absolute;
-            left: 2vh;
-            top: calc(env(safe-area-inset-top, 20px) + 2vh);
-            color: black;
+            left: 0;
+            top: env(safe-area-inset-top, 20px);
+            box-sizing: border-box;
             width: 7vh;
-            height: 9vh;
+            height: 7vh;
+            padding: var(--offset-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--filter-color);
             pointer-events: none;
             user-select: none;
             -webkit-user-select: none;
         }
         #logo svg {
+            width: 85%;
+            height: 85%;
             pointer-events: none;
         }
         #icon-install-apk,
@@ -1470,6 +1495,7 @@ Prices are expressed in Vietnamese dong (VND).
 <body>
 <div id="map"></div>
 <div id="logo" hidden>
+    <span class="ctl">
     <svg id="_Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 454 539">
       <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
       <defs>
@@ -1564,6 +1590,7 @@ Prices are expressed in Vietnamese dong (VND).
         <path class="st4" d="M245.9,24.7c-.8,18.1-2.6,45.9-4.6,74.8-.1,2-.3,4.1-.4,6.1-.2,2.8-.4,5.6-.6,8.4-.2,3.3-.5,6.7-.7,10-2.1,28.4-4.2,55.7-5.7,73.7-1.5-18.1-3.6-45.3-5.7-73.7-.2-3.3-.5-6.6-.7-10-.2-2.8-.4-5.6-.6-8.4-.1-2-.3-4.1-.4-6.1-2-28.9-3.8-56.7-4.6-74.8,0-15.7,23.9-15.7,24,0Z"/>
       </g>
     </svg>
+    </span>
 </div>
 
 <div id="icon-install-apk" hidden>
@@ -1619,7 +1646,8 @@ Prices are expressed in Vietnamese dong (VND).
     </svg>
 </div>
 <div id="track" hidden>
-    <svg id="icon-track" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+    <span class="ctl">
+    <svg id="icon-track" viewBox="0 0 24 24" fill="none" stroke-linecap="round" preserveAspectRatio="xMidYMid meet">
         <circle cx="12" cy="12" r="6" fill="none"/>
         <!-- center dot -->
         <circle cx="12" cy="12" r="3" fill="none"/>
@@ -1632,13 +1660,13 @@ Prices are expressed in Vietnamese dong (VND).
         <!-- right -->
         <line x1="19" y1="12" x2="22" y2="12"/>
     </svg>
+    </span>
 </div>
 <div id="heart" hidden>
-    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 80 80">
-
+    <span class="ctl">
+    <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <path
-        fill="none" stroke="var(--text-color)" stroke-width="4" stroke-linejoin="round"
+        fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"
         d="M40 72
            L12 43
            C2 33 2 17 15 12
@@ -1646,19 +1674,9 @@ Prices are expressed in Vietnamese dong (VND).
            C46 12 56 8 65 12
            C78 17 78 33 68 43
            Z"/>
-
-    <text
-        id="likes_count"
-        x="40"
-        y="40"
-        fill="var(--text-color)"
-        font-size="30"
-        font-family="sans-serif"
-        font-weight="bold"
-        text-anchor="middle"
-        dominant-baseline="middle"></text>
-
     </svg>
+    <b id="likes_count"></b>
+    </span>
 </div>
 <div id="share" hidden>
     <svg id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
@@ -1687,7 +1705,33 @@ Prices are expressed in Vietnamese dong (VND).
             </div>
             <div class="card_info">
                 <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
-                <p class="facts"><span class="category"></span> · <span class="bed"></span> bed · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="where"><span class="street"></span> · <b class="area"></b></p>
+                <p class="foot"><span><span class="publish"></span> ago</span></p>
+            </div>
+        </div>
+        <div class="card_content">
+            <div class="photo_frame">
+                <div class="photos_container"></div>
+                <button type="button" class="card_heart" aria-label="Save" aria-pressed="false"><svg class="h-off" aria-hidden="true" viewBox="0 0 100 100"><path fill="none" fill-rule="nonzero" stroke="currentColor" stroke-width="7" stroke-linejoin="round" d="M53.4 40C51.3 32.7 52.4 24.7 57.5 19.1C61.5 14.8 66 11.5 72 11.5C84 11.5 93 25.5 93 38.5C93 62.5 61.4 77.3 50 88.5C38.6 77.3 7 62.5 7 38.5C7 25.5 16 11.5 28 11.5C34 11.5 38.5 14.8 42.5 19.1C47.9 25 51.2 32.4 53.4 40Z"/><path fill="currentColor" fill-rule="nonzero" d="M49.2 38.1C50.4 42 51.6 45.7 52.9 49.5C54.2 53.2 55.6 56.9 56.6 60.7C58.4 67.8 59.3 76.4 54.7 82.6L57.1 84.4C62.2 77.6 61.9 67.9 61 59.9C60 51.7 58.3 44 55.9 36.1Z"/></svg><svg class="h-on" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="nonzero" d="M53.2 29C51.9 24.1 52.8 18.8 56.4 15.2C57.2 14.4 58.1 13.6 59 12.9C62.8 9.8 67 8 72 8C79.4 8 85.6 12.2 89.8 18C94.1 23.8 96.5 31.3 96.5 38.5C96.5 51.9 87.7 62.5 78.1 70.9C69.8 78.1 60.6 83.7 52.5 91C51.1 92.3 48.9 92.3 47.5 91C39.4 83.7 30.2 78.1 21.9 70.9C12.3 62.5 3.5 51.9 3.5 38.5C3.5 31.3 5.9 23.8 10.2 18C14.4 12.2 20.6 8 28 8C30.6 8 33 8.5 35.3 9.5C40.2 11.5 42.9 16.4 44.5 21.4C45.8 25.4 47.1 29.3 48.4 33.3C50.7 40.2 53.1 47.2 55 54.3C56.9 60.8 58.7 68.4 57.6 75.2C57.4 76.1 58 77 58.9 77.2C59.9 77.4 60.8 76.8 61 75.8C62.6 68.5 61.2 60.3 59.5 53.1C57.9 45.9 55.9 38.8 54 31.6C53.7 30.8 53.5 29.9 53.2 29Z"/></svg></button>
+                <span class="seen num"></span>
+            </div>
+            <div class="card_info">
+                <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
+                <p class="where"><span class="street"></span> · <b class="area"></b></p>
+                <p class="foot"><span><span class="publish"></span> ago</span></p>
+            </div>
+        </div>
+        <div class="card_content">
+            <div class="photo_frame">
+                <div class="photos_container"></div>
+                <button type="button" class="card_heart" aria-label="Save" aria-pressed="false"><svg class="h-off" aria-hidden="true" viewBox="0 0 100 100"><path fill="none" fill-rule="nonzero" stroke="currentColor" stroke-width="7" stroke-linejoin="round" d="M53.4 40C51.3 32.7 52.4 24.7 57.5 19.1C61.5 14.8 66 11.5 72 11.5C84 11.5 93 25.5 93 38.5C93 62.5 61.4 77.3 50 88.5C38.6 77.3 7 62.5 7 38.5C7 25.5 16 11.5 28 11.5C34 11.5 38.5 14.8 42.5 19.1C47.9 25 51.2 32.4 53.4 40Z"/><path fill="currentColor" fill-rule="nonzero" d="M49.2 38.1C50.4 42 51.6 45.7 52.9 49.5C54.2 53.2 55.6 56.9 56.6 60.7C58.4 67.8 59.3 76.4 54.7 82.6L57.1 84.4C62.2 77.6 61.9 67.9 61 59.9C60 51.7 58.3 44 55.9 36.1Z"/></svg><svg class="h-on" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" fill-rule="nonzero" d="M53.2 29C51.9 24.1 52.8 18.8 56.4 15.2C57.2 14.4 58.1 13.6 59 12.9C62.8 9.8 67 8 72 8C79.4 8 85.6 12.2 89.8 18C94.1 23.8 96.5 31.3 96.5 38.5C96.5 51.9 87.7 62.5 78.1 70.9C69.8 78.1 60.6 83.7 52.5 91C51.1 92.3 48.9 92.3 47.5 91C39.4 83.7 30.2 78.1 21.9 70.9C12.3 62.5 3.5 51.9 3.5 38.5C3.5 31.3 5.9 23.8 10.2 18C14.4 12.2 20.6 8 28 8C30.6 8 33 8.5 35.3 9.5C40.2 11.5 42.9 16.4 44.5 21.4C45.8 25.4 47.1 29.3 48.4 33.3C50.7 40.2 53.1 47.2 55 54.3C56.9 60.8 58.7 68.4 57.6 75.2C57.4 76.1 58 77 58.9 77.2C59.9 77.4 60.8 76.8 61 75.8C62.6 68.5 61.2 60.3 59.5 53.1C57.9 45.9 55.9 38.8 54 31.6C53.7 30.8 53.5 29.9 53.2 29Z"/></svg></button>
+                <span class="seen num"></span>
+            </div>
+            <div class="card_info">
+                <p class="money"><button type="button" class="price num"><span class="amount"></span> ₫<small> /mo</small></button></p>
+                <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
                 <p class="where"><span class="street"></span> · <b class="area"></b></p>
                 <p class="foot"><span><span class="publish"></span> ago</span></p>
             </div>
@@ -1737,8 +1781,6 @@ const $logo = document.getElementById('logo')
 const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
 const $card = document.getElementById('card')
-const $card_template = $card.querySelector('.card_content')
-$card_template.after($card_template.cloneNode(true), $card_template.cloneNode(true))
 const $cards = [...$card.querySelectorAll('.card_content')]
 var $card_centre = $cards[0]
 var $photo = $card_centre.querySelector('.photo_frame')
@@ -1752,6 +1794,15 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
+    if (window.current_page == PAGE.MAXI && history.state?.page != PAGE.MAXI) {
+        current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        return maxi_close()
+    }
+    if (history.state?.page == PAGE.MAXI) {
+        if (!$cards.some($c => $c.dataset.id == history.state.id)) return history.back()
+        current_page = PAGE.MAXI
+        return maxi_open(history.state.id)
+    }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -2063,7 +2114,11 @@ $card.onclick = e => {
     if ($like) return toggle_like(Number($like.closest('.card_content').dataset.id))
     if (card_moved) return e.preventDefault()
     const $c = e.target.closest('.card_content')
-    if ($c) maxi_open(Number($c.dataset.id))
+    if ($c) {
+        current_page = PAGE.MAXI
+        history.pushState({page: PAGE.MAXI, id: Number($c.dataset.id)}, '')
+        router()
+    }
 }
 
 function toggle_like(id) {
@@ -2188,13 +2243,11 @@ $card.ontouchmove = e => {
     if (photo_swipe) {
         var x = Math.max(x_photo_min, Math.min(x_photo_max, cur_x - dx))
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-        $photos_container.removeAttribute('hidden')
     } else if (carousel_swipe) {
         if (carousel_ids.length == 2 && (dx > 0) == (carousel_start_pos == 0)) return
         carousel_pos = carousel_start_pos - dx / carousel_step
         carousel_render()
     } else {
-        $photos_container.setAttribute('hidden', '')
         var last_move_direction = dy > 0 ? 'down' : 'up'
         
         if (card_going_close == undefined) {
@@ -2292,7 +2345,8 @@ var carousel_pos = 0
 var carousel_start_pos = 0
 var carousel_swipe
 var carousel_selected = null
-var carousel_step = 0
+const offsetBig = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--offset-big'))
+const carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
 
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
@@ -2326,7 +2380,6 @@ function carousel_open(id) {
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
     $card_centre = $cards[1]
-    if (!carousel_step) carousel_step = $card_centre.getBoundingClientRect().width + 0.05 * $card.clientWidth
     $cards.forEach(($c, i) => {
         $c.carousel_index = carousel_pos + i - 1
         $c.style.transition = 'none'
@@ -2387,9 +2440,11 @@ function maxi_open(id) {
     const district = get_area_v2_for_user(ad.area)
     const $c = $cards.find($c => $c.dataset.id == id)
     $maxi.dataset.id = id
-    $maxi.querySelector('h1').textContent = ad.bedrooms && (kind == 'Apartment' || kind == 'House')
-        ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
-        : `${kind} in ${district}`
+    $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
+        ? `${kind} in ${district}`
+        : ad.bedrooms > 0
+            ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+            : `Studio in ${district}`
     $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
     $maxi.querySelector('.area').textContent = district
     $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
@@ -2397,7 +2452,7 @@ function maxi_open(id) {
     $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
     const living = kind == 'Apartment' || kind == 'House'
     for (const [name, value, shown] of [
-        ['bedrooms', ad.bedrooms, living],
+        ['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living],
         ['bathrooms', ad.bathrooms, kind != 'Land Plot'],
         ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]
     ]) {
@@ -2436,7 +2491,7 @@ function maxi_close() {
 }
 
 $maxi.onclick = e => {
-    if (e.target.closest('.maxi_close')) return maxi_close()
+    if (e.target.closest('.maxi_close')) return history.back()
     if (e.target.closest('.card_heart')) return toggle_like(Number($maxi.dataset.id))
     const $more = e.target.closest('.more')
     if ($more) {
@@ -2527,10 +2582,41 @@ function load_font() {
     .then(_ => document.fonts.add(new FontFace('Plus Jakarta Sans', _, {weight: '400 700', display: 'swap'})))
 }
 
+function photo_loaded(e) {
+    const img = e.target
+    if (img.className != 'deactive') return
+    img.parentNode.querySelector('.active').className = 'deactive'
+    img.className = 'active'
+}
+
+function add_photo($strip, index, url) {
+    const $item = document.createElement('div')
+    $item.className = 'photo'
+    for (const name of ['active', 'deactive']) {
+        const img = new Image()
+        img.className = name
+        img.alt = ''
+        img.onload = photo_loaded
+        $item.appendChild(img)
+    }
+    $item.firstChild.src = url
+    $strip.insertBefore($item, $strip.children[index] || null)
+}
+
+function update_photo($strip, index, url) {
+    const $item = $strip.children[index]
+    const next = $item.querySelector('.deactive')
+    if ($item.querySelector('.active').getAttribute('src') == url) return next.removeAttribute('src')
+    next.src = url
+}
+
+function delete_photo($strip, index) {
+    $strip.children[index].remove()
+}
+
 function fill_card($c, id) {
     const ad = ads.find(ad => ad.id == id)
     const url = get_url(id)
-    const $frame = $c.querySelector('.photo_frame')
     const $strip = $c.querySelector('.photos_container')
     $c.dataset.id = id
     $c.dataset.photo = 0
@@ -2548,20 +2634,14 @@ function fill_card($c, id) {
     }
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
-    for (var i = 0, $; i < photos_urls.length; i++) {
-        if ($strip.children[i]) {
-            $ = $strip.children[i]
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-        } else {
-            $ = document.createElement('div')
-            $.className = 'photo'
-            $.style.backgroundImage = `url("${photos_urls[i]}")`
-            $strip.appendChild($)
-        }
-        if (i == 0) $frame.style.backgroundImage = `url("${photos_urls[i]}")`
+    for (var i = 0; i < photos_urls.length; i++) {
+        if ($strip.children[i]) update_photo($strip, i, photos_urls[i])
+        else add_photo($strip, i, photos_urls[i])
     }
-    while ($strip.children.length > photos_urls.length) {
-        $strip.lastElementChild.remove()
+    while ($strip.children.length > photos_urls.length) delete_photo($strip, $strip.children.length - 1)
+    if ($c == $card_centre) {
+        photo_current_index = 0
+        photo_total_count = photos_urls.length
     }
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
     var price_string = String(ad.price).split('').reverse()
@@ -2575,7 +2655,11 @@ function fill_card($c, id) {
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.m2').textContent = ad.m2
-    $c.querySelector('.bed').textContent = ad.bedrooms || '-'
+    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
+        ? ''
+        : ad.bedrooms > 0
+            ? ` · ${ad.bedrooms} bed`
+            : ' · Studio'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
     load_font()
@@ -2624,7 +2708,6 @@ function fill_card($c, id) {
 function to_current() {
     var x = photo_current_index * photo_size
     $photos_container.style.transform = `translate3d(-${x}px,0,0)`
-    $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
 }
 function show_seen() {
     $seen.textContent = `${photo_current_index + 1} / ${photo_total_count}`
@@ -2636,7 +2719,6 @@ function next_proto_right(frames) {
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         show_seen()
-        $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
        next_proto_right(frames - 1)
     }
@@ -2648,7 +2730,6 @@ function next_proto_left(frames) {
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
         show_seen()
-        $photo.style.backgroundImage = $photos_container.children[photo_current_index].style.backgroundImage
     } else {
         next_proto_left(frames - 1)
     }
