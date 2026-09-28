@@ -1941,14 +1941,14 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
-    if (window.current_page == PAGE.MAXI && history.state?.page != PAGE.MAXI) {
+    if (history.state?.page == PAGE.MAXI) {
+        if (!window.ad_current) return history.back()
+        current_page = PAGE.MAXI
+        return maxi_open(ad_current.id)
+    }
+    if (!maxi_closed) {
         current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
         return maxi_close()
-    }
-    if (history.state?.page == PAGE.MAXI) {
-        if (!$cards.some($c => $c.dataset.id == history.state.id)) return history.back()
-        current_page = PAGE.MAXI
-        return maxi_open(history.state.id)
     }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
@@ -2260,8 +2260,8 @@ $card.onclick = e => {
     if (card_moved) return e.preventDefault()
     const $c = e.target.closest('.card_content')
     if ($c) {
-        current_page = PAGE.MAXI
-        history.pushState({page: PAGE.MAXI, id: Number($c.dataset.id)}, '')
+        window.ad_current = ads.find(ad => ad.id == $c.dataset.id)
+        history.pushState({page: PAGE.MAXI}, '')
         router()
     }
 }
@@ -2333,6 +2333,7 @@ var cur_x
 var photo_swipe
 var card_moved = false
 var card_closed = true
+var maxi_closed = true
 
 $card.ontouchstart = e => {
     e.stopPropagation()
@@ -2616,6 +2617,7 @@ function maxi_open(id) {
     $maxi.style.transform = 'translate3d(0,0,0)'
     $maxi.scrollTop = 0
     $maxi.removeAttribute('hidden')
+    maxi_closed = false
     maxi_about($c.dataset.body)
 }
 
@@ -2631,6 +2633,7 @@ function maxi_about(text) {
 }
 
 function maxi_close() {
+    maxi_closed = true
     $maxi.style.transition = 'transform 0.1s ease'
     $maxi.style.transform = `translate3d(0, ${$maxi.clientHeight}px, 0)`
 }
