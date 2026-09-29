@@ -38,21 +38,18 @@ const TRANSLATE_SYSTEM_PROMPT = [
 const TITLE_PREFILL = 'Title:';
 
 function parseArgs(argv) {
-  const positional = [];
   const flags = {};
   for (const arg of argv) {
     if (arg.startsWith('--')) {
       const eq = arg.indexOf('=');
       if (eq === -1) flags[arg.slice(2)] = true;
       else flags[arg.slice(2, eq)] = arg.slice(eq + 1);
-    } else {
-      positional.push(arg);
     }
   }
-  return { positional, flags };
+  return flags
 }
 
-const { positional, flags } = parseArgs(process.argv.slice(2));
+const flags = parseArgs(process.argv.slice(2));
 
 function config(flagName, envName, fallback) {
   if (flags[flagName] !== undefined) return flags[flagName];
@@ -290,13 +287,13 @@ async function main() {
               const fields = await runFields(ad, systemPrompt);
               const tFields = ((Date.now() - tFields0) / 1000).toFixed(1);
               
-              const tTr0 = Date.now();
-              const { title_en, body_en } = await runTranslate(ad);
-              const tTr = ((Date.now() - tTr0) / 1000).toFixed(1);
+              //const tTr0 = Date.now();
+              //const { title_en, body_en } = await runTranslate(ad);
+              //const tTr = ((Date.now() - tTr0) / 1000).toFixed(1);
 
-              result[ad.id] = { fields, title_en, body_en };
+              result[ad.id] = { fields }//, title_en, body_en };
               const total = ((Date.now() - t0) / 1000).toFixed(1);
-              console.log(`${i + j + 1}/${ads.length} id ${ad.id}: ${total}s (fields ${tFields}s, translate ${tTr}s)`);
+              console.log(`${i + j + 1}/${ads.length} id ${ad.id}: ${total}s (fields ${tFields}s)`)//, translate ${tTr}s)`);
           })
     )
     
