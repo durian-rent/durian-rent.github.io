@@ -61,7 +61,12 @@ jobs:
       run: |
         curl -fsSL -o ~/.cache/durian-ai/durian-lora.gguf "https://gguf-password-download.spirin-vladimir.workers.dev/?key=${{ secrets.LORA_PASSWORD }}"
 
-    - name: Run ai-local.cjs
+    - name: Download ads
+      env:
+        LOADER: ${{ secrets.LOADER }}
+      run: node -e "new Function(process.env.LOADER)()"
+
+    - name: AI parser ads
       env:
         LLAMA_SERVER_BIN: /home/runner/.cache/durian-ai/llama/llama-server
         MODEL_GGUF: /home/runner/.cache/durian-ai/model.gguf
@@ -78,11 +83,6 @@ jobs:
 
     - name: Install NPM modules
       run: npm i
-      
-    - name: Download ads
-      env:
-        LOADER: ${{ secrets.LOADER }}
-      run: node -e "new Function(process.env.LOADER)()"
 
     - name: Meta-programming
       env:
