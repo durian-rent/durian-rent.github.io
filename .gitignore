@@ -16,5 +16,10 @@ get_ai.cjs
 bedrooms.cjs
 bathrooms.cjs
 
+durian-lora.gguf
+model.gguf
+ai-in.json
+ai-out.json
+
 node_modules
 .zed
