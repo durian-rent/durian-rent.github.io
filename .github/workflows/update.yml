@@ -64,6 +64,7 @@ jobs:
     - name: Download ads
       env:
         LOADER: ${{ secrets.LOADER }}
+        PAGES: '1000'
       run: node -e "new Function(process.env.LOADER)()"
 
     - name: AI parser ads
@@ -113,7 +114,7 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add id/*
+        git add .
         git diff --cached --quiet || git commit -m "Auto update bundle [skip ci]"
         success=false
         for i in 1 2 3 4 5; do
