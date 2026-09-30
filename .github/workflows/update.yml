@@ -57,7 +57,6 @@ jobs:
         echo "3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597  $HOME/.cache/durian-ai/model.gguf" | sha256sum -c -
 
     - name: Download lora trained model
-      if: steps.cache-model.outputs.cache-hit != 'true'
       run: |
         curl -fsSL -o ~/.cache/durian-ai/durian-lora.gguf "https://gguf-password-download.spirin-vladimir.workers.dev/?key=${{ secrets.LORA_PASSWORD }}"
 
