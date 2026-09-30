@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content=" CĂN HỘ 1PN NGUYỄN SÁNG - GẦN BIỂN MÂN THÁI - HỒ BƠI - GYM - SAUNA " />
+    <meta name="description" content="💫 CĂN HỘ 1PN NGUYỄN SÁNG - GẦN BIỂN MÂN THÁI - HỒ BƠI - GYM - SAUNA " />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -373,9 +373,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4}
+    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5}
 
-    const VER_WASM = '1790643296075'
+    const VER_WASM = '1790689454640'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -483,7 +483,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'db4165a59b301db946e5c4aea986edad0971dcd4d156a013a9971c7079d2763c'// contact spirin.vladimir@gmail.com
+        const KEY = '27479a66f941cf2e20bdb4b2abee436de7df09bc7160621fe39be04939a95002'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -1525,8 +1525,6 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #icon-track {
             display: block;
-            top: env(safe-area-inset-top, 20px);
-            right: 2vh;
             width: 3vh;
             height: 3vh;
             pointer-events: none;
@@ -1620,6 +1618,161 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #tabbar .on {
             color: var(--text-color);
+        }
+        #saved {
+            position: fixed;
+            right: 0;
+            bottom: var(--tabbar-height);
+            left: 0;
+            height: 62vh;
+            box-sizing: border-box;
+            padding: var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+            background: var(--sheet-color);
+            border-radius: var(--radius-big) var(--radius-big) 0 0;
+            box-shadow: var(--shadow);
+            color: var(--text-color);
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        }
+        .saved_head {
+            display: flex;
+            align-items: baseline;
+            gap: var(--offset-middle);
+        }
+        .saved_head h1 {
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.2;
+        }
+        .saved_count {
+            margin-right: auto;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .saved_share {
+            padding: 0;
+            border: 0;
+            background: none;
+            color: var(--text-color);
+            font: inherit;
+            font-size: 14px;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+            cursor: pointer;
+        }
+        .saved_list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            overflow-y: auto;
+        }
+        .saved_row {
+            display: flex;
+            align-items: center;
+            gap: var(--offset-small);
+            padding: var(--offset-small);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            box-shadow: var(--shadow);
+        }
+        .saved_open {
+            flex: 1;
+            min-width: 0;
+            display: grid;
+            grid-template-columns: 26% minmax(0, 1fr);
+            align-items: center;
+            gap: var(--offset-middle);
+            padding: 0;
+            border: 0;
+            background: none;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+        .saved_open img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: var(--radius-small);
+            background: var(--well-color);
+        }
+        .saved_open > span {
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            min-width: 0;
+        }
+        .saved_open b {
+            font-size: 15px;
+            line-height: 1.3;
+        }
+        .saved_price {
+            font-size: 17px;
+            font-variant-numeric: tabular-nums;
+        }
+        .saved_price small, .saved_meta {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .saved_unsave {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            border: 0;
+            border-radius: var(--radius-big);
+            background: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        .saved_unsave svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        .saved_empty {
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--offset-small);
+            text-align: center;
+        }
+        .saved_empty i {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: var(--radius-big);
+            background: var(--well-color);
+        }
+        .saved_empty svg {
+            width: 22px;
+            height: 22px;
+        }
+        .saved_empty b {
+            font-size: 17px;
+        }
+        .saved_empty p {
+            margin: 0;
+            max-width: 75%;
+            font-size: 14px;
+            line-height: 1.45;
+            color: var(--text-muted);
+        }
+        @media (min-width: 900px) {
+            #saved {
+                top: 0;
+                right: auto;
+                width: 420px;
+                height: auto;
+                border-radius: 0;
+            }
         }
         #tabbar .on i {
             background: var(--deep-color);
@@ -1881,11 +2034,15 @@ Prices are expressed in Vietnamese dong (VND).
         </div>
     </div>
 </div>
+<div id="saved" hidden>
+    <div class="saved_head"><h1>Saved</h1><span class="saved_count"></span><button type="button" class="saved_share">Share</button></div>
+    <div class="saved_list"></div>
+    <div class="saved_empty" hidden><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></i><b>Nothing saved yet</b><p>Tap the heart on any place, and it stays here with its price and photos.</p></div>
+</div>
 <nav id="tabbar">
     <button type="button" class="on" data-tab="map"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></i>Map</button>
     <button type="button" data-tab="saved"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></i>Saved</button>
-    <button type="button" data-tab="filters"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg></i>Filters</button>
-    <button type="button" data-tab="profile" hidden><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></i>Profile</button>
+    <button type="button" data-tab="profile" hidden><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></i>Account</button>
 </nav>
 <div id="maxi" hidden>
     <div class="maxi_photos">
@@ -1919,6 +2076,7 @@ const $filters = document.getElementById('filters')
 const $close = document.getElementById('close')
 const $heart = document.getElementById('heart')
 const $share = document.getElementById('share')
+const $saved = document.getElementById('saved')
 const $toast = document.getElementById('toast')
 const $track = document.getElementById('track')
 const $track_circle_inner = $track.querySelectorAll('circle')[1]
@@ -1947,9 +2105,10 @@ const router = () => {
         return maxi_open(ad_current.id)
     }
     if (!maxi_closed) {
-        current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        current_page = history.state?.page == PAGE.SAVED ? PAGE.EDIT : location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
         return maxi_close()
     }
+    if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -2037,6 +2196,7 @@ const router = () => {
         )
     )
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
+    if (history.state?.page == PAGE.SAVED) saved_open()
 }
 
 addEventListener('popstate', router)
@@ -2288,7 +2448,7 @@ function toggle_like(id) {
         )
         const url = new URL(location)
         url.searchParams.set('likes', likes_string)
-        history.replaceState({}, '', url)
+        history.replaceState(history.state, '', url)
     }
     return likes
 }
@@ -2334,6 +2494,7 @@ var photo_swipe
 var card_moved = false
 var card_closed = true
 var maxi_closed = true
+var saved_closed = true
 
 $card.ontouchstart = e => {
     e.stopPropagation()
@@ -2887,7 +3048,13 @@ const $tabbar = document.getElementById('tabbar')
 $tabbar.onclick = e => {
     const $tab = e.target.closest('[data-tab]')
     if (!$tab) return
-    if ($tab.dataset.tab == 'saved') $heart.onpointerup(e)
+    if (history.state?.page == PAGE.SAVED && ($tab.dataset.tab == 'saved' || $tab.dataset.tab == 'map')) return history.back()
+    if ($tab.dataset.tab == 'saved') {
+        const url = new URL(location)
+        url.searchParams.set('likes', localStorage.likes || '')
+        history.pushState({page: PAGE.SAVED}, '', url)
+        return router()
+    }
     if ($tab.dataset.tab == 'filters') toggler.onpointerup(e)
     const likes = new URL(location).searchParams.has('likes')
     $tabbar.querySelector('[data-tab="map"]').classList.toggle('on', !likes)
@@ -2923,6 +3090,65 @@ $heart.onpointerup = e => {
     $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
     filters_hide()
+}
+
+function saved_render() {
+    const saved = (localStorage.likes || '').split(',').filter(Boolean).reverse().map(id => ads.find(ad => ad.id == id)).filter(Boolean)
+    $saved.querySelector('.saved_count').textContent = saved.length == 1 ? '1 place' : `${saved.length} places`
+    $saved.querySelector('.saved_share').hidden = !saved.length
+    $saved.querySelector('.saved_empty').hidden = saved.length > 0
+    $saved.querySelector('.saved_list').innerHTML = saved.map(ad => {
+        const kind = get_category_for_user(ad.category)
+        const district = get_area_v2_for_user(ad.area)
+        const title = !(kind == 'Apartment' || kind == 'House')
+            ? `${kind} in ${district}`
+            : ad.bedrooms > 0
+                ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+                : `Studio in ${district}`
+        var photo = ''
+        try {
+            photo = get_ad_img_urls(ad.id)[0] || ''
+        } catch (e) {
+            console.error(`ERROR: get_ad_img_urls(${ad.id})`, e)
+        }
+        const meta = ad.m2 ? `${ad.m2} m<sup>2</sup> · ${ago(ad.publish)} ago` : `${ago(ad.publish)} ago`
+        return `<div class="saved_row"><button type="button" class="saved_open" data-id="${ad.id}"><img src="${photo}" alt="" loading="lazy"><span><b>${title}</b><span class="saved_price">${ad.price.toLocaleString('en').replaceAll(',', ' ')} ₫<small> /mo</small></span><span class="saved_meta">${meta}</span></span></button><button type="button" class="saved_unsave" data-id="${ad.id}" aria-label="Remove from saved">${$tabbar.querySelector('[data-tab="saved"] svg').outerHTML}</button></div>`
+    }).join('')
+}
+
+function saved_open() {
+    saved_closed = false
+    saved_render()
+    $saved.style.transition = 'none'
+    $saved.style.transform = 'translate3d(0,0,0)'
+    $saved.removeAttribute('hidden')
+    $heart.hidden = true
+    $share.hidden = true
+    $tabbar.querySelector('[data-tab="map"]').classList.remove('on')
+    $tabbar.querySelector('[data-tab="saved"]').classList.add('on')
+}
+
+function saved_close() {
+    saved_closed = true
+    $saved.style.transition = 'transform 0.1s linear'
+    $saved.style.transform = `translate3d(0, ${$saved.clientHeight}px, 0)`
+    $tabbar.querySelector('[data-tab="saved"]').classList.remove('on')
+    $tabbar.querySelector('[data-tab="map"]').classList.add('on')
+}
+
+$saved.onclick = e => {
+    const $unsave = e.target.closest('.saved_unsave')
+    if ($unsave) {
+        toggle_like(Number($unsave.dataset.id))
+        return saved_render()
+    }
+    if (e.target.closest('.saved_share')) return $share.onclick()
+    const $open = e.target.closest('.saved_open')
+    if (!$open) return
+    fill_card($card_centre, Number($open.dataset.id))
+    window.ad_current = ads.find(ad => ad.id == $open.dataset.id)
+    history.pushState({page: PAGE.MAXI}, '')
+    router()
 }
 
 $share.onclick = () => {
