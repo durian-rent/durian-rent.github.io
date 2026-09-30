@@ -703,6 +703,10 @@ Prices are expressed in Vietnamese dong (VND).
             --shadow: 0 2px 6px rgba(29, 51, 33, 0.16);
             --status-bar-height: env(safe-area-inset-top, 0px);
             --tabbar-height: 4rem;
+            --border-width-small: 1px;
+            --border-width-big: 2px;
+            --input-height-small: 36px;
+            --input-height-big: 44px;
         }
         html[dark] {
             --text-color: #EDF2E1;
@@ -720,6 +724,8 @@ Prices are expressed in Vietnamese dong (VND).
             --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
+        body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+        button, input, textarea, select { font: inherit; }
         html[dark] body { margin: 0; padding: 0; background: #0E1911;}
         html, body { height: 100%; margin: 0; padding: 0; }
         #map {
@@ -740,7 +746,7 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-color);
             max-height: 40vh;
             overflow: hidden;
-            font-size: clamp(2px, 1.5vh, 12px);
+            font-size: x-small;
         }
 
         article p {
@@ -831,7 +837,7 @@ Prices are expressed in Vietnamese dong (VND).
             left: 0;
             color: var(--filter-color);
             font-family: Inter, Arial, sans-serif;
-            font-size: 1vh;
+            font-size: x-small;
             font-weight: 100;
             pointer-events: none;
             -webkit-user-select: none;
@@ -862,10 +868,9 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             gap: var(--offset-middle);
             overflow: hidden;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
             transition: bottom 0.1s linear, height 0.1s linear;
         }
@@ -877,8 +882,9 @@ Prices are expressed in Vietnamese dong (VND).
             font-variant-numeric: tabular-nums;
         }
         #card sup, #maxi sup {
-            font-size: 0.7em;
-            line-height: 0;
+            position: relative;
+            top: -0.5em;
+            vertical-align: baseline;
         }
         .grip-zone {
             height: 24px;
@@ -911,7 +917,7 @@ Prices are expressed in Vietnamese dong (VND).
             gap: var(--offset-small);
             padding: var(--offset-middle);
             background: var(--card-background-color);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             border-radius: var(--radius-small);
             box-shadow: var(--shadow);
             will-change: transform;
@@ -949,8 +955,8 @@ Prices are expressed in Vietnamese dong (VND).
             position: absolute;
             top: var(--offset-small);
             right: var(--offset-small);
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             border: 0;
             border-radius: var(--radius-big);
             display: grid;
@@ -967,7 +973,7 @@ Prices are expressed in Vietnamese dong (VND).
         .card_heart svg {
             width: 1em;
             height: 1em;
-            font-size: 22px;
+            font-size: x-large;
         }
         .card_heart .h-on, .card_heart[aria-pressed="true"] .h-off {
             display: none;
@@ -989,7 +995,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-small);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-size: 13px;
+            font-size: small;
         }
         .card_info {
             flex: 4;
@@ -1001,10 +1007,10 @@ Prices are expressed in Vietnamese dong (VND).
             container-type: size;
         }
         .card_info .price {
-            font-size: 29.6cqh;
+            font-size: x-large;
         }
         .card_info .price small {
-            font-size: 14.8cqh;
+            font-size: small;
         }
         .money {
             display: flex;
@@ -1016,37 +1022,35 @@ Prices are expressed in Vietnamese dong (VND).
             padding: 0;
             border: 0;
             background: none;
-            font-family: inherit;
-            font-size: 34px;
-            line-height: 1.05;
+            font-size: xx-large;
             color: var(--text-color);
             text-align: left;
             cursor: pointer;
         }
         .price small {
-            font-size: 17px;
+            font-size: large;
             font-weight: 500;
             color: var(--text-muted);
         }
         .facts {
-            font-size: 13cqh;
+            font-size: small;
             font-weight: 700;
         }
         .where {
-            font-size: 14px;
+            font-size: small;
             color: var(--text-color);
         }
         .where b {
             color: var(--text-color);
         }
         .card_info .where {
-            font-size: 12.2cqh;
+            font-size: small;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .foot {
-            font-size: 12.2cqh;
+            font-size: small;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1057,7 +1061,6 @@ Prices are expressed in Vietnamese dong (VND).
             inset: 0;
             overflow-y: auto;
             overscroll-behavior: contain;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
         }
@@ -1090,7 +1093,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-small);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-size: 13px;
+            font-size: small;
         }
         .maxi_over {
             position: absolute;
@@ -1109,7 +1112,7 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_over svg {
             width: 1em;
             height: 1em;
-            font-size: 17px;
+            font-size: large;
         }
         .maxi_panel {
             position: relative;
@@ -1124,11 +1127,10 @@ Prices are expressed in Vietnamese dong (VND).
             text-align: center;
         }
         .maxi_panel h1 {
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .maxi_panel .where {
-            font-size: 14px;
+            font-size: small;
             color: var(--text-color);
         }
         .maxi_panel .street:not(:empty)::after {
@@ -1137,7 +1139,7 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_panel .money {
             align-items: baseline;
             gap: var(--offset-small);
-            font-size: 14px;
+            font-size: small;
             color: var(--text-muted);
         }
         .maxi_panel .price {
@@ -1155,7 +1157,7 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             align-items: center;
             gap: var(--offset-small);
-            border: 1px solid var(--icon-color);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-small);
             background: var(--card-background-color);
         }
@@ -1163,18 +1165,17 @@ Prices are expressed in Vietnamese dong (VND).
             display: inline-flex;
             align-items: center;
             gap: var(--offset-small);
-            font-size: 19px;
-            line-height: 1;
+            font-size: large;
             color: var(--text-color);
         }
         .pod svg {
             width: 1em;
             height: 1em;
-            font-size: 17px;
+            font-size: large;
             color: var(--accent-color);
         }
         .pod small {
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
         }
         .pod .sad, .pod.unk .icon, .pod.unk b {
@@ -1186,7 +1187,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .pod.unk .sad {
             display: block;
-            font-size: 22px;
+            font-size: x-large;
             color: var(--text-muted);
         }
         .maxi_about {
@@ -1197,13 +1198,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .maxi_about h2 {
             margin: 0;
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .maxi_about .desc {
             white-space: pre-line;
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: medium;
             overflow: hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -1213,20 +1212,19 @@ Prices are expressed in Vietnamese dong (VND).
             display: block;
         }
         .maxi_about .more {
-            height: 44px;
-            border: 1px solid var(--icon-color);
+            height: var(--input-height-big);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-small);
             background: var(--card-background-color);
             color: var(--text-color);
-            font-family: inherit;
-            font-size: 15px;
+            font-size: medium;
             font-weight: 700;
             box-shadow: var(--shadow);
             cursor: pointer;
         }
         .maxi_source {
             padding: var(--offset-big) var(--offset-middle);
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
             text-align: center;
         }
@@ -1248,18 +1246,18 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .ctl {
             box-sizing: border-box;
-            width: 36px;
-            height: 36px;
+            width: var(--input-height-small);
+            height: var(--input-height-small);
             max-width: 100%;
             max-height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--icon-color);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-big);
             background: var(--card-background-color);
             color: var(--text-color);
-            font-size: 17px;
+            font-size: large;
             font-weight: 700;
             box-shadow: var(--shadow);
         }
@@ -1272,10 +1270,9 @@ Prices are expressed in Vietnamese dong (VND).
             margin: 0;
             display: flex;
             flex-direction: column;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
             transform: translate3d(0, 100%, 0);
             z-index: 1;
@@ -1292,7 +1289,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: x-large;
         }
         #filters button {
-            font: inherit;
             cursor: pointer;
         }
         .filters_reset {
@@ -1321,7 +1317,7 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             gap: var(--offset-small);
             padding: var(--offset-middle) 0;
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
         }
         .filters_pane section:first-child {
             border-top: 0;
@@ -1352,7 +1348,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .filters_hist i {
             flex: 1;
-            border-left: 1px solid var(--sheet-color);
+            border-left: var(--border-width-small) solid var(--sheet-color);
             background: var(--well-color);
         }
         .filters_hist i[data-in] {
@@ -1387,7 +1383,7 @@ Prices are expressed in Vietnamese dong (VND).
             width: var(--offset-big);
             height: var(--offset-big);
             border-radius: var(--radius-big);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             background: var(--card-background-color);
             box-shadow: var(--shadow);
             cursor: grab;
@@ -1397,14 +1393,14 @@ Prices are expressed in Vietnamese dong (VND).
             width: var(--offset-big);
             height: var(--offset-big);
             border-radius: var(--radius-big);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             background: var(--card-background-color);
             box-shadow: var(--shadow);
             cursor: grab;
         }
         #filters footer {
             padding: var(--offset-middle) var(--offset-middle) calc(var(--offset-middle) + env(safe-area-inset-bottom));
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
         }
         .filters_show {
             width: 100%;
@@ -1493,9 +1489,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-big);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-            font-size: 11px;
-            line-height: 18px;
+            font-size: x-small;
             font-variant-numeric: tabular-nums;
         }
         #likes_count:empty {
@@ -1591,11 +1585,10 @@ Prices are expressed in Vietnamese dong (VND).
             height: var(--tabbar-height);
             margin-bottom: env(safe-area-inset-bottom, 0px);
             display: flex;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             font-size: small;
             font-weight: 600;
             background: var(--card-background-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
         }
         #tabbar button {
@@ -1608,7 +1601,6 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: var(--text-muted);
-            font: inherit;
             cursor: pointer;
         }
         #tabbar i {
@@ -1634,7 +1626,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-big) var(--radius-big) 0 0;
             box-shadow: var(--shadow);
             color: var(--text-color);
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+
         }
         .saved_head {
             display: flex;
@@ -1643,12 +1635,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .saved_head h1 {
             margin: 0;
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .saved_count {
             margin-right: auto;
-            font-size: 14px;
+            font-size: small;
             color: var(--text-muted);
         }
         .saved_share {
@@ -1656,8 +1647,7 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: var(--text-color);
-            font: inherit;
-            font-size: 14px;
+            font-size: small;
             text-decoration: underline;
             text-underline-offset: 0.2em;
             cursor: pointer;
@@ -1688,7 +1678,6 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: inherit;
-            font: inherit;
             text-align: left;
             cursor: pointer;
         }
@@ -1706,21 +1695,20 @@ Prices are expressed in Vietnamese dong (VND).
             min-width: 0;
         }
         .saved_open b {
-            font-size: 15px;
-            line-height: 1.3;
+            font-size: medium;
         }
         .saved_price {
-            font-size: 17px;
+            font-size: large;
             font-variant-numeric: tabular-nums;
         }
         .saved_price small, .saved_meta {
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
         }
         .saved_unsave {
             flex: none;
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             display: grid;
             place-items: center;
             padding: 0;
@@ -1731,8 +1719,8 @@ Prices are expressed in Vietnamese dong (VND).
             cursor: pointer;
         }
         .saved_unsave svg {
-            width: 22px;
-            height: 22px;
+            width: 50%;
+            height: 50%;
             fill: currentColor;
         }
         .saved_empty {
@@ -1744,25 +1732,24 @@ Prices are expressed in Vietnamese dong (VND).
             text-align: center;
         }
         .saved_empty i {
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             display: grid;
             place-items: center;
             border-radius: var(--radius-big);
             background: var(--well-color);
         }
         .saved_empty svg {
-            width: 22px;
-            height: 22px;
+            width: 50%;
+            height: 50%;
         }
         .saved_empty b {
-            font-size: 17px;
+            font-size: large;
         }
         .saved_empty p {
             margin: 0;
             max-width: 75%;
-            font-size: 14px;
-            line-height: 1.45;
+            font-size: small;
             color: var(--text-muted);
         }
         @media (min-width: 900px) {
@@ -1787,7 +1774,7 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-color-inverse);
             padding: 12px 24px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: small;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             animation: slideUp 0.3s ease-out;
