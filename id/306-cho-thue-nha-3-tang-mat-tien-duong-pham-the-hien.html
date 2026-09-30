@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Căn Hộ Monarchy 2PN Tòa A Gần Sông Hàn | E541" />
+    <meta name="description" content="306 ✨ 🏡 CHO THUÊ NHÀ 3 TẦNG MẶT TIỀN ĐƯỜNG PHẠM THẾ HIỂN" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -375,7 +375,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5}
 
-    const VER_WASM = '1790689454640'
+    const VER_WASM = '1790763421677'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -483,7 +483,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '27479a66f941cf2e20bdb4b2abee436de7df09bc7160621fe39be04939a95002'// contact spirin.vladimir@gmail.com
+        const KEY = '379bdbade3bf0f57085aeab6870971cb6252f769727e1c9dd3b812eadb68b6cd'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -702,7 +702,7 @@ Prices are expressed in Vietnamese dong (VND).
             --radius-big: 22px;
             --shadow: 0 2px 6px rgba(29, 51, 33, 0.16);
             --status-bar-height: env(safe-area-inset-top, 0px);
-            --tabbar-height: calc(10vh + env(safe-area-inset-bottom, 0px));
+            --tabbar-height: 4rem;
         }
         html[dark] {
             --text-color: #EDF2E1;
@@ -827,7 +827,7 @@ Prices are expressed in Vietnamese dong (VND).
             padding-left: 2vh;
             gap: 1vh;
             height: 5vh;
-            bottom: var(--tabbar-height);
+            bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
             left: 0;
             color: var(--filter-color);
             font-family: Inter, Arial, sans-serif;
@@ -854,7 +854,7 @@ Prices are expressed in Vietnamese dong (VND).
         #card {
             position: fixed;
             bottom: -48vh;/*card SSR*/
-            margin-bottom: var(--tabbar-height);
+            margin-bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
             width: 100%;
             height: 48vh;
             box-sizing: border-box;
@@ -1589,7 +1589,7 @@ Prices are expressed in Vietnamese dong (VND).
             left: 0;
             box-sizing: border-box;
             height: var(--tabbar-height);
-            padding-bottom: env(safe-area-inset-bottom, 0px);
+            margin-bottom: env(safe-area-inset-bottom, 0px);
             display: flex;
             font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             font-size: small;
@@ -1622,7 +1622,7 @@ Prices are expressed in Vietnamese dong (VND).
         #saved {
             position: fixed;
             right: 0;
-            bottom: var(--tabbar-height);
+            bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
             left: 0;
             height: 62vh;
             box-sizing: border-box;
