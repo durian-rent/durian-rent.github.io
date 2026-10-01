@@ -12,7 +12,7 @@
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content=" CHO THUÊ CĂN HỘ 1 PHÒNG NGỦ ĐẦY ĐỦ NỘI THẤT – SƠN TRÀ" />
+    <meta name="description" content="CHO THUÊ CĂN HỘ 1 PHÒNG NGỦ ĐẦY ĐỦ NỘI THẤT – SƠN TRÀ" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Durian Rent Map">
@@ -373,9 +373,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5}
+    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7}
 
-    const VER_WASM = '1790851304678'
+    const VER_WASM = '1790860242085'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -444,6 +444,20 @@ Prices are expressed in Vietnamese dong (VND).
         })
     )
 
+    const FONT_URL = '/jakarta-latin.woff2'
+    caches.open('fonts')
+    .then(c =>
+        c.match(FONT_URL)
+        .then(r =>
+            r || fetch(FONT_URL)
+            .then(r =>
+                r.ok && c.put(FONT_URL, r.clone()).then(_ => r)
+            )
+        )
+    )
+    .then(_ => _.arrayBuffer())
+    .then(_ => document.fonts.add(new FontFace('Plus Jakarta Sans', _, {weight: '400 700', display: 'swap'})))
+
     window.fetch = (url, opts = {}) => {
         if (
             cache_pmtiles_exist_and_loading &&
@@ -483,7 +497,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = 'dc44cf72b14b9603d1283809b7f1d8e9d5fea315780af4da8f9c4f9525e4851b'// contact spirin.vladimir@gmail.com
+        const KEY = '4cfa9c0283fd7678fcb4fc6f5e78c0bae9b7100118c676a9cd2c7e9afd0b5f0e'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -703,6 +717,10 @@ Prices are expressed in Vietnamese dong (VND).
             --shadow: 0 2px 6px rgba(29, 51, 33, 0.16);
             --status-bar-height: env(safe-area-inset-top, 0px);
             --tabbar-height: 4rem;
+            --border-width-small: 1px;
+            --border-width-big: 2px;
+            --input-height-small: 36px;
+            --input-height-big: 44px;
         }
         html[dark] {
             --text-color: #EDF2E1;
@@ -720,6 +738,8 @@ Prices are expressed in Vietnamese dong (VND).
             --shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
         body { margin: 0; padding: 0; background: #E5E8DB; position: relative;width: 100%;}
+        body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+        button, input, textarea, select { font: inherit; }
         html[dark] body { margin: 0; padding: 0; background: #0E1911;}
         html, body { height: 100%; margin: 0; padding: 0; }
         #map {
@@ -740,7 +760,7 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-color);
             max-height: 40vh;
             overflow: hidden;
-            font-size: clamp(2px, 1.5vh, 12px);
+            font-size: x-small;
         }
 
         article p {
@@ -831,7 +851,7 @@ Prices are expressed in Vietnamese dong (VND).
             left: 0;
             color: var(--filter-color);
             font-family: Inter, Arial, sans-serif;
-            font-size: 1vh;
+            font-size: x-small;
             font-weight: 100;
             pointer-events: none;
             -webkit-user-select: none;
@@ -862,10 +882,9 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             gap: var(--offset-middle);
             overflow: hidden;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
             transition: bottom 0.1s linear, height 0.1s linear;
         }
@@ -877,8 +896,9 @@ Prices are expressed in Vietnamese dong (VND).
             font-variant-numeric: tabular-nums;
         }
         #card sup, #maxi sup {
-            font-size: 0.7em;
-            line-height: 0;
+            position: relative;
+            top: -0.5em;
+            vertical-align: baseline;
         }
         .grip-zone {
             height: 24px;
@@ -911,7 +931,7 @@ Prices are expressed in Vietnamese dong (VND).
             gap: var(--offset-small);
             padding: var(--offset-middle);
             background: var(--card-background-color);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             border-radius: var(--radius-small);
             box-shadow: var(--shadow);
             will-change: transform;
@@ -949,8 +969,8 @@ Prices are expressed in Vietnamese dong (VND).
             position: absolute;
             top: var(--offset-small);
             right: var(--offset-small);
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             border: 0;
             border-radius: var(--radius-big);
             display: grid;
@@ -967,7 +987,7 @@ Prices are expressed in Vietnamese dong (VND).
         .card_heart svg {
             width: 1em;
             height: 1em;
-            font-size: 22px;
+            font-size: x-large;
         }
         .card_heart .h-on, .card_heart[aria-pressed="true"] .h-off {
             display: none;
@@ -989,7 +1009,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-small);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-size: 13px;
+            font-size: small;
         }
         .card_info {
             flex: 4;
@@ -1001,10 +1021,10 @@ Prices are expressed in Vietnamese dong (VND).
             container-type: size;
         }
         .card_info .price {
-            font-size: 29.6cqh;
+            font-size: x-large;
         }
         .card_info .price small {
-            font-size: 14.8cqh;
+            font-size: small;
         }
         .money {
             display: flex;
@@ -1016,37 +1036,35 @@ Prices are expressed in Vietnamese dong (VND).
             padding: 0;
             border: 0;
             background: none;
-            font-family: inherit;
-            font-size: 34px;
-            line-height: 1.05;
+            font-size: xx-large;
             color: var(--text-color);
             text-align: left;
             cursor: pointer;
         }
         .price small {
-            font-size: 17px;
+            font-size: large;
             font-weight: 500;
             color: var(--text-muted);
         }
         .facts {
-            font-size: 13cqh;
+            font-size: small;
             font-weight: 700;
         }
         .where {
-            font-size: 14px;
+            font-size: small;
             color: var(--text-color);
         }
         .where b {
             color: var(--text-color);
         }
         .card_info .where {
-            font-size: 12.2cqh;
+            font-size: small;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .foot {
-            font-size: 12.2cqh;
+            font-size: small;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1057,7 +1075,6 @@ Prices are expressed in Vietnamese dong (VND).
             inset: 0;
             overflow-y: auto;
             overscroll-behavior: contain;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
         }
@@ -1090,7 +1107,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-small);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-size: 13px;
+            font-size: small;
         }
         .maxi_over {
             position: absolute;
@@ -1109,7 +1126,7 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_over svg {
             width: 1em;
             height: 1em;
-            font-size: 17px;
+            font-size: large;
         }
         .maxi_panel {
             position: relative;
@@ -1124,11 +1141,10 @@ Prices are expressed in Vietnamese dong (VND).
             text-align: center;
         }
         .maxi_panel h1 {
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .maxi_panel .where {
-            font-size: 14px;
+            font-size: small;
             color: var(--text-color);
         }
         .maxi_panel .street:not(:empty)::after {
@@ -1137,7 +1153,7 @@ Prices are expressed in Vietnamese dong (VND).
         .maxi_panel .money {
             align-items: baseline;
             gap: var(--offset-small);
-            font-size: 14px;
+            font-size: small;
             color: var(--text-muted);
         }
         .maxi_panel .price {
@@ -1155,7 +1171,7 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             align-items: center;
             gap: var(--offset-small);
-            border: 1px solid var(--icon-color);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-small);
             background: var(--card-background-color);
         }
@@ -1163,18 +1179,17 @@ Prices are expressed in Vietnamese dong (VND).
             display: inline-flex;
             align-items: center;
             gap: var(--offset-small);
-            font-size: 19px;
-            line-height: 1;
+            font-size: large;
             color: var(--text-color);
         }
         .pod svg {
             width: 1em;
             height: 1em;
-            font-size: 17px;
+            font-size: large;
             color: var(--accent-color);
         }
         .pod small {
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
         }
         .pod .sad, .pod.unk .icon, .pod.unk b {
@@ -1186,7 +1201,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .pod.unk .sad {
             display: block;
-            font-size: 22px;
+            font-size: x-large;
             color: var(--text-muted);
         }
         .maxi_about {
@@ -1197,13 +1212,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .maxi_about h2 {
             margin: 0;
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .maxi_about .desc {
             white-space: pre-line;
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: medium;
             overflow: hidden;
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -1213,20 +1226,19 @@ Prices are expressed in Vietnamese dong (VND).
             display: block;
         }
         .maxi_about .more {
-            height: 44px;
-            border: 1px solid var(--icon-color);
+            height: var(--input-height-big);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-small);
             background: var(--card-background-color);
             color: var(--text-color);
-            font-family: inherit;
-            font-size: 15px;
+            font-size: medium;
             font-weight: 700;
             box-shadow: var(--shadow);
             cursor: pointer;
         }
         .maxi_source {
             padding: var(--offset-big) var(--offset-middle);
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
             text-align: center;
         }
@@ -1248,18 +1260,18 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .ctl {
             box-sizing: border-box;
-            width: 36px;
-            height: 36px;
+            width: var(--input-height-small);
+            height: var(--input-height-small);
             max-width: 100%;
             max-height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--icon-color);
+            border: var(--border-width-small) solid var(--icon-color);
             border-radius: var(--radius-big);
             background: var(--card-background-color);
             color: var(--text-color);
-            font-size: 17px;
+            font-size: large;
             font-weight: 700;
             box-shadow: var(--shadow);
         }
@@ -1272,10 +1284,9 @@ Prices are expressed in Vietnamese dong (VND).
             margin: 0;
             display: flex;
             flex-direction: column;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             color: var(--text-color);
             background-color: var(--sheet-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
             transform: translate3d(0, 100%, 0);
             z-index: 1;
@@ -1292,7 +1303,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: x-large;
         }
         #filters button {
-            font: inherit;
             cursor: pointer;
         }
         .filters_reset {
@@ -1321,7 +1331,7 @@ Prices are expressed in Vietnamese dong (VND).
             flex-direction: column;
             gap: var(--offset-small);
             padding: var(--offset-middle) 0;
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
         }
         .filters_pane section:first-child {
             border-top: 0;
@@ -1352,7 +1362,7 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .filters_hist i {
             flex: 1;
-            border-left: 1px solid var(--sheet-color);
+            border-left: var(--border-width-small) solid var(--sheet-color);
             background: var(--well-color);
         }
         .filters_hist i[data-in] {
@@ -1387,7 +1397,7 @@ Prices are expressed in Vietnamese dong (VND).
             width: var(--offset-big);
             height: var(--offset-big);
             border-radius: var(--radius-big);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             background: var(--card-background-color);
             box-shadow: var(--shadow);
             cursor: grab;
@@ -1397,14 +1407,14 @@ Prices are expressed in Vietnamese dong (VND).
             width: var(--offset-big);
             height: var(--offset-big);
             border-radius: var(--radius-big);
-            border: 1px solid var(--line-color);
+            border: var(--border-width-small) solid var(--line-color);
             background: var(--card-background-color);
             box-shadow: var(--shadow);
             cursor: grab;
         }
         #filters footer {
             padding: var(--offset-middle) var(--offset-middle) calc(var(--offset-middle) + env(safe-area-inset-bottom));
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
         }
         .filters_show {
             width: 100%;
@@ -1493,9 +1503,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-big);
             background: var(--deep-color);
             color: var(--on-deep-color);
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-            font-size: 11px;
-            line-height: 18px;
+            font-size: x-small;
             font-variant-numeric: tabular-nums;
         }
         #likes_count:empty {
@@ -1591,11 +1599,10 @@ Prices are expressed in Vietnamese dong (VND).
             height: var(--tabbar-height);
             margin-bottom: env(safe-area-inset-bottom, 0px);
             display: flex;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
             font-size: small;
             font-weight: 600;
             background: var(--card-background-color);
-            border-top: 1px solid var(--line-color);
+            border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
         }
         #tabbar button {
@@ -1608,7 +1615,6 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: var(--text-muted);
-            font: inherit;
             cursor: pointer;
         }
         #tabbar i {
@@ -1634,7 +1640,7 @@ Prices are expressed in Vietnamese dong (VND).
             border-radius: var(--radius-big) var(--radius-big) 0 0;
             box-shadow: var(--shadow);
             color: var(--text-color);
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+
         }
         .saved_head {
             display: flex;
@@ -1643,12 +1649,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .saved_head h1 {
             margin: 0;
-            font-size: 22px;
-            line-height: 1.2;
+            font-size: x-large;
         }
         .saved_count {
             margin-right: auto;
-            font-size: 14px;
+            font-size: small;
             color: var(--text-muted);
         }
         .saved_share {
@@ -1656,8 +1661,7 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: var(--text-color);
-            font: inherit;
-            font-size: 14px;
+            font-size: small;
             text-decoration: underline;
             text-underline-offset: 0.2em;
             cursor: pointer;
@@ -1688,7 +1692,6 @@ Prices are expressed in Vietnamese dong (VND).
             border: 0;
             background: none;
             color: inherit;
-            font: inherit;
             text-align: left;
             cursor: pointer;
         }
@@ -1706,21 +1709,20 @@ Prices are expressed in Vietnamese dong (VND).
             min-width: 0;
         }
         .saved_open b {
-            font-size: 15px;
-            line-height: 1.3;
+            font-size: medium;
         }
         .saved_price {
-            font-size: 17px;
+            font-size: large;
             font-variant-numeric: tabular-nums;
         }
         .saved_price small, .saved_meta {
-            font-size: 13px;
+            font-size: small;
             color: var(--text-muted);
         }
         .saved_unsave {
             flex: none;
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             display: grid;
             place-items: center;
             padding: 0;
@@ -1731,8 +1733,8 @@ Prices are expressed in Vietnamese dong (VND).
             cursor: pointer;
         }
         .saved_unsave svg {
-            width: 22px;
-            height: 22px;
+            width: 50%;
+            height: 50%;
             fill: currentColor;
         }
         .saved_empty {
@@ -1744,25 +1746,24 @@ Prices are expressed in Vietnamese dong (VND).
             text-align: center;
         }
         .saved_empty i {
-            width: 44px;
-            height: 44px;
+            width: var(--input-height-big);
+            height: var(--input-height-big);
             display: grid;
             place-items: center;
             border-radius: var(--radius-big);
             background: var(--well-color);
         }
         .saved_empty svg {
-            width: 22px;
-            height: 22px;
+            width: 50%;
+            height: 50%;
         }
         .saved_empty b {
-            font-size: 17px;
+            font-size: large;
         }
         .saved_empty p {
             margin: 0;
             max-width: 75%;
-            font-size: 14px;
-            line-height: 1.45;
+            font-size: small;
             color: var(--text-muted);
         }
         @media (min-width: 900px) {
@@ -1787,11 +1788,439 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-color-inverse);
             padding: 12px 24px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: small;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             animation: slideUp 0.3s ease-out;
             z-index: 9999;
+        }
+        #pin {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            color: var(--text-color);
+        }
+        #pin .ctl, #pin .place-panel {
+            pointer-events: auto;
+        }
+        .pin_marker {
+            position: fixed;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            width: auto;
+            height: 7vh;
+            transform: translate(-50%, -100%);
+            filter: drop-shadow(var(--shadow));
+            pointer-events: none;
+        }
+        .pin_marker path {
+            fill: var(--deep-color);
+            stroke: var(--on-deep-color);
+            stroke-width: 2;
+        }
+        .pin_marker circle {
+            fill: var(--on-deep-color);
+        }
+        .place-panel {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            box-sizing: border-box;
+            padding: var(--offset-big) var(--offset-middle) var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            text-align: center;
+            background: var(--sheet-color);
+            border-radius: var(--radius-big) var(--radius-big) 0 0;
+            box-shadow: var(--shadow);
+        }
+        .place-panel h2 {
+            margin: 0;
+            font-size: x-large;
+        }
+        .muted {
+            margin: 0;
+            font-size: small;
+            color: var(--text-muted);
+        }
+        .muted b {
+            color: var(--text-color);
+        }
+        .wide {
+            height: var(--input-height-big);
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: var(--radius-big);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: medium;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+        }
+        .wide[disabled] {
+            background: var(--well-color);
+            color: var(--text-muted);
+            box-shadow: none;
+        }
+        #form {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            background: var(--sheet-color);
+            color: var(--text-color);
+        }
+        .form-head {
+            flex: none;
+            box-sizing: border-box;
+            padding: var(--offset-middle);
+            display: flex;
+            align-items: center;
+            gap: var(--offset-middle);
+        }
+        .form-head h1 {
+            flex: 1;
+            margin: 0;
+            font-size: x-large;
+        }
+        .form-body {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            box-sizing: border-box;
+            padding: 0 var(--offset-middle) var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+        }
+        .sec {
+            box-sizing: border-box;
+            padding: var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            box-shadow: var(--shadow);
+        }
+        .sec h2 {
+            margin: 0;
+        }
+        .sec-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--offset-small);
+        }
+        .sec-title h2 {
+            font-size: large;
+        }
+        .req {
+            font-size: small;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+        .done {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--offset-small);
+            font-size: small;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .done svg {
+            width: 1em;
+            height: 1em;
+            color: var(--accent-color);
+        }
+        .drop {
+            box-sizing: border-box;
+            padding: var(--offset-big) var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--offset-small);
+            border: var(--border-width-big) dashed var(--icon-color);
+            border-radius: var(--radius-small);
+            background: none;
+            color: var(--text-color);
+            text-align: center;
+        }
+        .drop .cam {
+            width: var(--input-height-big);
+            height: var(--input-height-big);
+            display: grid;
+            place-items: center;
+            border-radius: var(--radius-big);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+        }
+        .drop .cam svg {
+            width: 50%;
+            height: 50%;
+        }
+        .drop b {
+            font-size: medium;
+        }
+        .hint {
+            margin: 0;
+            font-size: small;
+            color: var(--text-muted);
+        }
+        .thumbs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--offset-small);
+        }
+        .thumbs div {
+            position: relative;
+        }
+        .thumbs img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: var(--radius-small);
+        }
+        .thumbs .tag {
+            position: absolute;
+            left: var(--offset-small);
+            bottom: var(--offset-small);
+            padding: 0 var(--offset-small);
+            display: inline-flex;
+            align-items: center;
+            border-radius: var(--radius-small);
+            background: var(--deep-color);
+            color: var(--on-deep-color);
+            font-size: small;
+            font-weight: 600;
+        }
+        .thumbs .add {
+            aspect-ratio: 1;
+            box-sizing: border-box;
+            display: grid;
+            place-items: center;
+            border: var(--border-width-big) dashed var(--icon-color);
+            border-radius: var(--radius-small);
+            background: none;
+            color: var(--text-color);
+        }
+        .thumbs .add svg {
+            width: 30%;
+            height: 30%;
+        }
+        .opts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--offset-small);
+        }
+        .seg {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(0, 1fr);
+            gap: var(--offset-small);
+        }
+        .opt {
+            height: var(--input-height-big);
+            box-sizing: border-box;
+            padding: 0 var(--offset-middle);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--offset-small);
+            border: var(--border-width-small) solid var(--icon-color);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            color: var(--text-color);
+            font-size: medium;
+            font-weight: 600;
+        }
+        .opt svg {
+            width: 1em;
+            height: 1em;
+            color: var(--accent-color);
+        }
+        .opt.on {
+            border-color: var(--filter-color);
+            background: var(--filter-color);
+            color: var(--text-color-inverse);
+        }
+        .opt.on svg {
+            color: var(--text-color-inverse);
+        }
+        .lbl {
+            font-size: small;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .row {
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+        }
+        .inp {
+            height: var(--input-height-big);
+            box-sizing: border-box;
+            padding: 0 var(--offset-middle);
+            display: flex;
+            align-items: center;
+            gap: var(--offset-small);
+            border: var(--border-width-small) solid var(--icon-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+        }
+        .inp input {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            background: none;
+            font-size: large;
+            font-weight: 600;
+            color: var(--text-color);
+            font-variant-numeric: tabular-nums;
+        }
+        .inp input::placeholder {
+            font-weight: 500;
+            color: var(--text-muted);
+            opacity: 1;
+        }
+        .inp .unit {
+            font-size: medium;
+            color: var(--text-muted);
+        }
+        .area {
+            box-sizing: border-box;
+            padding: var(--offset-middle);
+            border: var(--border-width-small) solid var(--icon-color);
+            border-radius: var(--radius-small);
+            background: var(--card-background-color);
+            font-size: medium;
+            color: var(--text-color);
+            resize: none;
+        }
+        .area::placeholder {
+            color: var(--text-muted);
+        }
+        .loc {
+            display: flex;
+            align-items: center;
+            gap: var(--offset-middle);
+        }
+        .loc .spot {
+            position: relative;
+            flex: none;
+            width: 20%;
+            aspect-ratio: 1 / 1;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: var(--radius-small);
+            background: var(--well-color);
+        }
+        .loc .spot svg {
+            width: auto;
+            height: 50%;
+        }
+        .loc .spot path {
+            fill: var(--deep-color);
+            stroke: var(--on-deep-color);
+            stroke-width: 2;
+        }
+        .loc .spot circle {
+            fill: var(--on-deep-color);
+        }
+        .loc div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+        }
+        .loc b {
+            font-size: medium;
+        }
+        .link {
+            border: 0;
+            padding: 0;
+            background: none;
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        .bar {
+            flex: none;
+            box-sizing: border-box;
+            padding: var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+            background: var(--card-background-color);
+            border-top: var(--border-width-small) solid var(--line-color);
+            box-shadow: var(--shadow);
+        }
+        .todo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--offset-middle);
+        }
+        .todo span {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--offset-small);
+            font-size: small;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .todo span.ok {
+            color: var(--text-color);
+        }
+        .todo svg {
+            width: 1em;
+            height: 1em;
+        }
+        .todo span.ok svg {
+            color: var(--accent-color);
+        }
+        @media (min-width: 900px) {
+            #pin {
+                display: flex;
+                flex-direction: column;
+                pointer-events: auto;
+                background: var(--sheet-color);
+            }
+            #pin, #form {
+                right: auto;
+                width: 420px;
+                box-shadow: var(--shadow);
+            }
+            #pin .maxi_over {
+                position: static;
+                box-sizing: border-box;
+                padding: var(--offset-big) var(--offset-big) 0;
+            }
+            #pin .place-panel {
+                position: static;
+                flex: 1;
+                border-radius: 0;
+                box-shadow: none;
+                text-align: left;
+            }
+            #pin .pin_use {
+                margin-top: auto;
+            }
         }
     </style>
 </head>
@@ -2070,6 +2499,111 @@ Prices are expressed in Vietnamese dong (VND).
     </section>
     <p class="maxi_source">Source: <a class="maxi_link" target="_blank">Chợ Tốt</a></p>
 </div>
+<svg id="pin_marker" class="pin_marker" viewBox="0 0 30 42" aria-hidden="true" hidden><path d="M15 40.5C15 40.5 2 25 2 15a13 13 0 0 1 26 0c0 10-13 25.5-13 25.5z"/><circle cx="15" cy="15" r="5"/></svg>
+<div id="pin" hidden>
+    <div class="maxi_over"><button type="button" class="ctl pin_back" aria-label="Back to the map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button></div>
+    <div class="place-panel">
+        <p class="muted pin_hint">Move the map until the pin sits on your building</p>
+        <button type="button" class="wide pin_use">Use this location</button>
+    </div>
+</div>
+<div id="form" hidden>
+    <div class="form-head">
+        <button type="button" class="ctl form_back" aria-label="Back to the pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+        <h1>New listing</h1>
+    </div>
+    <div class="form-body">
+        <section class="sec">
+            <div class="sec-title"><h2>Photos</h2><span class="req photos_req">Required</span><span class="done photos_done" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
+            <input type="file" accept="image/*" multiple hidden class="form_photo_input">
+            <button type="button" class="drop form_add_photos"><span class="cam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></svg></span><b>Add photos</b><span class="hint">At least one. The first photo is the cover.</span></button>
+            <div class="thumbs" hidden><button type="button" class="add form_add_photos" aria-label="Add photos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button></div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Type</h2></div>
+            <div class="opts">
+                <button type="button" class="opt on" data-group="type" data-value="Apartment">Apartment</button>
+                <button type="button" class="opt" data-group="type" data-value="House">House</button>
+                <button type="button" class="opt" data-group="type" data-value="Room">Room</button>
+                <button type="button" class="opt" data-group="type" data-value="Office">Office</button>
+                <button type="button" class="opt" data-group="type" data-value="Land plot">Land plot</button>
+            </div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Price</h2><span class="req price_req">Required</span><span class="done price_done" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
+            <div class="row"><span class="lbl">Rent per month</span><label class="inp"><input class="form_price" inputmode="numeric" placeholder="For example, 7 000 000" aria-label="Rent per month"><span class="unit">₫ / month</span></label></div>
+            <div class="row"><span class="lbl">Deposit</span><label class="inp"><input class="form_deposit" inputmode="numeric" placeholder="For example, 7 000 000" aria-label="Deposit"><span class="unit">₫</span></label></div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Rooms</h2><span class="req bedrooms_req">Required</span><span class="done bedrooms_done" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
+            <div class="row"><span class="lbl">Bedrooms</span><div class="seg">
+                <button type="button" class="opt" data-group="bedrooms" data-value="Studio">Studio</button>
+                <button type="button" class="opt" data-group="bedrooms" data-value="1">1</button>
+                <button type="button" class="opt" data-group="bedrooms" data-value="2">2</button>
+                <button type="button" class="opt" data-group="bedrooms" data-value="3">3</button>
+                <button type="button" class="opt" data-group="bedrooms" data-value="4+">4+</button>
+            </div></div>
+            <div class="row"><span class="lbl">Bathrooms</span><div class="seg">
+                <button type="button" class="opt" data-group="bathrooms" data-value="1">1</button>
+                <button type="button" class="opt" data-group="bathrooms" data-value="2">2</button>
+                <button type="button" class="opt" data-group="bathrooms" data-value="3">3</button>
+                <button type="button" class="opt" data-group="bathrooms" data-value="4+">4+</button>
+            </div></div>
+            <div class="row"><span class="lbl">Area</span><label class="inp"><input class="form_area" inputmode="numeric" placeholder="For example, 45" aria-label="Area"><span class="unit">m²</span></label></div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>What’s included</h2></div>
+            <span class="hint">Tap everything tenants get with the rent.</span>
+            <div class="opts">
+                <button type="button" class="opt" data-group="amenity" data-value="Furnished"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/><path d="M12 4v9"/></svg>Furnished</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Air conditioning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 20-1.25-2.5L6 18"/><path d="M10 4 8.75 6.5 6 6"/><path d="m14 20 1.25-2.5L18 18"/><path d="m14 4 1.25 2.5L18 6"/><path d="m17 21-3-6h-4"/><path d="m17 3-3 6 1.5 3"/><path d="M2 12h6.5L10 9"/><path d="m20 10-1.5 2 1.5 2"/><path d="M22 12h-6.5L14 15"/><path d="m4 10 1.5 2L4 14"/><path d="m7 21 3-6-1.5-3"/><path d="m7 3 3 6h4"/></svg>Air conditioning</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Washing machine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h3"/><path d="M17 6h.01"/><rect width="18" height="20" x="3" y="2" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5"/></svg>Washing machine</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Fridge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6Z"/><path d="M5 10h14"/><path d="M15 7v6"/></svg>Fridge</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Kitchen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>Kitchen</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Water heater"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>Water heater</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Balcony"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3 2 5v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M6 8h4"/><path d="M6 18h4"/><path d="m12 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/><path d="M14 8h4"/><path d="M14 18h4"/><path d="m20 3-2 2v15c0 .6.4 1 1 1h2c.6 0 1-.4 1-1V5Z"/></svg>Balcony</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Elevator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>Elevator</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Motorbike parking"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>Motorbike parking</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Pool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>Pool</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Gym"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></svg>Gym</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Pets allowed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg>Pets allowed</button>
+                <button type="button" class="opt" data-group="amenity" data-value="Foreigners welcome"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Foreigners welcome</button>
+            </div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Description</h2></div>
+            <textarea class="area form_description" placeholder="Floor, view, what the rent includes, house rules. Any language."></textarea>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Location</h2><span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
+            <div class="loc">
+                <span class="spot"><svg viewBox="0 0 30 42" aria-hidden="true"><path d="M15 40.5C15 40.5 2 25 2 15a13 13 0 0 1 26 0c0 10-13 25.5-13 25.5z"/><circle cx="15" cy="15" r="5"/></svg></span>
+                <div><b>Pin is on the map</b></div>
+                <button type="button" class="link form_change">Change</button>
+            </div>
+            <div class="row"><span class="lbl">Address</span><label class="inp"><input class="form_address" autocomplete="street-address" placeholder="House number and street, for example 25 Mai Thúc Lân" aria-label="Address"></label></div>
+        </section>
+        <section class="sec">
+            <div class="sec-title"><h2>Contact</h2><span class="req contact_req">Required</span><span class="done contact_done" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
+            <div class="opts">
+                <button type="button" class="opt on" data-group="contact" data-value="Zalo">Zalo</button>
+                <button type="button" class="opt" data-group="contact" data-value="Phone">Phone</button>
+                <button type="button" class="opt" data-group="contact" data-value="Telegram">Telegram</button>
+                <button type="button" class="opt" data-group="contact" data-value="WhatsApp">WhatsApp</button>
+            </div>
+            <label class="inp"><input class="form_contact_value" inputmode="tel" placeholder="Your Zalo number" aria-label="Contact number"></label>
+        </section>
+    </div>
+    <div class="bar">
+        <div class="todo">
+            <span data-todo="photos"><svg class="i-ok" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><svg class="i-no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>Photos</span>
+            <span data-todo="price"><svg class="i-ok" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><svg class="i-no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>Price</span>
+            <span data-todo="bedrooms"><svg class="i-ok" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><svg class="i-no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>Bedrooms</span>
+            <span data-todo="contact"><svg class="i-ok" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><svg class="i-no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>Contact</span>
+        </div>
+        <button type="button" class="wide" hidden>Publish · free for now</button>
+    </div>
+</div>
 <div id="toast" hidden></div>
 <script>
 const $filters = document.getElementById('filters')
@@ -2109,6 +2643,21 @@ const router = () => {
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
+    if (history.state?.page == PAGE.FORM) {
+        if (!post_started) return history.back()
+        current_page = PAGE.FORM
+        return form_open()
+    }
+    if (!form_closed) form_close()
+    if (history.state?.page == PAGE.PIN) {
+        if (!post_started) return history.back()
+        current_page = PAGE.PIN
+        return pin_open()
+    }
+    if (!pin_closed) {
+        current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        return pin_close()
+    }
     const pathname = location.pathname.split('/')
     search_params = new URLSearchParams(location.search)
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
@@ -2871,26 +3420,6 @@ $maxi.ontouchend = e => {
     }
 }
 
-const FONT_URL = '/jakarta-latin.woff2'
-var font_loaded = false
-
-function load_font() {
-    if (font_loaded) return
-    font_loaded = true
-    caches.open('fonts')
-    .then(c =>
-        c.match(FONT_URL)
-        .then(r =>
-            r || fetch(FONT_URL)
-            .then(r =>
-                r.ok && c.put(FONT_URL, r.clone()).then(_ => r)
-            )
-        )
-    )
-    .then(_ => _.arrayBuffer())
-    .then(_ => document.fonts.add(new FontFace('Plus Jakarta Sans', _, {weight: '400 700', display: 'swap'})))
-}
-
 function photo_loaded(e) {
     const img = e.target
     if (img.className != 'deactive') return
@@ -2971,7 +3500,6 @@ function fill_card($c, id) {
             : ' · Studio'
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
-    load_font()
 
     fetch(
         '/ads.bin',
@@ -3044,6 +3572,114 @@ function next_proto_left(frames) {
     }
 }
 
+const $pin = document.getElementById('pin')
+const $pin_marker = document.getElementById('pin_marker')
+const $form = document.getElementById('form')
+var pin_closed = true
+var form_closed = true
+var post_started = false
+var overlay_hidden = []
+window.post_photos = []
+
+function pin_open() {
+    if (pin_closed) {
+        overlay_hidden = [$logo, $heart, $track, toggler, $tabbar].filter(($el) => !$el.hasAttribute('hidden'))
+        for (const $el of overlay_hidden) $el.setAttribute('hidden', '')
+    }
+    pin_closed = false
+    $pin.style.transition = 'none'
+    $pin.style.transform = 'translate3d(0,0,0)'
+    $pin.removeAttribute('hidden')
+    $pin_marker.removeAttribute('hidden')
+    pin_locate()
+}
+
+function pin_close() {
+    pin_closed = true
+    $pin_marker.setAttribute('hidden', '')
+    $pin.style.transition = 'transform 0.1s linear'
+    $pin.style.transform = `translate3d(0, ${$pin.clientHeight}px, 0)`
+    for (const $el of overlay_hidden) $el.removeAttribute('hidden')
+    overlay_hidden = []
+}
+
+function pin_locate() {
+    const zoomed = map.getZoom() >= 16
+    $pin.querySelector('.pin_hint').textContent = zoomed ? 'Move the map until the pin sits on your building' : 'Zoom in to place the pin on your building'
+    $pin.querySelector('.pin_use').disabled = !zoomed
+}
+
+function form_open() {
+    form_closed = false
+    $form.style.transition = 'none'
+    $form.style.transform = 'translate3d(0,0,0)'
+    $form.removeAttribute('hidden')
+    $pin_marker.setAttribute('hidden', '')
+    form_restore()
+    form_render_status()
+}
+
+function form_close() {
+    form_closed = true
+    if (!pin_closed) $pin_marker.removeAttribute('hidden')
+    $form.style.transition = 'transform 0.1s linear'
+    $form.style.transform = `translate3d(0, ${$form.clientHeight}px, 0)`
+}
+
+function form_restore() {
+    const groups = {
+        type: localStorage.post_type || 'Apartment',
+        bedrooms: localStorage.post_bedrooms || '',
+        bathrooms: localStorage.post_bathrooms || '',
+        contact: localStorage.post_contact_channel || 'Zalo'
+    }
+    for (const group in groups) {
+        for (const $opt of $form.querySelectorAll(`.opt[data-group="${group}"]`)) $opt.classList.toggle('on', $opt.dataset.value == groups[group])
+    }
+    const amenities = (localStorage.post_amenities || '').split(',').filter(Boolean)
+    for (const $opt of $form.querySelectorAll('.opt[data-group="amenity"]')) $opt.classList.toggle('on', amenities.includes($opt.dataset.value))
+    $form.querySelector('.form_price').value = localStorage.post_price || ''
+    $form.querySelector('.form_deposit').value = localStorage.post_deposit || ''
+    $form.querySelector('.form_area').value = localStorage.post_area || ''
+    $form.querySelector('.form_description').value = localStorage.post_description || ''
+    $form.querySelector('.form_contact_value').value = localStorage.post_contact_value || ''
+    $form.querySelector('.form_contact_value').placeholder = `Your ${groups.contact} number`
+    $form.querySelector('.form_address').value = localStorage.post_address || ''
+}
+
+function form_save_draft() {
+    localStorage.post_type = $form.querySelector('.opt[data-group="type"].on')?.dataset.value || ''
+    localStorage.post_price = $form.querySelector('.form_price').value
+    localStorage.post_deposit = $form.querySelector('.form_deposit').value
+    localStorage.post_bedrooms = $form.querySelector('.opt[data-group="bedrooms"].on')?.dataset.value || ''
+    localStorage.post_bathrooms = $form.querySelector('.opt[data-group="bathrooms"].on')?.dataset.value || ''
+    localStorage.post_area = $form.querySelector('.form_area').value
+    localStorage.post_amenities = [...$form.querySelectorAll('.opt[data-group="amenity"].on')].map($opt => $opt.dataset.value).join(',')
+    localStorage.post_description = $form.querySelector('.form_description').value
+    localStorage.post_contact_channel = $form.querySelector('.opt[data-group="contact"].on')?.dataset.value || ''
+    localStorage.post_contact_value = $form.querySelector('.form_contact_value').value
+    localStorage.post_address = $form.querySelector('.form_address').value
+}
+
+function form_render_status() {
+    const checks = [
+        ['photos', post_photos.length > 0],
+        ['price', !!$form.querySelector('.form_price').value],
+        ['bedrooms', !!$form.querySelector('.opt[data-group="bedrooms"].on')],
+        ['contact', !!$form.querySelector('.opt[data-group="contact"].on') && !!$form.querySelector('.form_contact_value').value]
+    ]
+    for (const [name, ok] of checks) {
+        const $req = $form.querySelector(`.${name}_req`)
+        const $done = $form.querySelector(`.${name}_done`)
+        if ($req) $req.hidden = ok
+        if ($done) $done.hidden = !ok
+        const $todo = $form.querySelector(`[data-todo="${name}"]`)
+        $todo.classList.toggle('ok', ok)
+        $todo.querySelector('.i-ok').hidden = !ok
+        $todo.querySelector('.i-no').hidden = ok
+    }
+}
+
 const $tabbar = document.getElementById('tabbar')
 $tabbar.onclick = e => {
     const $tab = e.target.closest('[data-tab]')
@@ -3059,6 +3695,56 @@ $tabbar.onclick = e => {
     const likes = new URL(location).searchParams.has('likes')
     $tabbar.querySelector('[data-tab="map"]').classList.toggle('on', !likes)
     $tabbar.querySelector('[data-tab="saved"]').classList.toggle('on', likes)
+}
+
+$pin.onclick = e => {
+    if (e.target.closest('.pin_back')) return history.back()
+    const $use = e.target.closest('.pin_use')
+    if (!$use || $use.disabled) return
+    const center = map.getCenter()
+    localStorage.post_lat = center.lat
+    localStorage.post_lng = center.lng
+    history.pushState({page: PAGE.FORM}, '')
+    router()
+}
+
+$form.onclick = e => {
+    if (e.target.closest('.form_back, .form_change')) return history.back()
+    if (e.target.closest('.form_add_photos')) return $form.querySelector('.form_photo_input').click()
+    const $opt = e.target.closest('.opt')
+    if (!$opt) return
+    const group = $opt.dataset.group
+    if (group == 'amenity') {
+        $opt.classList.toggle('on')
+    } else {
+        for (const $o of $form.querySelectorAll(`.opt[data-group="${group}"]`)) $o.classList.toggle('on', $o == $opt)
+        if (group == 'contact') $form.querySelector('.form_contact_value').placeholder = `Your ${$opt.dataset.value} number`
+    }
+    form_save_draft()
+    form_render_status()
+}
+
+$form.oninput = () => {
+    form_save_draft()
+    form_render_status()
+}
+
+$form.onchange = e => {
+    const $input = e.target.closest('.form_photo_input')
+    if (!$input || !$input.files.length) return
+    const $thumbs = $form.querySelector('.thumbs')
+    const $add = $thumbs.querySelector('.add')
+    for (const file of $input.files) {
+        const url = URL.createObjectURL(file)
+        post_photos.push(url)
+        const $item = document.createElement('div')
+        $item.innerHTML = post_photos.length == 1 ? `<img src="${url}" alt=""><span class="tag">Cover</span>` : `<img src="${url}" alt="">`
+        $thumbs.insertBefore($item, $add)
+    }
+    $input.value = ''
+    $form.querySelector('.drop').hidden = true
+    $thumbs.hidden = false
+    form_render_status()
 }
 
 $heart.onpointerup = e => {
@@ -3219,7 +3905,6 @@ toggler.onpointerup = e => {
     max$ = x.price_max.value * 1e6
     apply_filter()
     filters_render()
-    load_font()
     filters_closed = false
     $filters.inert = false
     $filters.style.transition = 'transform 0.1s ease'
@@ -4274,6 +4959,7 @@ apply_filter = throttle(apply_filter, 90)
                 var likes = toggle_like(id)
             })
             map.on('click', 'price-hitbox', e => {
+                if (!pin_closed) return
                 const click_priority = {normal: 1, filtered: 0}
                 e.features.sort((a, b) =>
                     click_priority[b.state.mode] - click_priority[a.state.mode]
@@ -4315,6 +5001,7 @@ apply_filter = throttle(apply_filter, 90)
                 }
             })
             map.on('moveend', () => {
+                if (!pin_closed) pin_locate()
                 if (card_closed) return
                 const ids = carousel_order(card_id)
                 if (ids.length == carousel_ids.length && ids.every((id, i) => carousel_ids[i] == id)) return
