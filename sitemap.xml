@@ -7,6 +7,18 @@
 		<priority>1.0</priority>
 	</url>
 	<url>
+		<loc>https://danang.kim/id/can-ho-studio-hien-dai-an-don-5-son-tra</loc>
+		<lastmod>2026-10-01</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://danang.kim/id/016-cho-thue-nha-nguyen-can-moi-dep-kiet-nguyen-hoang</loc>
+		<lastmod>2026-10-01</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://danang.kim/id/015-cho-thue-nha-mini-3-tang-ven-bien-nguyen-tat-thanh</loc>
 		<lastmod>2026-10-01</lastmod>
 		<changefreq>daily</changefreq>
@@ -12471,12 +12483,6 @@
 	<url>
 		<loc>https://danang.kim/id/can-ho-cao-cap-hai-chau-da-nang</loc>
 		<lastmod>2026-09-17</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://danang.kim/id/nha-2-tang-2-mt-gan-duong-29-3</loc>
-		<lastmod>2026-09-16</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
 	</url>
