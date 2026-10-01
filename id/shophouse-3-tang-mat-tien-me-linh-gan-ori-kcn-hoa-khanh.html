@@ -373,9 +373,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7}
+    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790860242085'
+    const VER_WASM = '1790875641761'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -497,7 +497,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '4cfa9c0283fd7678fcb4fc6f5e78c0bae9b7100118c676a9cd2c7e9afd0b5f0e'// contact spirin.vladimir@gmail.com
+        const KEY = '2edfa074bf3b7e2eb90dc9dde408aa8097bb15a401de3afcb01ca2aed938308c'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -888,14 +888,14 @@ Prices are expressed in Vietnamese dong (VND).
             box-shadow: var(--shadow);
             transition: bottom 0.1s linear, height 0.1s linear;
         }
-        #card p {
+        #card p, #profile .card_info p {
             margin: 0;
         }
-        #card .num, #maxi .num {
+        #card .num, #maxi .num, #profile .num {
             font-weight: 600;
             font-variant-numeric: tabular-nums;
         }
-        #card sup, #maxi sup {
+        #card sup, #maxi sup, #profile sup {
             position: relative;
             top: -0.5em;
             vertical-align: baseline;
@@ -2222,6 +2222,107 @@ Prices are expressed in Vietnamese dong (VND).
                 margin-top: auto;
             }
         }
+        #profile {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
+            left: 0;
+            overflow-y: auto;
+            background: var(--sheet-color);
+            color: var(--text-color);
+        }
+        .profile {
+            min-height: 100%;
+            box-sizing: border-box;
+            padding: var(--offset-big) var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-big);
+        }
+        .profile h1 {
+            margin: 0;
+            font-size: x-large;
+        }
+        .signin {
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+            text-align: center;
+        }
+        .google {
+            display: flex;
+            justify-content: center;
+        }
+        .stats {
+            padding: var(--offset-middle);
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-small);
+            border-radius: var(--radius-big);
+            background: var(--card-background-color);
+            box-shadow: var(--shadow);
+        }
+        .total {
+            margin: 0;
+            font-size: xx-large;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .total small {
+            font-size: small;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        .chart {
+            height: 12vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .chart i {
+            width: 2.4%;
+            background: var(--text-muted);
+            border-radius: var(--radius-small) var(--radius-small) 0 0;
+        }
+        .axis {
+            display: flex;
+            justify-content: space-between;
+            font-size: small;
+            color: var(--text-muted);
+        }
+        .places {
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+        }
+        .places h2 {
+            margin: 0;
+            font-size: large;
+        }
+        #profile .card_content {
+            width: 100%;
+            height: 44vh;
+        }
+        #profile .photo_frame {
+            touch-action: auto;
+        }
+        #profile .photos_container {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        #profile .photo {
+            scroll-snap-align: start;
+        }
+        @media (min-width: 900px) {
+            #profile {
+                right: auto;
+                width: 420px;
+                box-shadow: var(--shadow);
+            }
+        }
     </style>
 </head>
 <body>
@@ -2468,6 +2569,34 @@ Prices are expressed in Vietnamese dong (VND).
     <div class="saved_list"></div>
     <div class="saved_empty" hidden><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></i><b>Nothing saved yet</b><p>Tap the heart on any place, and it stays here with its price and photos.</p></div>
 </div>
+<div id="profile" hidden>
+    <div class="profile" data-view="signin">
+        <div class="signin">
+            <h1>Your places</h1>
+            <p class="muted">Sign in to post a place and see how many people open it.</p>
+            <div class="google" id="profile_google" hidden>
+                <div id="g_id_onload" data-callback="profile_google_credential" data-auto_prompt="false"></div>
+                <div class="g_id_signin" data-type="standard" data-shape="pill" data-size="large" data-text="continue_with"></div>
+            </div>
+            <p class="hint" id="profile_hint"></p>
+        </div>
+    </div>
+    <div class="profile" data-view="places" hidden>
+        <div>
+            <h1>Your places</h1>
+            <p class="muted">Signed in with Google · <button type="button" class="link" data-action="sign-out">Sign out</button></p>
+        </div>
+        <section class="stats">
+            <p class="total"><span id="profile_total">0</span> <small>views of your places</small></p>
+            <div class="chart" id="profile_chart" aria-label="Views per day, last 30 days"></div>
+            <div class="axis"><span>Last 30 days</span><span>Today</span></div>
+        </section>
+        <section class="places">
+            <h2 id="profile_count"></h2>
+            <div id="profile_list" class="places"></div>
+        </section>
+    </div>
+</div>
 <nav id="tabbar">
     <button type="button" class="on" data-tab="map"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg></i>Map</button>
     <button type="button" data-tab="saved"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></i>Saved</button>
@@ -2671,6 +2800,8 @@ const router = () => {
 
     if (pathname[1] == 'id') {
         window.current_page = PAGE.SINGLE
+    } else if (pathname[1] == 'profile') {
+        window.current_page = PAGE.PROFILE
     } else {
         window.current_page = PAGE.MAIN
     }
@@ -2745,6 +2876,8 @@ const router = () => {
         )
     )
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
+    if (current_page == PAGE.PROFILE) profile_open()
+    else if (!profile_closed) profile_close()
     if (history.state?.page == PAGE.SAVED) saved_open()
 }
 
@@ -3452,12 +3585,39 @@ function delete_photo($strip, index) {
     $strip.children[index].remove()
 }
 
+function fill_ad($c, ad, photos_urls) {
+    const $strip = $c.querySelector('.photos_container')
+    $c.dataset.id = ad.id
+    $c.dataset.photo = 0
+    $strip.style.transition = 'none'
+    $strip.style.transform = `translate3d(0,0,0)`
+    for (var i = 0; i < photos_urls.length; i++) {
+        if ($strip.children[i]) update_photo($strip, i, photos_urls[i])
+        else add_photo($strip, i, photos_urls[i])
+    }
+    while ($strip.children.length > photos_urls.length) delete_photo($strip, $strip.children.length - 1)
+    $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
+    var price_string = String(ad.price).split('').reverse()
+    var price_string_space = ''
+    for (var i = 0; i < price_string.length; i++) {
+        if (i != 0 && i % 3 == 0)
+            price_string_space = ' ' + price_string_space
+        price_string_space = price_string[i] + price_string_space
+    }
+    $c.querySelector('.amount').textContent = price_string_space
+    $c.querySelector('.category').textContent = get_category_for_user(ad.category)
+    $c.querySelector('.m2').textContent = ad.m2
+    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
+        ? ''
+        : ad.bedrooms > 0
+            ? ` · ${ad.bedrooms} bed`
+            : ' · Studio'
+    $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
+}
+
 function fill_card($c, id) {
     const ad = ads.find(ad => ad.id == id)
     const url = get_url(id)
-    const $strip = $c.querySelector('.photos_container')
-    $c.dataset.id = id
-    $c.dataset.photo = 0
     $c.dataset.body = ''
     const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
     $c.querySelector('.card_heart').setAttribute('aria-pressed', likes.has(id))
@@ -3470,35 +3630,12 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
-    $strip.style.transition = 'none'
-    $strip.style.transform = `translate3d(0,0,0)`
-    for (var i = 0; i < photos_urls.length; i++) {
-        if ($strip.children[i]) update_photo($strip, i, photos_urls[i])
-        else add_photo($strip, i, photos_urls[i])
-    }
-    while ($strip.children.length > photos_urls.length) delete_photo($strip, $strip.children.length - 1)
+    fill_ad($c, ad, photos_urls)
     if ($c == $card_centre) {
         photo_current_index = 0
         photo_total_count = photos_urls.length
     }
-    $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
-    var price_string = String(ad.price).split('').reverse()
-    var price_string_space = ''
-    for (var i = 0; i < price_string.length; i++) {
-        if (i != 0 && i % 3 == 0)
-            price_string_space = ' ' + price_string_space
-        price_string_space = price_string[i] + price_string_space
-    }
-    $c.querySelector('.amount').textContent = price_string_space
-    $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
-    $c.querySelector('.m2').textContent = ad.m2
-    $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
-        ? ''
-        : ad.bedrooms > 0
-            ? ` · ${ad.bedrooms} bed`
-            : ' · Studio'
-    $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
     $c.querySelector('.street').textContent = ''
 
     fetch(
@@ -3680,15 +3817,129 @@ function form_render_status() {
     }
 }
 
+const GOOGLE_CLIENT_ID = '871164431726-o6uh5hnt20i0bbv6lss6q0uqs4384skl.apps.googleusercontent.com'
+const API_ORIGIN = 'https://api.durian.rent'
+const PROFILE_STATUS = {pending: 'In review', live: 'Live', rented: 'Rented', rejected: 'Rejected'}
+const $profile = document.getElementById('profile')
+const $profile_google = document.getElementById('profile_google')
+const $profile_list = document.getElementById('profile_list')
+var profile_closed = true
+window.ads_user_listed = []
+
+function profile_open() {
+    $profile.style.transition = 'none'
+    $profile.style.transform = 'translate3d(0,0,0)'
+    $profile.removeAttribute('hidden')
+    profile_closed = false
+    $tabbar.querySelector('[data-tab="map"]').classList.remove('on')
+    $tabbar.querySelector('[data-tab="saved"]').classList.remove('on')
+    $tabbar.querySelector('[data-tab="profile"]').classList.add('on')
+    localStorage.token ? profile_show_places() : profile_show_signin()
+}
+
+function profile_close() {
+    profile_closed = true
+    $profile.style.transition = 'transform 0.1s linear'
+    $profile.style.transform = `translate3d(0, ${$profile.clientHeight}px, 0)`
+    $tabbar.querySelector('[data-tab="profile"]').classList.remove('on')
+    $tabbar.querySelector('[data-tab="map"]').classList.add('on')
+}
+
+function profile_show_signin() {
+    $profile.querySelector('[data-view="places"]').hidden = true
+    $profile.querySelector('[data-view="signin"]').hidden = false
+    document.getElementById('profile_hint').textContent = ''
+    if ($profile_google.dataset.ready) return
+    $profile_google.dataset.ready = '1'
+    document.getElementById('g_id_onload').dataset.client_id = GOOGLE_CLIENT_ID
+    const $script = document.createElement('script')
+    $script.src = 'https://accounts.google.com/gsi/client?hl=en'
+    document.head.appendChild($script)
+    $profile_google.hidden = false
+}
+
+function profile_show_places() {
+    $profile.querySelector('[data-view="signin"]').hidden = true
+    $profile.querySelector('[data-view="places"]').hidden = false
+    fetch(`${API_ORIGIN}/me`, {headers: {authorization: `Bearer ${localStorage.token}`}})
+    .then(r => r.ok ? r.json().then(profile_render) : r.status == 401 && profile_sign_out())
+}
+
+function profile_google_credential(response) {
+    fetch(`${API_ORIGIN}/auth/google`, {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({credential: response.credential})
+    })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+        localStorage.token = data.token
+        profile_show_places()
+    })
+    .catch(() => document.getElementById('profile_hint').textContent = 'Could not sign in with Google. Try again.')
+}
+
+function profile_sign_out() {
+    delete localStorage.token
+    profile_show_signin()
+}
+
+function profile_render(me) {
+    ads_user_listed = me.listings
+    document.getElementById('profile_total').textContent = me.views.total
+    const counts = Object.fromEntries(me.views.days.map(d => [d.day, d.count]))
+    const days = Array.from({length: 30}, (_, i) => counts[new Date(Date.now() - (29 - i) * 86400000).toISOString().slice(0, 10)] || 0)
+    const max = Math.max(1, ...days)
+    document.getElementById('profile_chart').innerHTML = days.map(count => `<i style="height: ${Math.round(count / max * 100)}%"></i>`).join('')
+    document.getElementById('profile_count').textContent = ads_user_listed.length
+        ? `${ads_user_listed.length} place${ads_user_listed.length == 1 ? '' : 's'}`
+        : 'No places yet'
+    $profile_list.innerHTML = ads_user_listed.map(() => `<div class="card_content">
+        <div class="photo_frame"><div class="photos_container"></div><span class="seen num"></span></div>
+        <div class="card_info">
+            <p class="money"><span class="price num"><span class="amount"></span> ₫<small> /mo</small></span></p>
+            <p class="facts"><span class="category"></span><span class="bed"></span> · <span class="m2"></span> m<sup>2</sup></p>
+            <p class="where"></p>
+            <p class="foot"><span class="state"></span> · <span class="views"></span> · <span><span class="publish"></span> ago</span></p>
+        </div>
+    </div>`).join('')
+    ads_user_listed.forEach((ad, i) => {
+        const $c = $profile_list.children[i]
+        fill_ad($c, ad, ad.photos.map(key => `${API_ORIGIN}/photos/${key}`))
+        $c.querySelector('.where').textContent = ad.address
+        $c.querySelector('.state').textContent = PROFILE_STATUS[ad.status]
+        $c.querySelector('.views').textContent = `${ad.views} view${ad.views == 1 ? '' : 's'}`
+    })
+}
+
+$profile.onclick = e => {
+    if (e.target.closest('[data-action="sign-out"]')) profile_sign_out()
+}
+
+$profile.addEventListener('scroll', e => {
+    const $strip = e.target
+    if (!$strip.classList.contains('photos_container')) return
+    $strip.parentNode.querySelector('.seen').textContent = `${Math.round($strip.scrollLeft / $strip.clientWidth) + 1} / ${$strip.children.length}`
+}, true)
+
 const $tabbar = document.getElementById('tabbar')
 $tabbar.onclick = e => {
     const $tab = e.target.closest('[data-tab]')
     if (!$tab) return
+    if (current_page == PAGE.PROFILE) {
+        if ($tab.dataset.tab == 'profile') return
+        history.pushState({}, '', '/')
+        if ($tab.dataset.tab == 'map') return router()
+    }
     if (history.state?.page == PAGE.SAVED && ($tab.dataset.tab == 'saved' || $tab.dataset.tab == 'map')) return history.back()
     if ($tab.dataset.tab == 'saved') {
         const url = new URL(location)
         url.searchParams.set('likes', localStorage.likes || '')
         history.pushState({page: PAGE.SAVED}, '', url)
+        return router()
+    }
+    if ($tab.dataset.tab == 'profile') {
+        history.pushState({}, '', '/profile')
         return router()
     }
     if ($tab.dataset.tab == 'filters') toggler.onpointerup(e)
