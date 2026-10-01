@@ -179,11 +179,6 @@ async function completionWithRetry(body, timeoutMs) {
   }
 }
 
-function zeroFields() {
-  const fields = {};
-  for (const key of FIELD_NAMES) fields[key] = 0;
-  return fields;
-}
 
 function parseFields(text) {
   let got;
@@ -233,10 +228,11 @@ async function runFields(ad, systemPrompt) {
   };
   if (USE_JSON_SCHEMA) body.json_schema = FIELDS_JSON_SCHEMA;
   const r = await completionWithRetry(body, REQUEST_TIMEOUT_MS);
-  const fields = parseFields(r.content || '');
+  if (!r.content) return
+  const fields = parseFields(r.content);
   if (fields) return fields;
-  console.error(`ad ${ad.id}: fields response was not valid JSON, using zeros`);
-  return zeroFields();
+  console.error(`ad ${ad.id}: fields response was not valid JSON - skip`);
+  return
 }
 
 async function runTranslate(ad) {
@@ -252,20 +248,14 @@ async function runTranslate(ad) {
   return parseTranslation(r.content ? TITLE_PREFILL + r.content : '', ad.title, ad.body);
 }
 
-async function main() {
-  const ads = await readdir('data')
-  .then(filenames =>
-    filenames
-      .filter((fn, i) => i < 6 && fn.includes('.json'))
-      .map(fn => {
-          const ad = JSON.parse(fs.readFileSync('data/' + fn, 'utf8'))
-          return {
-              id: ad.ad_id,
-              title: ad.subject,
-              body: ad.body
-          }
-      })
-  )
+async function main(ads) {
+  ads = ads.map(ad => {
+      return {
+          id: ad.ad_id,
+          title: ad.subject,
+          body: ad.body
+      }
+  })
   const systemPrompt = `Read one Vietnamese rental ad from Da Nang and answer with one JSON object of the rental fields. Every value is a number. Put 0 when the ad does not say it.`
 
   const result = {};
@@ -286,18 +276,18 @@ async function main() {
               const tFields0 = Date.now();
               const fields = await runFields(ad, systemPrompt);
               const tFields = ((Date.now() - tFields0) / 1000).toFixed(1);
-              
+              if (!fields) return
               //const tTr0 = Date.now();
               //const { title_en, body_en } = await runTranslate(ad);
               //const tTr = ((Date.now() - tTr0) / 1000).toFixed(1);
 
-              result[ad.id] = { fields }//, title_en, body_en };
+              result[ad.id] = fields//, title_en, body_en };
+              //fs.writeFileSync(`ai-out/${ad.id}.json`, JSON.stringify(fields, null, 1))
               const total = ((Date.now() - t0) / 1000).toFixed(1);
               console.log(`${i + j + 1}/${ads.length} id ${ad.id}: ${total}s (fields ${tFields}s)`)//, translate ${tTr}s)`);
           })
     )
     
-    fs.writeFileSync('ai-out.json', JSON.stringify(result, null, 1))
 
     sinceRestart += 1;
     if (sinceRestart >= RESTART_EVERY && i < ads.length - 1) {
@@ -309,13 +299,16 @@ async function main() {
   console.timeEnd(`total time using -np: ${NP}`)
 
   await stopServer();
-  console.log(`done: ${ads.length} ads, ${failures} failed twice`);
+  console.log(`done: ${ads.length} ads`);
+  
+  return result
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+module.exports = main
+//main().catch((err) => {
+//  console.error(err);
+//  process.exit(1);
+//});
 
 
 

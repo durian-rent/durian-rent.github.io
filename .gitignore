@@ -16,6 +16,7 @@ get_ai.cjs
 bedrooms.cjs
 bathrooms.cjs
 
+llama
 durian-lora.gguf
 model.gguf
 ai-in.json
