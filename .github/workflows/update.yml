@@ -66,27 +66,16 @@ jobs:
         PAGES: '1000'
       run: node -e "new Function(process.env.LOADER)()"
 
-    - name: AI parser ads
+    - name: Install NPM modules
+      run: npm i
+
+    - name: Meta-programming
       env:
         LLAMA_SERVER_BIN: /home/runner/.cache/durian-ai/llama/llama-server
         MODEL_GGUF: /home/runner/.cache/durian-ai/model.gguf
         ADAPTER_GGUF: /home/runner/.cache/durian-ai/durian-lora.gguf
         LLAMA_THREADS: '4'
         NP: '4'
-      run: node ai-local.cjs    
-
-    - name: Upload result
-      uses: actions/upload-artifact@v7
-      with:
-        name: ai-out
-        path: ai-out.json
-
-    - name: Install NPM modules
-      run: npm i
-
-    - name: Meta-programming
-      env:
-        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         ADS2WASM: ${{ secrets.ADS2WASM }}
         BEDROOMS: ${{ secrets.BEDROOMS }}
         BATHROOMS: ${{ secrets.BATHROOMS }}
