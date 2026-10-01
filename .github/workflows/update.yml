@@ -95,39 +95,6 @@ jobs:
 
     - name: Version WASM bundle
       run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
-
-    - name: Commit and push durian.rent.wasm
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-        git add durian.rent.wasm
-        if git diff --cached --quiet; then
-          echo "durian.rent.wasm unchanged, nothing to commit."
-          exit 0
-        fi
-        git commit -m "Auto update durian.rent.wasm [skip ci]"
-
-        success=false
-        for i in 1 2 3 4 5; do
-          echo "Push attempt $i"
-          git fetch origin main
-          if ! git rebase -X theirs origin/main; then
-            git rebase --abort || true
-            sleep $((i * 10))
-            continue
-          fi
-          if git push origin HEAD:main; then
-            success=true
-            break
-          fi
-          sleep $((i * 10))
-        done
-
-        if [ "$success" != "true" ]; then
-          echo "Push of durian.rent.wasm failed after 5 attempts."
-          exit 1
-        fi
       
     - name: Commit and push bundle
       id: commit
