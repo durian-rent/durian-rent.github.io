@@ -3431,7 +3431,7 @@ function carousel_select(id) {
     carousel_unselect()
     carousel_selected = { id, mode: map.getFeatureState({ source: 'prices', id }).mode }
     map.setFeatureState({ source: 'prices', id }, { mode: 'selected', hover: false })
-    if (current_page == PAGE.LIKES || current_page == SHARED) {
+    if (current_page == PAGE.LIKES || current_page == PAGE.SHARED) {
         ad_current = ads.find(ad => ad.id == id)
         flyToOffset([ad_current.longitude, ad_current.latitude], 0.25)
     }
