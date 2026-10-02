@@ -3413,7 +3413,7 @@ const carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
 function carousel_order(id) {
-    if (current_page == PAGE.LIKES) return likes_search_params
+    if (current_page == PAGE.LIKES) return (new URL(location).searchParams.get('likes') || '').split(',').map(Number).filter(Boolean)
     const bounds = map.getBounds()
     const card_top = $card.offsetTop
     return ads
