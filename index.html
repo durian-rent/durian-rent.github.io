@@ -5375,6 +5375,13 @@ apply_filter = throttle(apply_filter, 90)
                         )
                     }
                 })
+            } else {
+                fetch_native('/danang.pmtiles', {cache: 'no-store', priority: 'low', headers: {Range: 'bytes=0-126'}})
+                .then(_ => _.arrayBuffer())
+                .then(header => cache_pmtiles_exist_and_loading.then(cache =>
+                    new Uint8Array(header).some((byte, i) => byte != cache[i]) &&
+                    caches.open('pmtiles').then(c => c.delete('/danang.pmtiles'))
+                ))
             }
 
             const GA = 'https://www.googletagmanager.com/gtag/js?id=G-RJ21952T38'
