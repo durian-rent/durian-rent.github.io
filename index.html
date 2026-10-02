@@ -3505,6 +3505,7 @@ function maxi_open(id) {
     var photos_urls = []
     try {
         photos_urls = get_ad_img_urls(id)
+        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
     } catch (e) {
         console.error(`ERROR: get_ad_img_urls(${id})`, e)
     }
