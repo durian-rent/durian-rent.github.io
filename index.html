@@ -4366,47 +4366,37 @@ apply_filter = () => {
 
 apply_filter = throttle(apply_filter, 90)
 
-    const heart_ready = (src =>
-        Promise.all([
-            src.replace(
-                '<path',
-                `<path fill="black" stroke-width="4" stroke-linejoin="round" `
-            ),
-            src.replace(
-                '<path',
-                `<path fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" `
-            )
-        ].map(svg => new Promise((y, n) => {
+    const heart_ready = () =>
+        new Promise((y, n) => {
             const url = URL.createObjectURL(
-                new Blob([svg], { type: "image/svg+xml" })
+                new Blob([`<svg xmlns="http://www.w3.org/2000/svg"
+                     width="80" height="80"
+                     version="1.1"
+                     viewBox="0 0 80 80">
+                  <path fill="black" stroke-width="4" stroke-linejoin="round" 
+                    d="M40 72
+                       L12 43
+                       C2 33 2 17 15 12
+                       C24 8 34 12 40 22
+                       C46 12 56 8 65 12
+                       C78 17 78 33 68 43
+                       Z"/>
+                </svg>`], { type: "image/svg+xml" })
             )
             const img = new Image()
             img.onload = () => y(img)
             img.onerror = e => n(e)
             img.src = url
-        })))
-    )(`<svg xmlns="http://www.w3.org/2000/svg"
-         width="80" height="80"
-         version="1.1"
-         viewBox="0 0 80 80">
-      <path
-        d="M40 72
-           L12 43
-           C2 33 2 17 15 12
-           C24 8 34 12 40 22
-           C46 12 56 8 65 12
-           C78 17 78 33 68 43
-           Z"/>
-    </svg>`)
+        })
 
 
     Promise.all([
         pmtiles_ready,
         maplibre_ready.then(() => maplibregl.prewarm()),
         window.wasm_ready,
-        heart_ready
+        heart_ready()
     ])
-    .then(([a0, a1, a2, [heart_filled, heart_outline]]) => {
+    .then(([a0, a1, a2, heart_filled]) => {
         const protocol = new pmtiles.Protocol()
         maplibregl.addProtocol('pmtiles', protocol.tile)
 
@@ -5151,7 +5141,6 @@ apply_filter = throttle(apply_filter, 90)
         map.touchZoomRotate.disableRotation()
 
         map.addImage('heart-filled', heart_filled, {sdf: true})
-        map.addImage('heart-outline', heart_outline, {sdf: true})
 
         map.on('style.load', () => {
             if (
