@@ -3203,7 +3203,7 @@ var detect_y_card_min = false
 
 window.addEventListener('resize', () => {
     if (is_touch_vertical()) return
-    card_closed = true
+    card_hide()
     $card.setAttribute('hidden', '')
 })
 
@@ -3215,6 +3215,7 @@ new ResizeObserver(() => {
     $photos_container.style.transition = 'none'
     photo_size = $photo.getBoundingClientRect().width
     //to_current()
+    if ($cards[1].offsetWidth) carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
     if (carousel_ids.length) carousel_render()
 }).observe($photo)
 
@@ -3419,7 +3420,7 @@ var carousel_start_pos = 0
 var carousel_swipe
 var carousel_selected = null
 const offsetBig = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--offset-big'))
-const carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
+var carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
 
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
