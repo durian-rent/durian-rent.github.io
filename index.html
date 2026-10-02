@@ -637,10 +637,14 @@ Prices are expressed in Vietnamese dong (VND).
         if (likes_search_params.length) {
             existed_likes = get_likes()
             if (likes_search_params.length != existed_likes.length) {
+                if (likes_search_params.join(',') == likes_local_storage.join(',')) {
+                    likes_local_storage = existed_likes
+                    localStorage.setItem('likes', existed_likes.join(','))
+                }
                 likes_search_params = existed_likes
                 const url = new URL(location)
                 url.searchParams.set('likes', existed_likes.join(','))
-                history.replaceState({}, '', url)
+                history.replaceState(history.state, '', url)
             }
         } else if (likes_local_storage.length) {
             existed_likes = get_likes()
@@ -2826,6 +2830,11 @@ var same_likes
 const router = () => {
     if (!maxi_closed) {
         current_page = maxi_from
+        if (history.state?.page == PAGE.SAVED) {
+            const url = new URL(location)
+            url.searchParams.set('likes', localStorage.likes || '')
+            history.replaceState(history.state, '', url)
+        }
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
@@ -3193,6 +3202,7 @@ function toggle_like(id) {
         url.searchParams.set('likes', likes_string)
         history.replaceState(history.state, '', url)
     }
+    if (!saved_closed) saved_render()
     return likes
 }
 
@@ -4034,6 +4044,10 @@ $tabbar.onclick = e => {
         if ($tab.dataset.tab == 'map') return router()
     }
     if (history.state?.page == PAGE.SAVED && ($tab.dataset.tab == 'saved' || $tab.dataset.tab == 'map')) return history.back()
+    if ($tab.dataset.tab == 'map' && new URL(location).searchParams.has('likes')) {
+        history.pushState({}, '', '/')
+        return router()
+    }
     if ($tab.dataset.tab == 'saved') {
         const url = new URL(location)
         url.searchParams.set('likes', localStorage.likes || '')
