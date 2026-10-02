@@ -3502,7 +3502,14 @@ function maxi_open(id) {
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    var photos_urls = []
+    try {
+        photos_urls = get_ad_img_urls(id)
+    } catch (e) {
+        console.error(`ERROR: get_ad_img_urls(${id})`, e)
+    }
+    $maxi_strip.innerHTML = ''
+    photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
