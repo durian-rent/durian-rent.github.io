@@ -374,9 +374,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
+    window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790887178845'
+    const VER_WASM = '1790920761332'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -498,7 +498,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '5048a062c1d60657ba5a3c1090971b66f137e1c8450b6ca17dee1f7a20151b3c'// contact spirin.vladimir@gmail.com
+        const KEY = '5c9d5474d07b95deed32423a29a097189c5dedbe27bd7396742bd749b39603be'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -536,16 +536,90 @@ Prices are expressed in Vietnamese dong (VND).
             var category = raw_ads[i + 5]
             var area = raw_ads[i + 6]
             var m2 = raw_ads[i + 8]
-            var publish = raw_ads[i + 9] 
-            var bedrooms = raw_ads[i + 10] 
-            var bathrooms = raw_ads[i + 11] 
+            var publish = raw_ads[i + 9]
+            
+            //int32
+            var bedrooms = raw_ads[i + 10]
+            
+            //enum Bathrooms { unknown = 0, one = 1, two = 2, three = 3, four = 4, shared = 5, no = 6 }
+            var bathrooms = raw_ads[i + 11]
+            
+            //int32
+            var floor = raw_ads[i + 12]
+
+            //int32
+            var deposit_months = raw_ads[i + 13]
+            
+            //int32
+            var min_contract = raw_ads[i + 14]
+            
+            //enum Furnished { unknown = 0, no = 1, yes = 2 }
+            var furnished = raw_ads[i + 15]
+            
+            //enum WashingMachine { Unknown = 0, None = 1, Have = 2, HaveInApt = 3, HaveOnRoof = 4 }
+            var washer = raw_ads[i + 16]
+            
+            //enum AirCondition { unknown = 0, no = 1, yes = 2 }
+            var air_condition = raw_ads[i + 17]
+            
+            //enum Fridge { unknown = 0, no = 1, yes = 2 }
+            var fridge = raw_ads[i + 18]
+            
+            //enum Kitchen { unknown = 0, no = 1, yes = 2 }
+            var kitchen = raw_ads[i + 19]
+            
+            //enum Tv { unknown = 0, no = 1, yes = 2 }
+            var tv = raw_ads[i + 20]
+            
+            //enum WaterHeater { unknown = 0, no = 1, yes = 2 }
+            var water_heater = raw_ads[i + 21]
+            
+            //enum Elevator { unknown = 0, no = 1, yes = 2 }
+            var elevator = raw_ads[i + 22]
+            
+            //enum MotorbikeParking { unknown = 0, no = 1, yes = 2 }
+            var motorbike_parking = raw_ads[i + 23]
+            
+            //enum Pool { unknown = 0, no = 1, yes = 2 }
+            var pool = raw_ads[i + 24]
+            
+            //enum Gym { unknown = 0, no = 1, yes = 2 }
+            var gym = raw_ads[i + 25]
+            
+            //enum Balcony { unknown = 0, no = 1, yes = 2 }
+            var balcony = raw_ads[i + 26]
+            
+            //enum PetsAllowed { unknown = 0, no = 1, yes = 2 }
+            var pets_allowed = raw_ads[i + 27]
+            
+            //enum View { unknown = 0, sea_view = 1, river_view = 2, mountain_view = 3, sea_and_river = 4, river_mountain = 5, sea_mountain = 6, sea_river_mountain = 7 }
+            var view = raw_ads[i + 28]
+            
+            //enum CleaningIncluded { unknown = 0, no = 1, yes = 2 }
+            var cleaning_included = raw_ads[i + 29]
+            
+            //enum OwnerDirect { unknown = 0, no = 1, yes = 2 }
+            var owner_direct = raw_ads[i + 30]
+            
+            //enum ContactChannel { unknown = 0, zalo = 1, phone = 2, facebook = 3, messenger = 4, whatsapp = 5, telegram = 6 }
+            var contact_channel = raw_ads[i + 31]
+            
+            //enum ForeignAllowed { unknown = 0, no = 1, yes = 2 }
+            var foreign_allowed = raw_ads[i + 32]
+            
             var key = longitude + '-' + latitude
             var dup_set = dup_map.get(key) || new Set()
             dup_set.add(id)
             dup_map.set(key, dup_set)
             if (price < limit$.min) limit$.min = price
             if (price > limit$.max) limit$.max = price
-            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish, bedrooms, bathrooms }
+            ads[i / ad_size] = {
+                id, price, longitude, latitude, category, area, m2, publish,
+                bedrooms, bathrooms, floor, deposit_months, min_contract, furnished,
+                washer, air_condition, fridge, kitchen, tv, water_heater, elevator,
+                motorbike_parking, pool, gym, balcony, pets_allowed, view, cleaning_included,
+                owner_direct, contact_channel, foreign_allowed
+            }
         }
         dup_map.forEach((dup_set, key) =>
             dup_set.size == 1 &&
@@ -1865,11 +1939,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-weight: 600;
             box-shadow: var(--shadow);
         }
-        .wide[disabled] {
-            background: var(--well-color);
-            color: var(--text-muted);
-            box-shadow: none;
-        }
         #form {
             position: fixed;
             inset: 0;
@@ -2099,7 +2168,7 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: medium;
             color: var(--text-muted);
         }
-        .area {
+        .form_description {
             box-sizing: border-box;
             padding: var(--offset-middle);
             border: var(--border-width-small) solid var(--icon-color);
@@ -2109,7 +2178,7 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-color);
             resize: none;
         }
-        .area::placeholder {
+        .form_description::placeholder {
             color: var(--text-muted);
         }
         .loc {
@@ -2196,31 +2265,12 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--accent-color);
         }
         @media (min-width: 900px) {
-            #pin {
-                display: flex;
-                flex-direction: column;
-                pointer-events: auto;
-                background: var(--sheet-color);
-            }
             #pin, #form {
                 right: auto;
                 width: 420px;
+            }
+            #form {
                 box-shadow: var(--shadow);
-            }
-            #pin .maxi_over {
-                position: static;
-                box-sizing: border-box;
-                padding: var(--offset-big) var(--offset-big) 0;
-            }
-            #pin .place-panel {
-                position: static;
-                flex: 1;
-                border-radius: 0;
-                box-shadow: none;
-                text-align: left;
-            }
-            #pin .pin_use {
-                margin-top: auto;
             }
         }
         #profile {
@@ -2633,7 +2683,6 @@ Prices are expressed in Vietnamese dong (VND).
 <div id="pin" hidden>
     <div class="maxi_over"><button type="button" class="ctl pin_back" aria-label="Back to the map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button></div>
     <div class="place-panel">
-        <p class="muted pin_hint">Move the map until the pin sits on your building</p>
         <button type="button" class="wide pin_use">Use this location</button>
     </div>
 </div>
@@ -2702,7 +2751,7 @@ Prices are expressed in Vietnamese dong (VND).
         </section>
         <section class="sec">
             <div class="sec-title"><h2>Description</h2></div>
-            <textarea class="area form_description" placeholder="Floor, view, what the rent includes, house rules. Any language."></textarea>
+            <textarea class="form_description" placeholder="Floor, view, what the rent includes, house rules. Any language."></textarea>
         </section>
         <section class="sec">
             <div class="sec-title"><h2>Location</h2><span class="done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Done</span></div>
@@ -2765,11 +2814,12 @@ var same_likes
 const router = () => {
     if (history.state?.page == PAGE.MAXI) {
         if (!window.ad_current) return history.back()
+        if (current_page != PAGE.MAXI) maxi_from = current_page
         current_page = PAGE.MAXI
         return maxi_open(ad_current.id)
     }
     if (!maxi_closed) {
-        current_page = history.state?.page == PAGE.SAVED ? PAGE.EDIT : location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        current_page = maxi_from
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
@@ -2817,14 +2867,13 @@ const router = () => {
 
     if (search_params.has('likes')) {
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
-        map.setLayoutProperty('likes-outline', 'visibility', same_likes ? 'visible' : 'none')
         map.setLayoutProperty('likes-hitbox', 'visibility', 'visible')
         map.setLayoutProperty('price-circle', 'visibility', 'none')
         map.setLayoutProperty('price-circle-filtered', 'visibility', 'none')
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
         if (same_likes) {
-            current_page = PAGE.EDIT
+            current_page = PAGE.LIKES
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'none')
         } else {
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'visible')
@@ -2843,17 +2892,18 @@ const router = () => {
     }
     current_page == PAGE.SHARED && console.log('SHARED')
     current_page == PAGE.MAIN && console.log('MAIN')
-    current_page == PAGE.EDIT && console.log('EDIT')
+    current_page == PAGE.LIKES && console.log('LIIKES')
     current_page == PAGE.SINGLE && console.log('SINGLE')
     $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
     filters_hide()
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
     $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
-
+    if (search_params.has('beta')) $tabbar.querySelector('[data-tab="profile"]').removeAttribute('hidden')
+    
     const likes = likes_search_params.length
         ? likes_search_params
         : likes_local_storage
@@ -3124,11 +3174,12 @@ function toggle_like(id) {
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
-    if (current_page == PAGE.EDIT) {
-        if (window.map) map.setFeatureState(
-            { source: 'prices', id },
-            { liked }
-        )
+    likes_local_storage = [...likes]
+    if (window.map && current_page != PAGE.SHARED) map.setFeatureState(
+        { source: 'prices', id },
+        { liked }
+    )
+    if (current_page == PAGE.LIKES) {
         const url = new URL(location)
         url.searchParams.set('likes', likes_string)
         history.replaceState(history.state, '', url)
@@ -3177,6 +3228,7 @@ var photo_swipe
 var card_moved = false
 var card_closed = true
 var maxi_closed = true
+var maxi_from = PAGE.MAIN
 var saved_closed = true
 
 $card.ontouchstart = e => {
@@ -3342,9 +3394,11 @@ const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.leng
 
 function carousel_order(id) {
     const bounds = map.getBounds()
+    const card_top = $card.offsetTop
     return ads
         .filter(ad => ad.id == id || (
             bounds.contains([ad.longitude, ad.latitude]) &&
+            map.project([ad.longitude, ad.latitude]).y < card_top &&
             map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
         ))
         .sort((a, b) => a.price - b.price || a.id - b.id)
@@ -3452,7 +3506,15 @@ function maxi_open(id) {
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    var photos_urls = []
+    try {
+        photos_urls = get_ad_img_urls(id)
+        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+    } catch (e) {
+        console.error(`ERROR: get_ad_img_urls(${id})`, e)
+    }
+    $maxi_strip.innerHTML = ''
+    photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -3721,7 +3783,7 @@ window.post_photos = []
 
 function pin_open() {
     if (pin_closed) {
-        overlay_hidden = [$logo, $heart, $track, toggler, $tabbar].filter(($el) => !$el.hasAttribute('hidden'))
+        overlay_hidden = [$logo, $heart, $track, toggler, $tabbar, $last_update_time].filter(($el) => !$el.hasAttribute('hidden'))
         for (const $el of overlay_hidden) $el.setAttribute('hidden', '')
     }
     pin_closed = false
@@ -3729,7 +3791,6 @@ function pin_open() {
     $pin.style.transform = 'translate3d(0,0,0)'
     $pin.removeAttribute('hidden')
     $pin_marker.removeAttribute('hidden')
-    pin_locate()
 }
 
 function pin_close() {
@@ -3739,12 +3800,6 @@ function pin_close() {
     $pin.style.transform = `translate3d(0, ${$pin.clientHeight}px, 0)`
     for (const $el of overlay_hidden) $el.removeAttribute('hidden')
     overlay_hidden = []
-}
-
-function pin_locate() {
-    const zoomed = map.getZoom() >= 16
-    $pin.querySelector('.pin_hint').textContent = zoomed ? 'Move the map until the pin sits on your building' : 'Zoom in to place the pin on your building'
-    $pin.querySelector('.pin_use').disabled = !zoomed
 }
 
 function form_open() {
@@ -3952,7 +4007,7 @@ $tabbar.onclick = e => {
 $pin.onclick = e => {
     if (e.target.closest('.pin_back')) return history.back()
     const $use = e.target.closest('.pin_use')
-    if (!$use || $use.disabled) return
+    if (!$use) return
     const center = map.getCenter()
     localStorage.post_lat = center.lat
     localStorage.post_lng = center.lng
@@ -4015,7 +4070,7 @@ $heart.onpointerup = e => {
     } else {
         url.searchParams.set('likes', likes_local_storage.join(','))
         history.replaceState({}, '', url)
-        current_page = PAGE.EDIT
+        current_page = PAGE.LIKES
         
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
         map.setLayoutProperty('likes-outline', 'visibility', 'visible')
@@ -4025,7 +4080,7 @@ $heart.onpointerup = e => {
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
     }
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
     filters_hide()
 }
@@ -5253,7 +5308,6 @@ apply_filter = throttle(apply_filter, 90)
                 }
             })
             map.on('moveend', () => {
-                if (!pin_closed) pin_locate()
                 if (card_closed) return
                 const ids = carousel_order(card_id)
                 if (ids.length == carousel_ids.length && ids.every((id, i) => carousel_ids[i] == id)) return
