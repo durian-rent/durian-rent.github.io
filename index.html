@@ -935,7 +935,7 @@ Prices are expressed in Vietnamese dong (VND).
             gap: 1vh;
             height: 5vh;
             bottom: calc(var(--tabbar-height) + env(safe-area-inset-bottom, 0px));
-            left: 0;
+            left: env(safe-area-inset-left, 0px);
             color: var(--filter-color);
             font-family: Inter, Arial, sans-serif;
             font-size: x-small;
@@ -1333,10 +1333,10 @@ Prices are expressed in Vietnamese dong (VND).
             color: inherit;
         }
         #toggler {
-            top: calc(env(safe-area-inset-top, 20px) + 14vh);
-            right: 0vh;
-            width: 7vh;
-            height: 7vh;
+            top: calc(env(safe-area-inset-top, 20px) + max(14vh, 2 * var(--input-height-big)));
+            right: env(safe-area-inset-right, 0px);
+            width: max(7vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             box-sizing: border-box;
             padding: var(--offset-small);
             display: flex;
@@ -1369,6 +1369,8 @@ Prices are expressed in Vietnamese dong (VND).
             bottom: 0;
             left: 0;
             margin: 0;
+            padding-right: env(safe-area-inset-right, 0px);
+            padding-left: env(safe-area-inset-left, 0px);
             display: flex;
             flex-direction: column;
             color: var(--text-color);
@@ -1515,17 +1517,17 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #close {
             top: env(safe-area-inset-top, 20px);
-            right: 0vh;
-            width: 10vh;
-            height: 7vh;
+            right: env(safe-area-inset-right, 0px);
+            width: max(10vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             touch-action: manipulation;
             cursor: pointer;
         }
         #track {
-            top: calc(env(safe-area-inset-top, 20px) + 7vh);
-            right: 0vh;
-            width: 7vh;
-            height: 7vh;
+            top: calc(env(safe-area-inset-top, 20px) + max(7vh, var(--input-height-big)));
+            right: env(safe-area-inset-right, 0px);
+            width: max(7vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             touch-action: manipulation;
             cursor: pointer;
         }
@@ -1538,9 +1540,9 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #heart {
             top: env(safe-area-inset-top, 20px);
-            right: 0vh;
-            width: 7vh;
-            height: 7vh;
+            right: env(safe-area-inset-right, 0px);
+            width: max(7vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
@@ -1548,9 +1550,9 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #share {
             top: env(safe-area-inset-top, 20px);
-            right: 7vh;
-            width: 7vh;
-            height: 7vh;
+            right: calc(env(safe-area-inset-right, 0px) + max(7vh, var(--input-height-big)));
+            width: max(7vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             touch-action: manipulation;
             user-select: none;
             -webkit-user-select: none;
@@ -1629,11 +1631,11 @@ Prices are expressed in Vietnamese dong (VND).
         }
         #logo {
             position: absolute;
-            left: 0;
+            left: env(safe-area-inset-left, 0px);
             top: env(safe-area-inset-top, 20px);
             box-sizing: border-box;
-            width: 7vh;
-            height: 7vh;
+            width: max(7vh, var(--input-height-big));
+            height: max(7vh, var(--input-height-big));
             padding: var(--offset-small);
             display: flex;
             align-items: center;
@@ -1720,6 +1722,8 @@ Prices are expressed in Vietnamese dong (VND).
             height: 62vh;
             box-sizing: border-box;
             padding: var(--offset-middle);
+            padding-right: calc(var(--offset-middle) + env(safe-area-inset-right, 0px));
+            padding-left: calc(var(--offset-middle) + env(safe-area-inset-left, 0px));
             display: flex;
             flex-direction: column;
             gap: var(--offset-middle);
