@@ -1864,11 +1864,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-weight: 600;
             box-shadow: var(--shadow);
         }
-        .wide[disabled] {
-            background: var(--well-color);
-            color: var(--text-muted);
-            box-shadow: none;
-        }
         #form {
             position: fixed;
             inset: 0;
@@ -2195,31 +2190,12 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--accent-color);
         }
         @media (min-width: 900px) {
-            #pin {
-                display: flex;
-                flex-direction: column;
-                pointer-events: auto;
-                background: var(--sheet-color);
-            }
             #pin, #form {
                 right: auto;
                 width: 420px;
+            }
+            #form {
                 box-shadow: var(--shadow);
-            }
-            #pin .maxi_over {
-                position: static;
-                box-sizing: border-box;
-                padding: var(--offset-big) var(--offset-big) 0;
-            }
-            #pin .place-panel {
-                position: static;
-                flex: 1;
-                border-radius: 0;
-                box-shadow: none;
-                text-align: left;
-            }
-            #pin .pin_use {
-                margin-top: auto;
             }
         }
         #profile {
@@ -2632,7 +2608,6 @@ Prices are expressed in Vietnamese dong (VND).
 <div id="pin" hidden>
     <div class="maxi_over"><button type="button" class="ctl pin_back" aria-label="Back to the map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button></div>
     <div class="place-panel">
-        <p class="muted pin_hint">Move the map until the pin sits on your building</p>
         <button type="button" class="wide pin_use">Use this location</button>
     </div>
 </div>
@@ -3720,7 +3695,7 @@ window.post_photos = []
 
 function pin_open() {
     if (pin_closed) {
-        overlay_hidden = [$logo, $heart, $track, toggler, $tabbar].filter(($el) => !$el.hasAttribute('hidden'))
+        overlay_hidden = [$logo, $heart, $track, toggler, $tabbar, $last_update_time].filter(($el) => !$el.hasAttribute('hidden'))
         for (const $el of overlay_hidden) $el.setAttribute('hidden', '')
     }
     pin_closed = false
@@ -3728,7 +3703,6 @@ function pin_open() {
     $pin.style.transform = 'translate3d(0,0,0)'
     $pin.removeAttribute('hidden')
     $pin_marker.removeAttribute('hidden')
-    pin_locate()
 }
 
 function pin_close() {
@@ -3738,12 +3712,6 @@ function pin_close() {
     $pin.style.transform = `translate3d(0, ${$pin.clientHeight}px, 0)`
     for (const $el of overlay_hidden) $el.removeAttribute('hidden')
     overlay_hidden = []
-}
-
-function pin_locate() {
-    const zoomed = map.getZoom() >= 16
-    $pin.querySelector('.pin_hint').textContent = zoomed ? 'Move the map until the pin sits on your building' : 'Zoom in to place the pin on your building'
-    $pin.querySelector('.pin_use').disabled = !zoomed
 }
 
 function form_open() {
@@ -3951,7 +3919,7 @@ $tabbar.onclick = e => {
 $pin.onclick = e => {
     if (e.target.closest('.pin_back')) return history.back()
     const $use = e.target.closest('.pin_use')
-    if (!$use || $use.disabled) return
+    if (!$use) return
     const center = map.getCenter()
     localStorage.post_lat = center.lat
     localStorage.post_lng = center.lng
@@ -5252,7 +5220,6 @@ apply_filter = throttle(apply_filter, 90)
                 }
             })
             map.on('moveend', () => {
-                if (!pin_closed) pin_locate()
                 if (card_closed) return
                 const ids = carousel_order(card_id)
                 if (ids.length == carousel_ids.length && ids.every((id, i) => carousel_ids[i] == id)) return
