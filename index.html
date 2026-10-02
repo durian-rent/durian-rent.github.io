@@ -1754,6 +1754,15 @@ Prices are expressed in Vietnamese dong (VND).
             border-top: var(--border-width-small) solid var(--line-color);
             box-shadow: var(--shadow);
         }
+        #tabbar::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: 0;
+            height: env(safe-area-inset-bottom, 0px);
+            background: var(--card-background-color);
+        }
         #tabbar button {
             flex: 1;
             display: flex;
@@ -3211,6 +3220,7 @@ window.addEventListener('appinstalled', () => {
 
 function card_hide() {
     card_closed = true
+    $card.inert = true
     carousel_unselect()
     $card.style.transition = 'transform 0.1s ease'
     $card.style.transform = `translate3d(0, ${$card.offsetHeight}px, 0)`
@@ -3447,6 +3457,7 @@ $card.ontouchend = e => {
         if (last_move_direction == 'down') {
             carousel_unselect()
             card_closed = true
+            $card.inert = true
             dY = y_card_min - b
             dT = Math.abs(dY / (2.5 * vY))
             $card.style.transition = `bottom ${(dT/1000).toFixed(2)}s linear`
@@ -3525,6 +3536,7 @@ function carousel_unselect() {
 }
 
 function carousel_open(id) {
+    $card.inert = false
     carousel_unselect()
     carousel_ids = carousel_order(id)
     carousel_pos = carousel_ids.indexOf(id)
@@ -3696,6 +3708,7 @@ function maxi_open(id) {
         console.error(`ERROR: get_ad_img_urls(${id})`, e)
     })
     maxi_closed = false
+    $maxi.inert = false
 }
 
 function maxi_about(text) {
@@ -3711,6 +3724,7 @@ function maxi_about(text) {
 
 function maxi_close() {
     maxi_closed = true
+    $maxi.inert = true
     $maxi.style.transition = 'transform 0.1s ease'
     $maxi.style.transform = `translate3d(0, ${$maxi.clientHeight}px, 0)`
 }
@@ -3972,6 +3986,7 @@ function pin_open() {
         for (const $el of overlay_hidden) $el.setAttribute('hidden', '')
     }
     pin_closed = false
+    $pin.inert = false
     $pin.style.transition = 'none'
     $pin.style.transform = 'translate3d(0,0,0)'
     $pin.removeAttribute('hidden')
@@ -3980,6 +3995,7 @@ function pin_open() {
 
 function pin_close() {
     pin_closed = true
+    $pin.inert = true
     $pin_marker.setAttribute('hidden', '')
     $pin.style.transition = 'transform 0.1s linear'
     $pin.style.transform = `translate3d(0, ${$pin.clientHeight}px, 0)`
@@ -3989,6 +4005,7 @@ function pin_close() {
 
 function form_open() {
     form_closed = false
+    $form.inert = false
     $form.style.transition = 'none'
     $form.style.transform = 'translate3d(0,0,0)'
     $form.removeAttribute('hidden')
@@ -3999,6 +4016,7 @@ function form_open() {
 
 function form_close() {
     form_closed = true
+    $form.inert = true
     if (!pin_closed) $pin_marker.removeAttribute('hidden')
     $form.style.transition = 'transform 0.1s linear'
     $form.style.transform = `translate3d(0, ${$form.clientHeight}px, 0)`
@@ -4072,6 +4090,7 @@ function profile_open() {
     $profile.style.transform = 'translate3d(0,0,0)'
     $profile.removeAttribute('hidden')
     profile_closed = false
+    $profile.inert = false
     $tabbar.querySelector('[data-tab="map"]').classList.remove('on')
     $tabbar.querySelector('[data-tab="saved"]').classList.remove('on')
     $tabbar.querySelector('[data-tab="profile"]').classList.add('on')
@@ -4080,6 +4099,7 @@ function profile_open() {
 
 function profile_close() {
     profile_closed = true
+    $profile.inert = true
     $profile.style.transition = 'transform 0.1s linear'
     $profile.style.transform = `translate3d(0, ${$profile.clientHeight}px, 0)`
     $tabbar.querySelector('[data-tab="profile"]').classList.remove('on')
@@ -4297,6 +4317,7 @@ function saved_render() {
 
 function saved_open() {
     saved_closed = false
+    $saved.inert = false
     saved_render()
     $saved.style.transition = 'none'
     $saved.style.transform = 'translate3d(0,0,0)'
@@ -4309,6 +4330,7 @@ function saved_open() {
 
 function saved_close() {
     saved_closed = true
+    $saved.inert = true
     $saved.style.transition = 'transform 0.1s linear'
     $saved.style.transform = `translate3d(0, ${$saved.clientHeight}px, 0)`
     $tabbar.querySelector('[data-tab="saved"]').classList.remove('on')
