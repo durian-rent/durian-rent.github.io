@@ -374,9 +374,9 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
+    window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790901350185'
+    const VER_WASM = '1790920761332'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -498,7 +498,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '5ef6bc99747b28f5be867029097ec178e857334db74887d4d585872560991e96'// contact spirin.vladimir@gmail.com
+        const KEY = '5c9d5474d07b95deed32423a29a097189c5dedbe27bd7396742bd749b39603be'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -2814,11 +2814,12 @@ var same_likes
 const router = () => {
     if (history.state?.page == PAGE.MAXI) {
         if (!window.ad_current) return history.back()
+        if (current_page != PAGE.MAXI) maxi_from = current_page
         current_page = PAGE.MAXI
         return maxi_open(ad_current.id)
     }
     if (!maxi_closed) {
-        current_page = history.state?.page == PAGE.SAVED ? PAGE.EDIT : location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        current_page = maxi_from
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
@@ -2866,14 +2867,13 @@ const router = () => {
 
     if (search_params.has('likes')) {
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
-        map.setLayoutProperty('likes-outline', 'visibility', same_likes ? 'visible' : 'none')
         map.setLayoutProperty('likes-hitbox', 'visibility', 'visible')
         map.setLayoutProperty('price-circle', 'visibility', 'none')
         map.setLayoutProperty('price-circle-filtered', 'visibility', 'none')
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
         if (same_likes) {
-            current_page = PAGE.EDIT
+            current_page = PAGE.LIKES
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'none')
         } else {
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'visible')
@@ -2892,17 +2892,18 @@ const router = () => {
     }
     current_page == PAGE.SHARED && console.log('SHARED')
     current_page == PAGE.MAIN && console.log('MAIN')
-    current_page == PAGE.EDIT && console.log('EDIT')
+    current_page == PAGE.LIKES && console.log('LIIKES')
     current_page == PAGE.SINGLE && console.log('SINGLE')
     $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
     filters_hide()
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
     $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
-
+    if (search_params.has('beta')) $tabbar.querySelector('[data-tab="profile"]').removeAttribute('hidden')
+    
     const likes = likes_search_params.length
         ? likes_search_params
         : likes_local_storage
@@ -3173,11 +3174,12 @@ function toggle_like(id) {
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
-    if (current_page == PAGE.EDIT) {
-        if (window.map) map.setFeatureState(
-            { source: 'prices', id },
-            { liked }
-        )
+    likes_local_storage = [...likes]
+    if (window.map && current_page != PAGE.SHARED) map.setFeatureState(
+        { source: 'prices', id },
+        { liked }
+    )
+    if (current_page == PAGE.LIKES) {
         const url = new URL(location)
         url.searchParams.set('likes', likes_string)
         history.replaceState(history.state, '', url)
@@ -3226,6 +3228,7 @@ var photo_swipe
 var card_moved = false
 var card_closed = true
 var maxi_closed = true
+var maxi_from = PAGE.MAIN
 var saved_closed = true
 
 $card.ontouchstart = e => {
@@ -3503,7 +3506,15 @@ function maxi_open(id) {
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    $maxi_strip.innerHTML = $c.querySelector('.photos_container').innerHTML
+    var photos_urls = []
+    try {
+        photos_urls = get_ad_img_urls(id)
+        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+    } catch (e) {
+        console.error(`ERROR: get_ad_img_urls(${id})`, e)
+    }
+    $maxi_strip.innerHTML = ''
+    photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
     maxi_photo_index = 0
     $maxi_strip.style.transition = 'none'
     $maxi_strip.style.transform = 'translate3d(0,0,0)'
@@ -4059,7 +4070,7 @@ $heart.onpointerup = e => {
     } else {
         url.searchParams.set('likes', likes_local_storage.join(','))
         history.replaceState({}, '', url)
-        current_page = PAGE.EDIT
+        current_page = PAGE.LIKES
         
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
         map.setLayoutProperty('likes-outline', 'visibility', 'visible')
@@ -4069,7 +4080,7 @@ $heart.onpointerup = e => {
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
     }
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
     filters_hide()
 }
