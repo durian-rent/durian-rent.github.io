@@ -3316,9 +3316,11 @@ const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.leng
 
 function carousel_order(id) {
     const bounds = map.getBounds()
+    const card_top = $card.offsetTop
     return ads
         .filter(ad => ad.id == id || (
             bounds.contains([ad.longitude, ad.latitude]) &&
+            map.project([ad.longitude, ad.latitude]).y < card_top &&
             map.getFeatureState({ source: 'prices', id: ad.id }).mode != 'filtered'
         ))
         .sort((a, b) => a.price - b.price || a.id - b.id)
