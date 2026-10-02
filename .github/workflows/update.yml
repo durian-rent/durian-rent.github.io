@@ -93,6 +93,12 @@ jobs:
     - name: Generate KEY
       run: node gen_key.cjs && rm gen_key.cjs
 
+    - name: Copy VER_WASM and KEY from index.html to profile.html and id
+      run: |
+        ver=$(grep -oP "const VER_WASM = '\K\d+" index.html)
+        key=$(grep -oP "const KEY = '\K[0-9a-f]{64}" index.html)
+        grep -rlZ --include='*.html' "const VER_WASM = '" profile.html id | xargs -0 -r sed -i -e "s/const VER_WASM = '[0-9]*'/const VER_WASM = '$ver'/" -e "s/const KEY = '[0-9a-f]\{64\}'/const KEY = '$key'/"
+
     - name: Version WASM bundle
       run: node -e "require('@assemblyscript/loader').instantiate(fs.readFileSync('./durian.rent.wasm')).then(_ => console.log('Version:', _.exports.get_version()))"
       
