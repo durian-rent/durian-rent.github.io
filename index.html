@@ -2946,19 +2946,6 @@ function show_toast(msg) {
   setTimeout(() => $toast.setAttribute('hidden', ''), 2000)
 }
 
-function user_animate() {
-    const t = performance.now() * 0.005
-    map.setPaintProperty(
-        'user-pulse',
-        'circle-radius',
-         4 + (2 + 1.5 * Math.sin(t))
-    )
-    map.setPaintProperty(
-        'user-pulse',
-        'circle-opacity',
-        0.3 * (1 + Math.cos(t))
-    )
-}
 let waiting_tracking_animation_id = null;
 const start_waiting_tracking = () => {
     const t = performance.now() / 1000;
@@ -2986,9 +2973,7 @@ function stop_tracking() {
         watch_id = null
     }
     if (map.getLayer('user')) map.removeLayer('user')
-    if (map.getLayer('user-pulse')) map.removeLayer('user-pulse')
     if (map.getSource('user')) map.removeSource('user')
-    map.off('render', user_animate)
     track_detecting = false
     stop_waiting_tracking()
     $track_circle_inner.setAttribute('fill', 'none')
@@ -3051,23 +3036,10 @@ function start_tracking({ fly, auto_start }) {
                     }
                 })
 
-                map.addLayer({
-                    id: 'user-pulse',
-                    type: 'circle',
-                    source: 'user',
-                    paint: {
-                        'circle-radius': 4,
-                        'circle-color': '#3b82f6',
-                        'circle-opacity': 0.3
-                    }
-                })
-
                 if (fly) map.flyTo({
                     center: [longitude, latitude],
                     zoom: 16.5
                 })
-
-                map.on('render', user_animate)
             } else {
                 user_location.features[0].geometry.coordinates = [longitude, latitude]
                 map.getSource('user').setData(user_location)
@@ -3081,7 +3053,7 @@ function start_tracking({ fly, auto_start }) {
         },
         {
             enableHighAccuracy: true,
-            timeout: Infinity,
+            timeout: 30000,
             maximumAge: 0
         }
     )
