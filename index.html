@@ -3749,6 +3749,7 @@ function fill_card($c, id) {
         const streetLen = view.getUint32(offset, false)
         offset += 4
         const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
+        offset += streetLen
 
         const ad_url_len = view.getUint32(offset, false)
         offset += 4
