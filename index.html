@@ -535,16 +535,90 @@ Prices are expressed in Vietnamese dong (VND).
             var category = raw_ads[i + 5]
             var area = raw_ads[i + 6]
             var m2 = raw_ads[i + 8]
-            var publish = raw_ads[i + 9] 
-            var bedrooms = raw_ads[i + 10] 
-            var bathrooms = raw_ads[i + 11] 
+            var publish = raw_ads[i + 9]
+            
+            //int32
+            var bedrooms = raw_ads[i + 10]
+            
+            //enum Bathrooms { unknown = 0, one = 1, two = 2, three = 3, four = 4, shared = 5, no = 6 }
+            var bathrooms = raw_ads[i + 11]
+            
+            //int32
+            var floor = raw_ads[i + 12]
+
+            //int32
+            var deposit_months = raw_ads[i + 13]
+            
+            //int32
+            var min_contract = raw_ads[i + 14]
+            
+            //enum Furnished { unknown = 0, no = 1, yes = 2 }
+            var furnished = raw_ads[i + 15]
+            
+            //enum WashingMachine { Unknown = 0, None = 1, Have = 2, HaveInApt = 3, HaveOnRoof = 4 }
+            var washer = raw_ads[i + 16]
+            
+            //enum AirCondition { unknown = 0, no = 1, yes = 2 }
+            var air_condition = raw_ads[i + 17]
+            
+            //enum Fridge { unknown = 0, no = 1, yes = 2 }
+            var fridge = raw_ads[i + 18]
+            
+            //enum Kitchen { unknown = 0, no = 1, yes = 2 }
+            var kitchen = raw_ads[i + 19]
+            
+            //enum Tv { unknown = 0, no = 1, yes = 2 }
+            var tv = raw_ads[i + 20]
+            
+            //enum WaterHeater { unknown = 0, no = 1, yes = 2 }
+            var water_heater = raw_ads[i + 21]
+            
+            //enum Elevator { unknown = 0, no = 1, yes = 2 }
+            var elevator = raw_ads[i + 22]
+            
+            //enum MotorbikeParking { unknown = 0, no = 1, yes = 2 }
+            var motorbike_parking = raw_ads[i + 23]
+            
+            //enum Pool { unknown = 0, no = 1, yes = 2 }
+            var pool = raw_ads[i + 24]
+            
+            //enum Gym { unknown = 0, no = 1, yes = 2 }
+            var gym = raw_ads[i + 25]
+            
+            //enum Balcony { unknown = 0, no = 1, yes = 2 }
+            var balcony = raw_ads[i + 26]
+            
+            //enum PetsAllowed { unknown = 0, no = 1, yes = 2 }
+            var pets_allowed = raw_ads[i + 27]
+            
+            //enum View { unknown = 0, sea_view = 1, river_view = 2, mountain_view = 3, sea_and_river = 4, river_mountain = 5, sea_mountain = 6, sea_river_mountain = 7 }
+            var view = raw_ads[i + 28]
+            
+            //enum CleaningIncluded { unknown = 0, no = 1, yes = 2 }
+            var cleaning_included = raw_ads[i + 29]
+            
+            //enum OwnerDirect { unknown = 0, no = 1, yes = 2 }
+            var owner_direct = raw_ads[i + 30]
+            
+            //enum ContactChannel { unknown = 0, zalo = 1, phone = 2, facebook = 3, messenger = 4, whatsapp = 5, telegram = 6 }
+            var contact_channel = raw_ads[i + 31]
+            
+            //enum ForeignAllowed { unknown = 0, no = 1, yes = 2 }
+            var foreign_allowed = raw_ads[i + 32]
+            
             var key = longitude + '-' + latitude
             var dup_set = dup_map.get(key) || new Set()
             dup_set.add(id)
             dup_map.set(key, dup_set)
             if (price < limit$.min) limit$.min = price
             if (price > limit$.max) limit$.max = price
-            ads[i / ad_size] = { id, price, longitude, latitude, category, area, m2, publish, bedrooms, bathrooms }
+            ads[i / ad_size] = {
+                id, price, longitude, latitude, category, area, m2, publish,
+                bedrooms, bathrooms, floor, deposit_months, min_contract, furnished,
+                washer, air_condition, fridge, kitchen, tv, water_heater, elevator,
+                motorbike_parking, pool, gym, balcony, pets_allowed, view, cleaning_included,
+                owner_direct, contact_channel, foreign_allowed
+            }
         }
         dup_map.forEach((dup_set, key) =>
             dup_set.size == 1 &&
