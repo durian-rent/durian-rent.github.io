@@ -510,6 +510,7 @@ Prices are expressed in Vietnamese dong (VND).
 
         if (!auth) {
             console.log('Key', KEY, 'is expired')
+            window.key_expired = true
             if ((Date.now() - localStorage.getItem('last_reload_timestamp')) / 1000 / 60 > 60) {
                 localStorage.setItem('last_reload_timestamp', Date.now())
                 location.reload()
@@ -5347,6 +5348,10 @@ apply_filter = throttle(apply_filter, 90)
                     }
                 }
             })
+            if (window.key_expired) {
+                $toast.textContent = 'Listings are updating. Check back in a few minutes.'
+                $toast.removeAttribute('hidden')
+            }
 
             var time_values = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
                 year: 'numeric',
