@@ -3964,7 +3964,8 @@ function profile_show_places() {
     $profile.querySelector('[data-view="signin"]').hidden = true
     $profile.querySelector('[data-view="places"]').hidden = false
     fetch(`${API_ORIGIN}/me`, {headers: {authorization: `Bearer ${localStorage.token}`}})
-    .then(r => r.ok ? r.json().then(profile_render) : r.status == 401 && profile_sign_out())
+    .then(r => r.ok ? r.json().then(profile_render) : r.status == 401 ? profile_sign_out() : Promise.reject())
+    .catch(() => document.getElementById('profile_count').textContent = 'Could not load your places. Try again later.')
 }
 
 function profile_google_credential(response) {
