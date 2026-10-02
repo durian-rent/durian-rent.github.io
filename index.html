@@ -927,6 +927,11 @@ Prices are expressed in Vietnamese dong (VND).
         #toggler, #close, #heart, #share, #icon-filter, #icon-heart, #icon-share, #icon-close, #track, #icon-track {
             position: absolute;
         }
+        #toggler, #close, #track, #heart, #share {
+            padding: 0;
+            border: 0;
+            background: none;
+        }
         #last_update_time {
             position: absolute;
             display: flex;
@@ -2523,18 +2528,18 @@ Prices are expressed in Vietnamese dong (VND).
     </div>
     <footer><button type="button" class="filters_show">Show <span class="filters_count"></span> places</button></footer>
 </form>
-<div id="toggler" hidden>
+<button type="button" id="toggler" aria-label="Filters" hidden>
     <span class="ctl">
         <svg id="icon-filter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg>
     </span>
-</div>
-<div id="close" hidden>
+</button>
+<button type="button" id="close" aria-label="Close the shared list" hidden>
     <svg id="icon-close" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
         <line x1="4" y1="4" x2="20" y2="20"/>
         <line x1="20" y1="4" x2="4" y2="20"/>
     </svg>
-</div>
-<div id="track" hidden>
+</button>
+<button type="button" id="track" aria-label="Find my location" hidden>
     <span class="ctl">
     <svg id="icon-track" viewBox="0 0 24 24" fill="none" stroke-linecap="round" preserveAspectRatio="xMidYMid meet">
         <circle cx="12" cy="12" r="6" fill="none"/>
@@ -2550,8 +2555,8 @@ Prices are expressed in Vietnamese dong (VND).
         <line x1="19" y1="12" x2="22" y2="12"/>
     </svg>
     </span>
-</div>
-<div id="heart" hidden>
+</button>
+<button type="button" id="heart" aria-label="Saved on the map" aria-pressed="false" hidden>
     <span class="ctl">
     <svg id="icon-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
     <path
@@ -2566,14 +2571,14 @@ Prices are expressed in Vietnamese dong (VND).
     </svg>
     <b id="likes_count"></b>
     </span>
-</div>
-<div id="share" hidden>
+</button>
+<button type="button" id="share" aria-label="Share saved places" hidden>
     <svg id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
         <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
         <polyline points="16 6 12 2 8 6"></polyline>
         <line x1="12" y1="2" x2="12" y2="15"></line>
     </svg>
-</div>
+</button>
 <div id="last_update_time" hidden>
     <svg id="icon-last-update-time" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >
         <circle cx="12" cy="12" r="10"/>
@@ -2907,6 +2912,7 @@ const router = () => {
     current_page == PAGE.LIKES && console.log('LIIKES')
     $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
+    $heart.setAttribute('aria-pressed', current_page == PAGE.LIKES)
     $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
     filters_hide()
@@ -3087,8 +3093,8 @@ function start_tracking({ fly, auto_start }) {
     )
 }
 
-$track.onpointerup = () => {
-    if (!navigator.geolocation) return
+document.addEventListener('click', e => {
+    if (!e.target.closest('#track') || !navigator.geolocation) return
     if (watch_id != null) {
         localStorage.asked_track = 'no'
         stop_tracking()
@@ -3096,7 +3102,7 @@ $track.onpointerup = () => {
     }
     localStorage.asked_track = 'yes'
     start_tracking({fly: true})
-}
+})
 
 function mark_install_success($icon_install) {
     ;[$icon_install_apk, $icon_install_ios].forEach(button => {
@@ -4044,7 +4050,7 @@ $tabbar.onclick = e => {
         history.pushState({}, '', '/profile')
         return router()
     }
-    if ($tab.dataset.tab == 'filters') toggler.onpointerup(e)
+    if ($tab.dataset.tab == 'filters') toggler.onclick(e)
     const likes = new URL(location).searchParams.has('likes')
     $tabbar.querySelector('[data-tab="map"]').classList.toggle('on', !likes)
     $tabbar.querySelector('[data-tab="saved"]').classList.toggle('on', likes)
@@ -4100,7 +4106,8 @@ $form.onchange = e => {
     form_render_status()
 }
 
-$heart.onpointerup = e => {
+document.addEventListener('click', e => {
+    if (!e.target.closest('#heart')) return
     const url = new URL(location)
     if (url.searchParams.has('likes')) {
         url.searchParams.delete('likes')
@@ -4124,11 +4131,12 @@ $heart.onpointerup = e => {
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
     }
+    $heart.setAttribute('aria-pressed', current_page == PAGE.LIKES)
     $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
     card_hide()
     filters_hide()
-}
+})
 
 function saved_render() {
     const saved = (localStorage.likes || '').split(',').filter(Boolean).reverse().map(id => ads.find(ad => ad.id == id)).filter(Boolean)
@@ -4209,7 +4217,8 @@ $share.onclick = () => {
     }
 }
 
-$close.onpointerup = e => {
+document.addEventListener('click', e => {
+    if (!e.target.closest('#close')) return
     if (
         window.current_page == PAGE.SHARED ||
         window.current_page == PAGE.MAXI
@@ -4218,7 +4227,7 @@ $close.onpointerup = e => {
         history.pushState({}, '', '/')
         router()
     }
-}
+})
 
 var filters_closed = true
 var min$
@@ -4242,7 +4251,7 @@ function filters_hide() {
     $filters.style.transform = 'translate3d(0, 100%, 0)'
 }
 
-toggler.onpointerup = e => {
+toggler.onclick = e => {
     if (!filters_closed) return filters_hide()
     card_hide()
     const x = $filters.elements
