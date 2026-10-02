@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>MẶT BẰNG AN THƯỢNG 2 . TUYẾN DU LỊCH</title><meta name="ad:id" content="178617003">
-    <meta property="og:url" content="https://durian.rent/id/mat-bang-an-thuong-2-tuyen-du-lich">
+    <title>Cho thuê căn hộ the Ori garden 3 PN full nội thất cao cấp giá 9 triệu</title><meta name="ad:id" content="179173571">
+    <meta property="og:url" content="https://durian.rent/id/cho-thue-can-ho-the-ori-garden-3-pn-full-noi-that-cao-cap-gia-9-trieu">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="MẶT BẰNG AN THƯỢNG 2 . TUYẾN DU LỊCH" />
+    <meta property="og:title" content="Cho thuê căn hộ the Ori garden 3 PN full nội thất cao cấp giá 9 triệu" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="MẶT BẰNG AN THƯỢNG 2 . TUYẾN DU LỊCH" />
+    <meta name="description" content="Cho thuê căn hộ the Ori garden 3 PN full nội thất cao cấp giá 9 triệu" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MẶT BẰNG AN THƯỢNG 2 . TUYẾN DU LỊCH">
+    <meta name="twitter:title" content="Cho thuê căn hộ the Ori garden 3 PN full nội thất cao cấp giá 9 triệu">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
-    <link rel="canonical" href="https://durian.rent/id/mat-bang-an-thuong-2-tuyen-du-lich">
+    <link rel="canonical" href="https://durian.rent/id/cho-thue-can-ho-the-ori-garden-3-pn-full-noi-that-cao-cap-gia-9-trieu">
     <link rel="manifest" href="/manifest.json">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml">
@@ -374,7 +374,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790928452490'
+    const VER_WASM = '1790945828494'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -496,7 +496,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '17d84e744fd8018a5385af490971e7da50616614d5b0b9d9468440481428b3b9'// contact spirin.vladimir@gmail.com
+        const KEY = 'c5e29d72a4abc9e99821849e09d7b1a04c220167b3209b48b8d6b072e91ae837'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -658,7 +658,29 @@ Prices are expressed in Vietnamese dong (VND).
             else document.title = '[SOLD] ' + document.title
         }
     })
-
+    
+    const URL_ADS_PRICES = `/price.list?v=${VER_WASM}`
+    window.price_list_ready = caches.open('price.list')
+    .then(cache =>
+        cache.keys()
+        .then(keys => keys[0])
+        .then(r =>
+            r?.url.endsWith(`?v=${VER_WASM}`)
+                ? cache.match(r)
+                : Promise.resolve(r && cache.delete(r))
+                .then(() => fetch(URL_ADS_PRICES))
+                .then(response => {
+                    cache.put(URL_ADS_PRICES, response.clone())
+                    return response
+                })
+        )
+        .then(r => r.text())
+        .then(_ =>
+            wasm_ready.then(() =>
+                set_ads_prices(_)
+            )
+        )
+    )
 
     const colors = {
         light: {//hot pink
@@ -755,9 +777,9 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"MẶT BẰNG AN THƯỢNG 2 . TUYẾN DU LỊCH",
-            "url":"https://durian.rent/id/mat-bang-an-thuong-2-tuyen-du-lich",
-			"price":"32000000",
+            "name":"Cho thuê căn hộ the Ori garden 3 PN full nội thất cao cấp giá 9 triệu",
+            "url":"https://durian.rent/id/cho-thue-can-ho-the-ori-garden-3-pn-full-noi-that-cao-cap-gia-9-trieu",
+			"price":"9000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -4122,23 +4144,25 @@ function saved_render() {
     $saved.querySelector('.saved_count').textContent = saved.length == 1 ? '1 place' : `${saved.length} places`
     $saved.querySelector('.saved_share').hidden = !saved.length
     $saved.querySelector('.saved_empty').hidden = saved.length > 0
-    $saved.querySelector('.saved_list').innerHTML = saved.map(ad => {
-        const kind = get_category_for_user(ad.category)
-        const district = get_area_v2_for_user(ad.area)
-        const title = !(kind == 'Apartment' || kind == 'House')
-            ? `${kind} in ${district}`
-            : ad.bedrooms > 0
-                ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
-                : `Studio in ${district}`
-        var photo = ''
-        try {
-            photo = get_ad_img_urls(ad.id)[0] || ''
-        } catch (e) {
-            console.error(`ERROR: get_ad_img_urls(${ad.id})`, e)
-        }
-        const meta = ad.m2 ? `${ad.m2} m<sup>2</sup> · ${ago(ad.publish)} ago` : `${ago(ad.publish)} ago`
-        return `<div class="saved_row"><button type="button" class="saved_open" data-id="${ad.id}"><img src="${photo}" alt="" loading="lazy"><span><b>${title}</b><span class="saved_price">${ad.price.toLocaleString('en').replaceAll(',', ' ')} ₫<small> /mo</small></span><span class="saved_meta">${meta}</span></span></button><button type="button" class="saved_unsave" data-id="${ad.id}" aria-label="Remove from saved">${$tabbar.querySelector('[data-tab="saved"] svg').outerHTML}</button></div>`
-    }).join('')
+    window.price_list_ready.then(() =>
+        $saved.querySelector('.saved_list').innerHTML = saved.map(ad => {
+            const kind = get_category_for_user(ad.category)
+            const district = get_area_v2_for_user(ad.area)
+            const title = !(kind == 'Apartment' || kind == 'House')
+                ? `${kind} in ${district}`
+                : ad.bedrooms > 0
+                    ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
+                    : `Studio in ${district}`
+            var photo = ''
+            try {
+                photo = get_ad_img_urls(ad.id)[0] || ''
+            } catch (e) {
+                console.error(`ERROR: get_ad_img_urls(${ad.id})`, e)
+            }
+            const meta = ad.m2 ? `${ad.m2} m<sup>2</sup> · ${ago(ad.publish)} ago` : `${ago(ad.publish)} ago`
+            return `<div class="saved_row"><button type="button" class="saved_open" data-id="${ad.id}"><img src="${photo}" alt="" loading="lazy"><span><b>${title}</b><span class="saved_price">${ad.price.toLocaleString('en').replaceAll(',', ' ')} ₫<small> /mo</small></span><span class="saved_meta">${meta}</span></span></button><button type="button" class="saved_unsave" data-id="${ad.id}" aria-label="Remove from saved">${$tabbar.querySelector('[data-tab="saved"] svg').outerHTML}</button></div>`
+        }).join('')
+    )
 }
 
 function saved_open() {
@@ -5389,24 +5413,6 @@ apply_filter = throttle(apply_filter, 90)
                 gtag('config', 'G-RJ21952T38')
             })
             
-            const URL_ADS_PRICES = `/price.list?v=${VER_WASM}`
-            caches.open('price.list')
-            .then(cache =>
-                cache.keys()
-                .then(keys => keys[0])
-                .then(r =>
-                    r?.url.endsWith(`?v=${VER_WASM}`)
-                        ? cache.match(r)
-                        : Promise.resolve(r && cache.delete(r))
-                        .then(() => fetch(URL_ADS_PRICES))
-                        .then(response => {
-                            cache.put(URL_ADS_PRICES, response.clone())
-                            return response
-                        })
-                )
-                .then(r => r.text())
-                .then(set_ads_prices)
-            )
         })
 
     })
