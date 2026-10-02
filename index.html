@@ -5358,8 +5358,13 @@ apply_filter = throttle(apply_filter, 90)
             }).formatToParts(new Date(+VER_WASM)).map(_ => [_.type, _.value]))
             $last_update_time_value.textContent =
                 `${time_values.year}-${time_values.month}-${time_values.day} ${time_values.hour}:${time_values.minute}`
+            if (localStorage.min$) {
+                min$ = +localStorage.min$
+                max$ = +localStorage.max$
+            }
 
             router()
+            if (localStorage.min$) apply_filter()
         })
 
         map.once('load', () => {
