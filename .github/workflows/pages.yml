@@ -3,6 +3,9 @@ name: Deploy Pages
 on:
   workflow_dispatch:
 
+  schedule:
+    - cron: '17 */2 * * *'
+
   push:
     branches:
       - main
@@ -34,6 +37,7 @@ jobs:
     if: |
       github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'schedule' ||
       github.event_name == 'workflow_run' &&
       github.event.workflow_run.conclusion == 'success'
     
@@ -47,6 +51,19 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: main
+
+      - name: Refresh KEY
+        continue-on-error: ${{ github.event_name != 'schedule' }}
+        env:
+          GEN_KEY: ${{ secrets.GEN_KEY }}
+        run: |
+          trap 'rm -f gen_key.cjs' EXIT
+          old=$(grep -oP "const KEY = '\K[0-9a-f]{64}" index.html)
+          node -e "require('fs').writeFileSync('gen_key.cjs', process.env.GEN_KEY)"
+          node gen_key.cjs
+          key=$(grep -oP "const KEY = '\K[0-9a-f]{64}" index.html)
+          test "$key" != "$old"
+          grep -rlZ --include='*.html' "const KEY = '" . | xargs -0 sed -i "s/const KEY = '[0-9a-f]\{64\}'/const KEY = '$key'/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
