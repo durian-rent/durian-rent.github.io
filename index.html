@@ -3567,6 +3567,7 @@ function carousel_centre($c) {
     $card_info = $c.querySelector('.card_info')
     photo_current_index = Number($c.dataset.photo) || 0
     photo_total_count = $photos_container.children.length
+    photo_near($photos_container, photo_current_index)
     window.card_id = Number($c.dataset.id)
     carousel_select(window.card_id)
 }
@@ -3794,9 +3795,10 @@ function photo_loaded(e) {
     img.className = 'active'
 }
 
-function add_photo($strip, index, url) {
+function add_photo($strip, index, url, lazy) {
     const $item = document.createElement('div')
     $item.className = 'photo'
+    $item.dataset.src = url
     for (const name of ['active', 'deactive']) {
         const img = new Image()
         img.className = name
@@ -3804,15 +3806,22 @@ function add_photo($strip, index, url) {
         img.onload = photo_loaded
         $item.appendChild(img)
     }
-    $item.firstChild.src = url
+    if (!lazy) $item.firstChild.src = url
     $strip.insertBefore($item, $strip.children[index] || null)
 }
 
-function update_photo($strip, index, url) {
+function update_photo($strip, index, url, lazy) {
     const $item = $strip.children[index]
     const next = $item.querySelector('.deactive')
+    $item.dataset.src = url
     if ($item.querySelector('.active').getAttribute('src') == url) return next.removeAttribute('src')
+    if (lazy) return $item.querySelectorAll('img').forEach(img => img.removeAttribute('src'))
     next.src = url
+}
+
+function photo_near($strip, index) {
+    for (const $item of [...$strip.children].slice(Math.max(0, index - 2), index + 3))
+        $item.querySelector('.active').src ||= $item.dataset.src
 }
 
 function delete_photo($strip, index) {
@@ -3830,15 +3839,15 @@ function get_price_string(price) {
     return price_string_space
 }
 
-function fill_ad($c, ad, photos_urls) {
+function fill_ad($c, ad, photos_urls, lazy) {
     const $strip = $c.querySelector('.photos_container')
     $c.dataset.id = ad.id
     $c.dataset.photo = 0
     $strip.style.transition = 'none'
     $strip.style.transform = `translate3d(0,0,0)`
     for (var i = 0; i < photos_urls.length; i++) {
-        if ($strip.children[i]) update_photo($strip, i, photos_urls[i])
-        else add_photo($strip, i, photos_urls[i])
+        if ($strip.children[i]) update_photo($strip, i, photos_urls[i], lazy && i > 0)
+        else add_photo($strip, i, photos_urls[i], lazy && i > 0)
     }
     while ($strip.children.length > photos_urls.length) delete_photo($strip, $strip.children.length - 1)
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
@@ -3907,10 +3916,11 @@ function fill_card($c, id) {
         console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
         photos_urls = []
     }
-    fill_ad($c, ad, photos_urls)
+    fill_ad($c, ad, photos_urls, true)
     if ($c == $card_centre) {
         photo_current_index = 0
         photo_total_count = photos_urls.length
+        photo_near($c.querySelector('.photos_container'), 0)
     }
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.street').textContent = ''
@@ -3940,6 +3950,7 @@ function next_proto_right(frames) {
         photo_current_index += frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
+        photo_near($photos_container, photo_current_index)
         show_seen()
     } else {
        next_proto_right(frames - 1)
@@ -3951,6 +3962,7 @@ function next_proto_left(frames) {
         photo_current_index -= frames
         var x = photo_current_index * photo_size
         $photos_container.style.transform = `translate3d(-${x}px,0,0)`
+        photo_near($photos_container, photo_current_index)
         show_seen()
     } else {
         next_proto_left(frames - 1)
