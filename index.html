@@ -373,7 +373,7 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, EDIT: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
+    window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
     const VER_WASM = '1790901350185'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
@@ -2866,14 +2866,13 @@ const router = () => {
 
     if (search_params.has('likes')) {
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
-        map.setLayoutProperty('likes-outline', 'visibility', same_likes ? 'visible' : 'none')
         map.setLayoutProperty('likes-hitbox', 'visibility', 'visible')
         map.setLayoutProperty('price-circle', 'visibility', 'none')
         map.setLayoutProperty('price-circle-filtered', 'visibility', 'none')
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
         if (same_likes) {
-            current_page = PAGE.EDIT
+            current_page = PAGE.LIKES
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'none')
         } else {
             map.setLayoutProperty('price-text-shared-likes', 'visibility', 'visible')
@@ -2892,17 +2891,18 @@ const router = () => {
     }
     current_page == PAGE.SHARED && console.log('SHARED')
     current_page == PAGE.MAIN && console.log('MAIN')
-    current_page == PAGE.EDIT && console.log('EDIT')
+    current_page == PAGE.LIKES && console.log('LIIKES')
     current_page == PAGE.SINGLE && console.log('SINGLE')
     $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', current_page != PAGE.MAIN)
     filters_hide()
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
     $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
-
+    if (search_params.has('beta')) $tabbar.querySelector('[data-tab="profile"]').removeAttribute('hidden')
+    
     const likes = likes_search_params.length
         ? likes_search_params
         : likes_local_storage
@@ -3178,7 +3178,7 @@ function toggle_like(id) {
         { source: 'prices', id },
         { liked }
     )
-    if (current_page == PAGE.EDIT) {
+    if (current_page == PAGE.LIKES) {
         const url = new URL(location)
         url.searchParams.set('likes', likes_string)
         history.replaceState(history.state, '', url)
@@ -4069,7 +4069,7 @@ $heart.onpointerup = e => {
     } else {
         url.searchParams.set('likes', likes_local_storage.join(','))
         history.replaceState({}, '', url)
-        current_page = PAGE.EDIT
+        current_page = PAGE.LIKES
         
         map.setLayoutProperty('likes-filled', 'visibility', 'visible')
         map.setLayoutProperty('likes-outline', 'visibility', 'visible')
@@ -4079,7 +4079,7 @@ $heart.onpointerup = e => {
         map.setLayoutProperty('price-text', 'visibility', 'none')
         map.setLayoutProperty('price-hitbox', 'visibility', 'none')
     }
-    $share.toggleAttribute('hidden', current_page != PAGE.EDIT)
+    $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
     toggler.toggleAttribute('hidden', window.current_page != PAGE.MAIN)
     filters_hide()
 }
