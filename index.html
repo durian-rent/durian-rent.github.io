@@ -2739,11 +2739,12 @@ var same_likes
 const router = () => {
     if (history.state?.page == PAGE.MAXI) {
         if (!window.ad_current) return history.back()
+        if (current_page != PAGE.MAXI) maxi_from = current_page
         current_page = PAGE.MAXI
         return maxi_open(ad_current.id)
     }
     if (!maxi_closed) {
-        current_page = history.state?.page == PAGE.SAVED ? PAGE.EDIT : location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        current_page = maxi_from
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
@@ -3098,11 +3099,12 @@ function toggle_like(id) {
     const likes_string = [...likes].join(',')
     localStorage.setItem('likes', likes_string)
     $likes_count.textContent = likes.size || ''
+    likes_local_storage = [...likes]
+    if (window.map && current_page != PAGE.SHARED) map.setFeatureState(
+        { source: 'prices', id },
+        { liked }
+    )
     if (current_page == PAGE.EDIT) {
-        if (window.map) map.setFeatureState(
-            { source: 'prices', id },
-            { liked }
-        )
         const url = new URL(location)
         url.searchParams.set('likes', likes_string)
         history.replaceState(history.state, '', url)
@@ -3151,6 +3153,7 @@ var photo_swipe
 var card_moved = false
 var card_closed = true
 var maxi_closed = true
+var maxi_from = PAGE.MAIN
 var saved_closed = true
 
 $card.ontouchstart = e => {
