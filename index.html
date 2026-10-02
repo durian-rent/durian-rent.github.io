@@ -3749,9 +3749,14 @@ function fill_card($c, id) {
         const streetLen = view.getUint32(offset, false)
         offset += 4
         const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
-        return [subject, body, street_name]
+
+        const ad_url_len = view.getUint32(offset, false)
+        offset += 4
+        const ad_url = decoder.decode(new Uint8Array(ab, offset, ad_url_len))
+
+        return [subject, body, street_name, ad_url]
     })
-    .then(([subject, body, street_name]) => {
+    .then(([subject, body, street_name, ad_url]) => {
         if ($c.dataset.id != id) return
         $c.querySelector('.street').textContent = street_name
         $c.dataset.body = body
@@ -3762,7 +3767,8 @@ function fill_card($c, id) {
         console.log(
             'subject:', subject,
             'body:', body,
-            'street_name:', street_name
+            'street_name:', street_name,
+            'ad_url', `https://durian.rent/id/${ad_url}`
         )
     })
 }
