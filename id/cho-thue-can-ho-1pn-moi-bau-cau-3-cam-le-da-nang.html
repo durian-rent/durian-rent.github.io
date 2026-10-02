@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Durian Rent Map</title>
-    <meta property="og:url" content="https://durian.rent/">
+    <title>Cho thuê căn hộ 1PN mới, Bàu Cầu 3, Cẩm Lệ, Đà Nẵng</title><meta name="ad:id" content="178632206">
+    <meta property="og:url" content="https://durian.rent/id/cho-thue-can-ho-1pn-moi-bau-cau-3-cam-le-da-nang">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Durian Rent Map" />
+    <meta property="og:title" content="Cho thuê căn hộ 1PN mới, Bàu Cầu 3, Cẩm Lệ, Đà Nẵng" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -15,10 +15,10 @@
     <meta name="description" content="Cho thuê căn hộ 1PN mới, Bàu Cầu 3, Cẩm Lệ, Đà Nẵng" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Durian Rent Map">
+    <meta name="twitter:title" content="Cho thuê căn hộ 1PN mới, Bàu Cầu 3, Cẩm Lệ, Đà Nẵng">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
-    <link rel="canonical" href="https://durian.rent/">
+    <link rel="canonical" href="https://durian.rent/id/cho-thue-can-ho-1pn-moi-bau-cau-3-cam-le-da-nang">
     <link rel="manifest" href="/manifest.json">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml">
@@ -30,7 +30,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/icon-192.png">
     <meta name="msapplication-config" content="none">
-    <script src="https://cdn.agentlane.com/v1/snippet.js" data-domain="dom-d3m2k5tao1q4"></script>
     <script>
     window.is_touch_vertical = () =>
          matchMedia('(pointer: coarse)').matches &&
@@ -375,7 +374,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790923235501'
+    const VER_WASM = '1790928452490'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -497,7 +496,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '002f130c3091daec7e4d7dbba9a54bcdee8a29eb0c9c71e94012b6f728c11c0c'// contact spirin.vladimir@gmail.com
+        const KEY = '17d84e744fd8018a5385af490971e7da50616614d5b0b9d9468440481428b3b9'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -756,8 +755,10 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"Durian Rent Map",
-            "url":"https://durian.rent/"
+            "name":"Cho thuê căn hộ 1PN mới, Bàu Cầu 3, Cẩm Lệ, Đà Nẵng",
+            "url":"https://durian.rent/id/cho-thue-can-ho-1pn-moi-bau-cau-3-cam-le-da-nang",
+			"price":"6500000",
+			"priceCurrency":"VND"
         }
     </script>
     <style>
@@ -3413,7 +3414,7 @@ const carousel_step = $cards[1].getBoundingClientRect().width + offsetBig
 const carousel_mod = index => ((index % carousel_ids.length) + carousel_ids.length) % carousel_ids.length
 
 function carousel_order(id) {
-    if (current_page == PAGE.LIKES) return likes_search_params
+    if (current_page == PAGE.LIKES) return (new URL(location).searchParams.get('likes') || '').split(',').map(Number).filter(Boolean)
     const bounds = map.getBounds()
     const card_top = $card.offsetTop
     return ads
@@ -3431,7 +3432,7 @@ function carousel_select(id) {
     carousel_unselect()
     carousel_selected = { id, mode: map.getFeatureState({ source: 'prices', id }).mode }
     map.setFeatureState({ source: 'prices', id }, { mode: 'selected', hover: false })
-    if (current_page == PAGE.LIKES || current_page == SHARED) {
+    if (current_page == PAGE.LIKES || current_page == PAGE.SHARED) {
         ad_current = ads.find(ad => ad.id == id)
         flyToOffset([ad_current.longitude, ad_current.latitude], 0.25)
     }
@@ -3749,9 +3750,15 @@ function fill_card($c, id) {
         const streetLen = view.getUint32(offset, false)
         offset += 4
         const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
-        return [subject, body, street_name]
+        offset += streetLen
+
+        const ad_url_len = view.getUint32(offset, false)
+        offset += 4
+        const ad_url = decoder.decode(new Uint8Array(ab, offset, ad_url_len))
+
+        return [subject, body, street_name, ad_url]
     })
-    .then(([subject, body, street_name]) => {
+    .then(([subject, body, street_name, ad_url]) => {
         if ($c.dataset.id != id) return
         $c.querySelector('.street').textContent = street_name
         $c.dataset.body = body
@@ -3762,7 +3769,8 @@ function fill_card($c, id) {
         console.log(
             'subject:', subject,
             'body:', body,
-            'street_name:', street_name
+            'street_name:', street_name,
+            'ad_url', `https://durian.rent/id/${ad_url}`
         )
     })
 }
@@ -5402,7 +5410,7 @@ apply_filter = throttle(apply_filter, 90)
         })
 
     })
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js?v=15')
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js?v=16')
 </script>
 </body>
 </html>
