@@ -49,6 +49,7 @@ function request_photo({url, retry}) {
     })
     .catch(e => {
         console.error('sw.js', '2. fetch(mode no-cors)', 'url:', url, 'error:', e)
+        delete prevent_same_photo_request[url]
         if (retry > 0) {
             return request_photo({url, retry: retry - 1})
         } else {
