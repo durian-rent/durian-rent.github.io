@@ -838,43 +838,6 @@ Prices are expressed in Vietnamese dong (VND).
             width: 100%;
             height: 100%;
         }
-        article {
-            position: absolute;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            background: transparent;
-            color: var(--text-color);
-            max-height: 40vh;
-            overflow: hidden;
-            font-size: x-small;
-        }
-
-        article p {
-            margin: 8px 0 0 0;
-        }
-
-        article h1 {
-            margin: 0;
-        }
-
-        article p,
-        article h1 {
-            white-space: pre-line;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            article {
-                color: #fff;
-            }
-        }
-        html[dark] .maplibregl-ctrl-attrib {
-            background: rgba(30, 30, 30, 0.9);
-            color: grey;
-        }
-        html[dark] .maplibregl-ctrl-attrib a {
-            color: grey;
-        }
         .maplibregl-map {
             font: 12px/20px Helvetica Neue, Arial, Helvetica, sans-serif;
             overflow: hidden;
@@ -1878,7 +1841,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: small;
             font-weight: 500;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            animation: slideUp 0.3s ease-out;
             z-index: 9999;
         }
         #pin {
@@ -2579,7 +2541,7 @@ Prices are expressed in Vietnamese dong (VND).
         <circle cx="12" cy="12" r="10"/>
         <path d="M12 6v6l4 2"/>
     </svg>
-    <span id="last_update_time_value"><span>
+    <span id="last_update_time_value"></span>
 </div>
 <div id="card">
     <div class="grip-zone">
