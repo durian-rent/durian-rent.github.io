@@ -3533,7 +3533,7 @@ function maxi_open(id) {
     const living = kind == 'Apartment' || kind == 'House'
     for (const [name, value, shown] of [
         ['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living],
-        ['bathrooms', ad.bathrooms, kind != 'Land Plot'],
+        ['bathrooms', ad.bathrooms == 5 ? 'Shared' : ad.bathrooms == 6 ? 'None' : ad.bathrooms > 0 && ad.bathrooms, kind != 'Land Plot'],
         ['area', ad.m2 && `${ad.m2} m<sup>2</sup>`, true]
     ]) {
         const $pod = $maxi.querySelector(`[data-pod="${name}"]`)
