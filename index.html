@@ -3173,8 +3173,11 @@ $card.onclick = e => {
     const $c = e.target.closest('.card_content')
     if ($c) {
         window.ad_current = ads.find(ad => ad.id == $c.dataset.id)
-        history.pushState({page: PAGE.MAXI}, '')
-        router()
+        get_ad_text(ad_current.id)
+        .then(ad => {
+            history.pushState({page: PAGE.MAXI}, '', `/id/${ad.ad_url}`)
+            router()
+        })
     }
 }
 
@@ -3724,6 +3727,45 @@ function fill_ad($c, ad, photos_urls) {
     $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
 }
 
+const ads_text = {}
+const get_ad_text = id =>
+    ads_text[id] ??= fetch(
+        '/ads.bin',
+        {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
+    )
+    .then(_ => _.arrayBuffer())
+    .then(ab => {
+        const view = new DataView(ab)
+        const decoder = new TextDecoder('utf-8')
+        var offset = 0
+        
+        const subjectLen = view.getUint32(offset, false)
+        offset += 4
+        const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
+        offset += subjectLen
+        
+        const bodyLen = view.getUint32(offset, false)
+        offset += 4
+        const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
+        offset += bodyLen
+        
+        const streetLen = view.getUint32(offset, false)
+        offset += 4
+        const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
+        offset += streetLen
+        
+        const ad_url_len = view.getUint32(offset, false)
+        offset += 4
+        const ad_url = decoder.decode(new Uint8Array(ab, offset, ad_url_len))
+        
+        const ad = ads.find(ad => ad.id == id)
+        ad.subject = subject
+        ad.body = body
+        ad.street_name = street_name
+        ad.ad_url = ad_url
+        return ad
+    })
+
 function fill_card($c, id) {
     const ad = ads.find(ad => ad.id == id)
     const url = get_url(id)
@@ -3747,51 +3789,15 @@ function fill_card($c, id) {
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.street').textContent = ''
 
-    fetch(
-        '/ads.bin',
-        {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
-    )
-    .then(_ => _.arrayBuffer())
-    .then(ab => {
-        const view = new DataView(ab)
-        const decoder = new TextDecoder('utf-8')
-        var offset = 0
-
-        const subjectLen = view.getUint32(offset, false)
-        offset += 4
-        const subject = decoder.decode(new Uint8Array(ab, offset, subjectLen))
-        offset += subjectLen
-
-        const bodyLen = view.getUint32(offset, false)
-        offset += 4
-        const body = decoder.decode(new Uint8Array(ab, offset, bodyLen))
-        offset += bodyLen
-
-        const streetLen = view.getUint32(offset, false)
-        offset += 4
-        const street_name = decoder.decode(new Uint8Array(ab, offset, streetLen))
-        offset += streetLen
-
-        const ad_url_len = view.getUint32(offset, false)
-        offset += 4
-        const ad_url = decoder.decode(new Uint8Array(ab, offset, ad_url_len))
-
-        return [subject, body, street_name, ad_url]
-    })
-    .then(([subject, body, street_name, ad_url]) => {
+    return get_ad_text(id)
+    .then(ad => {
         if ($c.dataset.id != id) return
-        $c.querySelector('.street').textContent = street_name
-        $c.dataset.body = body
+        $c.querySelector('.street').textContent = ad.street_name
+        $c.dataset.body = ad.body
         if ($maxi.dataset.id == id) {
-            $maxi.querySelector('.street').textContent = street_name
-            maxi_about(body)
+            $maxi.querySelector('.street').textContent = ad.street_name
+            maxi_about(ad.body)
         }
-        console.log(
-            'subject:', subject,
-            'body:', body,
-            'street_name:', street_name,
-            'ad_url', `https://durian.rent/id/${ad_url}`
-        )
     })
 }
 
@@ -4194,8 +4200,11 @@ $saved.onclick = e => {
     if (!$open) return
     fill_card($card_centre, Number($open.dataset.id))
     window.ad_current = ads.find(ad => ad.id == $open.dataset.id)
-    history.pushState({page: PAGE.MAXI}, '')
-    router()
+    get_ad_text(ad_current.id)
+    .then(ad => {
+        history.pushState({page: PAGE.MAXI}, '', `/id/${ad.ad_url}`)
+        router()
+    })
 }
 
 $share.onclick = () => {
