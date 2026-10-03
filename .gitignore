@@ -21,6 +21,8 @@ durian-lora.gguf
 model.gguf
 ai-in.json
 ai-out.json
+ai-out
+ai_out
 
 node_modules
 .zed
