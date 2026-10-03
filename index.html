@@ -2826,6 +2826,7 @@ var same_likes
 const router = () => {
     if (!maxi_closed) {
         current_page = maxi_from
+        if (history.state?.page == PAGE.SAVED) saved_open()
         return maxi_close()
     }
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
@@ -2856,6 +2857,7 @@ const router = () => {
         }
         if (ad_current) {
             window.ad_current = ad_current
+            if (current_page != PAGE.MAXI) maxi_from = current_page
             window.current_page = PAGE.MAXI
             return maxi_open(ad_current.id)
         } else {
