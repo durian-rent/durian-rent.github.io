@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Cho thuê căn hộ Golden Bay ,1 phòng ngủ , Hồ Bơi Vô Cực , Bồn tắm nằm</title><meta name="ad:id" content="178856840">
-    <meta property="og:url" content="https://durian.rent/id/cho-thue-can-ho-golden-bay-1-phong-ngu-ho-boi-vo-cuc-bon-tam-nam">
+    <title>CHO THUÊ MẶT BẰNG KINH DOANH MẶT TIỀN ĐƯỜNG 2 THÁNG 9,HẢI CHÂU</title><meta name="ad:id" content="179183721">
+    <meta property="og:url" content="https://durian.rent/id/cho-thue-mat-bang-kinh-doanh-mat-tien-duong-2-thang-9-hai-chau">
     <meta property="og:created" content="2026-09-11" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Cho thuê căn hộ Golden Bay ,1 phòng ngủ , Hồ Bơi Vô Cực , Bồn tắm nằm" />
+    <meta property="og:title" content="CHO THUÊ MẶT BẰNG KINH DOANH MẶT TIỀN ĐƯỜNG 2 THÁNG 9,HẢI CHÂU" />
     <meta property="og:description" content="Map of Danang with apartment/room rental ads" />
     <meta property="og:image" content="https://durian.rent/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Cho thuê căn hộ Golden Bay ,1 phòng ngủ , Hồ Bơi Vô Cực , Bồn tắm nằm" />
+    <meta name="description" content="CHO THUÊ MẶT BẰNG KINH DOANH MẶT TIỀN ĐƯỜNG 2 THÁNG 9,HẢI CHÂU" />
     <meta name="theme-color" content="transparent">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cho thuê căn hộ Golden Bay ,1 phòng ngủ , Hồ Bơi Vô Cực , Bồn tắm nằm">
+    <meta name="twitter:title" content="CHO THUÊ MẶT BẰNG KINH DOANH MẶT TIỀN ĐƯỜNG 2 THÁNG 9,HẢI CHÂU">
     <meta name="twitter:description" content="Map of Danang with apartment/room rental ads">
     <meta name="twitter:image" content="https://durian.rent/og.png">
-    <link rel="canonical" href="https://durian.rent/id/cho-thue-can-ho-golden-bay-1-phong-ngu-ho-boi-vo-cuc-bon-tam-nam">
+    <link rel="canonical" href="https://durian.rent/id/cho-thue-mat-bang-kinh-doanh-mat-tien-duong-2-thang-9-hai-chau">
     <link rel="manifest" href="/manifest.json">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
     <link rel="alternate" type="application/atom+xml" title="Atom" href="/atom.xml">
@@ -374,7 +374,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.gtag = () => null
     window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
-    const VER_WASM = '1790993662742'
+    const VER_WASM = '1791000605005'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
 
     window.wasm_ready = caches.open('durian.rent.wasm')
@@ -496,7 +496,7 @@ Prices are expressed in Vietnamese dong (VND).
     window.likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     window.wasm_ready.then(() => {
-        const KEY = '882d6121bd850a222cd1db6f00ce0197d1735c23b937ca16de6909b7fe5e305d'// contact spirin.vladimir@gmail.com
+        const KEY = '42ad8db410dd798b9c7e83c0019715293d85cac7962c93165308e04e1df0d278'// contact spirin.vladimir@gmail.com
         const auth = init(
             BigInt(Date.now()),
             location.href,
@@ -769,9 +769,9 @@ Prices are expressed in Vietnamese dong (VND).
         {
             "@context":"https://schema.org",
             "@type":"Offer",
-            "name":"Cho thuê căn hộ Golden Bay ,1 phòng ngủ , Hồ Bơi Vô Cực , Bồn tắm nằm",
-            "url":"https://durian.rent/id/cho-thue-can-ho-golden-bay-1-phong-ngu-ho-boi-vo-cuc-bon-tam-nam",
-			"price":"8000000",
+            "name":"CHO THUÊ MẶT BẰNG KINH DOANH MẶT TIỀN ĐƯỜNG 2 THÁNG 9,HẢI CHÂU",
+            "url":"https://durian.rent/id/cho-thue-mat-bang-kinh-doanh-mat-tien-duong-2-thang-9-hai-chau",
+			"price":"16000000",
 			"priceCurrency":"VND"
         }
     </script>
@@ -2852,12 +2852,11 @@ const router = () => {
     likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
     if (pathname[1] == 'id') {
-        if (!ad_current) {
+        if (!window.ad_current) {
             var ad_id = +document.querySelector('meta[name="ad:id"]').content
-            ad_current = ads.find(ad => ad.id == ad_id)
+            window.ad_current = ads.find(ad => ad.id == ad_id)
         }
-        if (ad_current) {
-            window.ad_current = ad_current
+        if (window.ad_current) {
             window.current_page = PAGE.MAXI
             return maxi_open(ad_current.id)
         } else {
@@ -3520,18 +3519,24 @@ function maxi_open(id) {
     const ad = ads.find(ad => ad.id == id)
     const kind = get_category_for_user(ad.category)
     const district = get_area_v2_for_user(ad.area)
-    const $c = $cards.find($c => $c.dataset.id == id)
     $maxi.dataset.id = id
     $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
         ? `${kind} in ${district}`
         : ad.bedrooms > 0
             ? `${ad.bedrooms}-bedroom ${kind.toLowerCase()} in ${district}`
             : `Studio in ${district}`
-    $maxi.querySelector('.street').textContent = $c.querySelector('.street').textContent
+    
+    get_ad_text(id).then(ad => {
+        $maxi.querySelector('.street').textContent = ad.street_name
+        maxi_about(ad.body)
+    })
     $maxi.querySelector('.area').textContent = district
-    $maxi.querySelector('.amount').textContent = $c.querySelector('.amount').textContent
-    $maxi.querySelector('.publish').textContent = $c.querySelector('.publish').textContent
-    $maxi.querySelector('.card_heart').setAttribute('aria-pressed', $c.querySelector('.card_heart').getAttribute('aria-pressed'))
+    $maxi.querySelector('.amount').textContent = get_price_string(ad.price)
+    $maxi.querySelector('.publish').textContent = ago(ad.publish)
+    
+    const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
+    $maxi.querySelector('.card_heart').setAttribute('aria-pressed', likes.has(id))
+
     const living = kind == 'Apartment' || kind == 'House'
     for (const [name, value, shown] of [
         ['bedrooms', ad.bedrooms > 0 ? ad.bedrooms : 'Studio', living],
@@ -3544,25 +3549,25 @@ function maxi_open(id) {
         $pod.querySelector('b').innerHTML = value || ''
     }
     $maxi.querySelector('.maxi_link').href = get_url(id)
-    var photos_urls = []
-    try {
-        photos_urls = get_ad_img_urls(id)
+    window.price_list_ready
+    .then(() => {
+        var photos_urls = get_ad_img_urls(id)
         if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
-    } catch (e) {
+        $maxi_strip.innerHTML = ''
+        photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
+        maxi_photo_index = 0
+        $maxi_strip.style.transition = 'none'
+        $maxi_strip.style.transform = 'translate3d(0,0,0)'
+        $maxi_count.textContent = $maxi_strip.children.length ? `1 / ${$maxi_strip.children.length}` : ''
+        $maxi.style.transition = 'none'
+        $maxi.style.transform = 'translate3d(0,0,0)'
+        $maxi.scrollTop = 0
+        $maxi.removeAttribute('hidden')
+    })
+    .catch(e => {
         console.error(`ERROR: get_ad_img_urls(${id})`, e)
-    }
-    $maxi_strip.innerHTML = ''
-    photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
-    maxi_photo_index = 0
-    $maxi_strip.style.transition = 'none'
-    $maxi_strip.style.transform = 'translate3d(0,0,0)'
-    $maxi_count.textContent = $maxi_strip.children.length ? `1 / ${$maxi_strip.children.length}` : ''
-    $maxi.style.transition = 'none'
-    $maxi.style.transform = 'translate3d(0,0,0)'
-    $maxi.scrollTop = 0
-    $maxi.removeAttribute('hidden')
+    })
     maxi_closed = false
-    maxi_about($c.dataset.body)
 }
 
 function maxi_about(text) {
@@ -3686,6 +3691,17 @@ function delete_photo($strip, index) {
     $strip.children[index].remove()
 }
 
+function get_price_string(price) {
+    var price_string = String(price).split('').reverse()
+    var price_string_space = ''
+    for (var i = 0; i < price_string.length; i++) {
+        if (i != 0 && i % 3 == 0)
+            price_string_space = ' ' + price_string_space
+        price_string_space = price_string[i] + price_string_space
+    }
+    return price_string_space
+}
+
 function fill_ad($c, ad, photos_urls) {
     const $strip = $c.querySelector('.photos_container')
     $c.dataset.id = ad.id
@@ -3698,14 +3714,7 @@ function fill_ad($c, ad, photos_urls) {
     }
     while ($strip.children.length > photos_urls.length) delete_photo($strip, $strip.children.length - 1)
     $c.querySelector('.seen').textContent = photos_urls.length ? `1 / ${photos_urls.length}` : ''
-    var price_string = String(ad.price).split('').reverse()
-    var price_string_space = ''
-    for (var i = 0; i < price_string.length; i++) {
-        if (i != 0 && i % 3 == 0)
-            price_string_space = ' ' + price_string_space
-        price_string_space = price_string[i] + price_string_space
-    }
-    $c.querySelector('.amount').textContent = price_string_space
+    $c.querySelector('.amount').textContent = get_price_string(ad.price)
     $c.querySelector('.category').textContent = get_category_for_user(ad.category)
     $c.querySelector('.m2').textContent = ad.m2
     $c.querySelector('.bed').textContent = !['Apartment', 'House'].includes(get_category_for_user(ad.category))
@@ -3713,7 +3722,7 @@ function fill_ad($c, ad, photos_urls) {
         : ad.bedrooms > 0
             ? ` · ${ad.bedrooms} bed`
             : ' · Studio'
-    $c.querySelector('.publish').textContent = `${ago(ad.publish)}`
+    $c.querySelector('.publish').textContent = ago(ad.publish)
 }
 
 const ads_text = {}
