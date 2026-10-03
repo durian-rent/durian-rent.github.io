@@ -2812,6 +2812,7 @@ const $icon_install_apk = document.getElementById('icon-install-apk')
 const $icon_install_ios = document.getElementById('icon-install-ios')
 const $card = document.getElementById('card')
 const $cards = [...$card.querySelectorAll('.card_content')]
+window.price_list_ready.then(() => card_closed || $cards.forEach($c => fill_card($c, Number($c.dataset.id))))
 var $card_centre = $cards[0]
 var $photo = $card_centre.querySelector('.photo_frame')
 var $photos_container = $card_centre.querySelector('.photos_container')
