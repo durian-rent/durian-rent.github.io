@@ -988,13 +988,13 @@ Prices are expressed in Vietnamese dong (VND).
             vertical-align: baseline;
         }
         .grip-zone {
-            height: 24px;
+            height: var(--offset-big);
             display: grid;
             place-items: center;
             cursor: grab;
         }
         .grip {
-            width: 44px;
+            width: var(--input-height-big);
             height: 4px;
             border-radius: var(--radius-small);
             background: var(--icon-color);
@@ -1004,7 +1004,7 @@ Prices are expressed in Vietnamese dong (VND).
             min-height: 0;
             display: grid;
             grid-template-rows: minmax(0, 1fr);
-            padding-bottom: calc(var(--offset-middle) + env(safe-area-inset-bottom));
+            padding-bottom: var(--offset-middle);
         }
         .card_content {
             grid-row: 1;
@@ -1068,8 +1068,8 @@ Prices are expressed in Vietnamese dong (VND).
             cursor: pointer;
         }
         .card_heart:focus-visible {
-            outline: 3px solid var(--text-color);
-            outline-offset: -3px;
+            outline: var(--border-width-big) solid var(--text-color);
+            outline-offset: calc(var(--border-width-big) * -1);
         }
         .card_heart svg {
             width: 1em;
@@ -1089,7 +1089,7 @@ Prices are expressed in Vietnamese dong (VND).
             position: absolute;
             right: var(--offset-small);
             bottom: var(--offset-small);
-            height: 24px;
+            height: var(--offset-big);
             padding: 0 var(--offset-small);
             display: inline-flex;
             align-items: center;
@@ -1187,7 +1187,7 @@ Prices are expressed in Vietnamese dong (VND).
             position: absolute;
             right: var(--offset-middle);
             bottom: calc(var(--offset-big) + var(--offset-small));
-            height: 24px;
+            height: var(--offset-big);
             padding: 0 var(--offset-small);
             display: inline-flex;
             align-items: center;
@@ -1464,7 +1464,7 @@ Prices are expressed in Vietnamese dong (VND).
             position: absolute;
             inset: 0;
             margin: auto 0;
-            height: 1px;
+            height: var(--border-width-small);
             background: var(--line-color);
         }
         .filters_range input {
@@ -1853,15 +1853,6 @@ Prices are expressed in Vietnamese dong (VND).
             font-size: small;
             color: var(--text-muted);
         }
-        @media (min-width: 900px) {
-            #saved {
-                top: 0;
-                right: auto;
-                width: 420px;
-                height: auto;
-                border-radius: 0;
-            }
-        }
         #tabbar .on i {
             background: var(--deep-color);
             color: var(--on-deep-color);
@@ -1905,7 +1896,7 @@ Prices are expressed in Vietnamese dong (VND).
         .pin_marker path {
             fill: var(--deep-color);
             stroke: var(--on-deep-color);
-            stroke-width: 2;
+            stroke-width: var(--border-width-big);
         }
         .pin_marker circle {
             fill: var(--on-deep-color);
@@ -2218,7 +2209,7 @@ Prices are expressed in Vietnamese dong (VND).
         .loc .spot path {
             fill: var(--deep-color);
             stroke: var(--on-deep-color);
-            stroke-width: 2;
+            stroke-width: var(--border-width-big);
         }
         .loc .spot circle {
             fill: var(--on-deep-color);
@@ -2275,15 +2266,6 @@ Prices are expressed in Vietnamese dong (VND).
         }
         .todo span.ok svg {
             color: var(--accent-color);
-        }
-        @media (min-width: 900px) {
-            #pin, #form {
-                right: auto;
-                width: 420px;
-            }
-            #form {
-                box-shadow: var(--shadow);
-            }
         }
         #profile {
             position: fixed;
@@ -2380,9 +2362,16 @@ Prices are expressed in Vietnamese dong (VND).
             scroll-snap-align: start;
         }
         @media (min-width: 900px) {
-            #profile {
+            #saved, #pin, #form, #profile {
                 right: auto;
                 width: 420px;
+            }
+            #saved {
+                top: 0;
+                height: auto;
+                border-radius: 0;
+            }
+            #form, #profile {
                 box-shadow: var(--shadow);
             }
         }
