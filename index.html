@@ -2919,20 +2919,16 @@ const router = () => {
         ? likes_search_params
         : likes_local_storage
 
-    ads.forEach(ad =>
-        map.setFeatureState(
-            {
-                source: 'prices',
-                id: ad.id
-            },
-            {
-                mode: ad.price < min$ || ad.price > max$
-                        ? 'filtered'
-                        : 'normal',
-                liked: likes.includes(ad.id)
-            }
-        )
-    )
+    ads.forEach(ad => {
+        const state = {
+            mode: ad.price < min$ || ad.price > max$
+                ? 'filtered'
+                : 'normal',
+            liked: likes.includes(ad.id)
+        }
+        const now = map.getFeatureState({source: 'prices', id: ad.id})
+        if (now.mode != state.mode || now.liked != state.liked) map.setFeatureState({source: 'prices', id: ad.id}, state)
+    })
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
     if (!profile_closed) profile_close()
     if (history.state?.page == PAGE.SAVED) saved_open()
@@ -4368,26 +4364,19 @@ apply_filter = () => {
         ['>=', ['get', 'price'], min$],
         ['<=', ['get', 'price'], max$]
     ])
-    ads.forEach(ad =>
-        map.setFeatureState(
-            {
-                source: 'prices',
-                id: ad.id
-            },
-            {
-                mode: ad.price > max$ || ad.price < min$
-                    ? dup_map.has(ad.longitude + '-' + ad.latitude)
-                        ? [...dup_map.get(ad.longitude + '-' + ad.latitude)].some(id => {
-                            const ad = ads.find(_ => _.id == id)
-                            return ad.price <= max$ && ad.price >= min$
-                        })
-                            ? 'hidden'
-                            : 'filtered'
-                        : 'filtered'
-                    : 'normal'
-            }
-        )
-    )
+    ads.forEach(ad => {
+        const mode = ad.price > max$ || ad.price < min$
+            ? dup_map.has(ad.longitude + '-' + ad.latitude)
+                ? [...dup_map.get(ad.longitude + '-' + ad.latitude)].some(id => {
+                    const ad = ads.find(_ => _.id == id)
+                    return ad.price <= max$ && ad.price >= min$
+                })
+                    ? 'hidden'
+                    : 'filtered'
+                : 'filtered'
+            : 'normal'
+        if (map.getFeatureState({source: 'prices', id: ad.id}).mode != mode) map.setFeatureState({source: 'prices', id: ad.id}, {mode})
+    })
 }
 
 apply_filter = throttle(apply_filter, 90)
