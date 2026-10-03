@@ -3841,7 +3841,7 @@ function fill_ad($c, ad, photos_urls) {
 const ads_text = {}
 const get_ad_text = id =>
     ads_text[id] ??= fetch(
-        '/ads.bin',
+        `/ads-${VER_WASM}.bin`,
         {headers: {'Range': `bytes=${get_ad_range(id).join('-')}`}}
     )
     .then(_ => _.arrayBuffer())
