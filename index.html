@@ -3288,6 +3288,12 @@ var card_closed = true
 var maxi_closed = true
 var maxi_from = PAGE.MAIN
 var saved_closed = true
+var saved_start_t = null
+var saved_start_x = 0
+var saved_start_y = 0
+var saved_prev_y = 0
+var saved_prev_prev_y = 0
+var saved_swipe
 
 $card.ontouchstart = e => {
     e.stopPropagation()
@@ -4311,6 +4317,46 @@ $saved.onclick = e => {
         history.pushState({}, '', `/id/${ad.ad_url}`)
         router()
     })
+}
+
+$saved.ontouchstart = e => {
+    if (saved_closed) return
+    saved_start_t = Date.now()
+    saved_start_x = e.changedTouches[0].screenX
+    saved_start_y = e.changedTouches[0].screenY
+    saved_prev_y = saved_start_y
+    saved_prev_prev_y = saved_start_y
+    saved_swipe = undefined
+}
+
+$saved.ontouchmove = e => {
+    if (saved_closed || saved_swipe == false) return
+    saved_prev_prev_y = saved_prev_y
+    saved_prev_y = e.changedTouches[0].screenY
+    var dx = e.changedTouches[0].screenX - saved_start_x
+    var dy = saved_prev_y - saved_start_y
+    if (saved_swipe == undefined) {
+        if (Math.abs(dx) + Math.abs(dy) < 6) return
+        saved_swipe = dy > 2 * Math.abs(dx) && $saved.querySelector('.saved_list').scrollTop == 0
+        if (!saved_swipe) return
+        $saved.style.transition = 'none'
+    }
+    e.preventDefault()
+    $saved.style.transform = `translate3d(0, ${Math.max(0, dy)}px, 0)`
+}
+
+$saved.ontouchend = e => {
+    if (saved_closed || !saved_swipe) return
+    var dt = Date.now() - saved_start_t
+    var y = Math.max(0, e.changedTouches[0].screenY - saved_start_y)
+    var v = Math.max(0.4, 1.5 * Math.abs(y / dt))
+    if (e.changedTouches[0].screenY > saved_prev_prev_y) {
+        saved_close()
+        $saved.style.transition = `transform ${($saved.clientHeight - y) / v / 1000}s linear`
+        return history.back()
+    }
+    $saved.style.transition = `transform ${y / v / 1000}s linear`
+    $saved.style.transform = 'translate3d(0, 0, 0)'
 }
 
 $share.onclick = () => {
