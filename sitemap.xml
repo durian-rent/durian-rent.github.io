@@ -2,9 +2,261 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:dk="https://durian.rent/schemas/sitemap">
 	<url>
 		<loc>https://durian.rent/</loc>
-		<lastmod>2026-10-02</lastmod>
+		<lastmod>2026-10-03</lastmod>
 		<changefreq>hourly</changefreq>
 		<priority>1.0</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-1-phong-ngu-sieu-xinh-khue-my-dong-6</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/trong-san-can-2pn-full-noi-that-can-ho-mia-plaza</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-1pn-luxury-le-sy-hoa-xuan</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-studio-rong-rai-gan-cau-tran-thi-ly-co-ban-cong</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/1-bedroom-apartment-in-da-nang-near-my-khe-beach</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-3pn-day-du-noi-that-vao-o-ngay</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cc-cho-thue-biet-thu-co-vuon-lon-khu-hoa-xuan-da-nang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-nguyen-can-5pn-cao-xuan-duc-full-noi-that-20tr-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-3pn-cho-thue-hoang-anh-gia-lai</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/nha-nguyen-can-khu-vuc-my-an-ngu-hanh-son</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-2pn-fpt-plaza-2-day-du-noi-that-tang-cao-co-the-vao-o-n</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-cho-thue-lo-dat-goc-hai-mat-tien-my-an-11-va-hoai-thanh</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-san-vuon-nam-hoa-xuan-2pn-gia-20tr</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-studio-day-du-noi-that-hai-chau</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-chung-cu-da-nang-plaza-06-nguyen-du</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-mat-bang-kinh-doanh-ton-duc-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/1-2-bedroom-apartment-in-da-nang-son-tra-near-beach</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-cho-thue-ngay-khu-do-thi-fpt</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-khu-thi-an-kiet-luu-quang-vu-hoa-quy-4-trieu-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-2pn-rong-trung-tam-hai-chau</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-mia-plaza-2pn-full-noi-that-13-trieu-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-toa-can-ho-16p-cau-do-tuy-loan-45tr-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-phong-tang-2-3-4-toa-can-ho-cho-thue-tang-3-dt-30</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-biet-thu-3-tang-gan-song-tai-dao-vip-hoa-xuan-da-nang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-1-phong-ngu-an-thuong-3-chi-5-phut-di-bo-ra-bien</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-1pn-duong-khue-15tr-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-duong-an-don-5-quan-son-tra-5trxx</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/chinh-chu-cho-thue-can-ho-1-pn-full-noi-that-mat-tien-ngo-quyen</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-nam-viet-a</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/villa-370m2-5pn-ba-dinh-hai-chau-full-noi-that-co-thang-may-50tr-th</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-mia-plaza-full-noi-that-15-trieu-thang</loc>
+		<lastmod>2026-10-03</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-3-tang-3pn-nguyen-duc-trung-thanh-khe</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-the-ori-garden-3-pn-full-noi-that-cao-cap-gia-9-trieu</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-goc-2pn-mia-noi-that-sang-trong-gia-15tr</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-cao-cap-1-pn</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/toa-nha-3tang-mt-truong-chinh</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-cao-cap-goldenbay-2-phong-ngu-ho-boi-vo-cuc</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-2-giuong-gan-bien-my-khe</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-studio-hien-dai-le-van-quy-an-hai-son-tra-da-nang</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-goc-2-phong-ngu-tai-chung-chu-son-tra-ocean-view</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-1-phong-ngu-son-tra-ocean-view</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-3-tang-kiet-le-do-50m2-5pn</loc>
@@ -133,12 +385,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-the-ori-garden-3-pn-full-noi-that-cao-cap-gia-9-trieu</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/toi-can-cho-thue-nha-sat-bien-xuan-thieu-moi-100-full-noi-that</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -170,12 +416,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-cao-cap-ponte-2-phong-ngu-2-wc-chi-25-trieu</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-mia-plaza-2pn-full-noi-that-13-trieu-thang</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -229,19 +469,7 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-studio-day-du-noi-that-hai-chau</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/1-2-bedroom-new-han-river-view-son-tra-da-nang</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/can-ho-3pn-cho-thue-hoang-anh-gia-lai</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -260,12 +488,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-penthouse-75m2-day-du-tien-nghi-gan-bien</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/can-ho-1pn-luxury-le-sy-hoa-xuan</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -302,12 +524,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-2-phong-ngu-rong-80m2-gan-nui-son-tra</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/nha-nguyen-can-khu-vuc-my-an-ngu-hanh-son</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -385,6 +601,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-bui-trang-chuoc-hoa-xuan</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-1-phong-ngu-mt-han-thuyen</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -415,6 +637,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-mat-bang-lo-goc-thoang-gan-nguyen-van-thoai-20tr-thang</loc>
+		<lastmod>2026-10-02</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/gio-hang-cho-thue-can-ho-thuong-mai-mia-center-point</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -440,12 +668,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-nam-viet-a</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -583,12 +805,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-1pn-khu-an-thuong-di-bo-ra-bien</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/chung-cu-2-phong-ngu-ori-garden-day-du-noi-that-cao-cap</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -721,18 +937,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-mat-bang-kinh-doanh-ton-duc-thang</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/can-ho-studio-xinh-xinh-trung-tam-hoa-xuan</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-1pn-duong-tran-van-du-quan-ngu-hanh-son-pool</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -805,12 +1009,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-3pn-day-du-noi-that-vao-o-ngay</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-duong-phuoc-truong-12-quan-son-tra-ban-cong</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -854,12 +1052,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-1-phong-ngu-rong-50m2-co-cho-nguoi-nuoc-ngoai-thue</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-studio-rong-rai-gan-cau-tran-thi-ly-co-ban-cong</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1081,12 +1273,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-2pn-rong-trung-tam-hai-chau</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-chung-cu-hamoy-tang-thap</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -1094,12 +1280,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-mt-nuoc-man-khu-nam-viet-a</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-1pn-duong-khue-15tr-thang</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1124,12 +1304,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/chinh-chu-cho-thue-can-2pn-mia-noi-that-co-ban-7-trieu-5-thang</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/1-2-bedroom-apartment-in-da-nang-son-tra-near-beach</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1171,12 +1345,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/1-bedroom-apartment-in-da-nang-near-my-khe-beach</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/can-ho-37-phu-xuan-2-day-du-tien-nghi-cho-thue</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -1195,12 +1363,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-1-phong-ngu-sieu-xinh-khue-my-dong-6</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-3-tang-duong-nguyen-cong-hang-thanh-khe-da-nang</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
@@ -1213,25 +1375,7 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-nguyen-can-5pn-cao-xuan-duc-full-noi-that-20tr-thang</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/can-cho-thue-ngay-can-ho-trung-tam-lien-chieu-full-noi-that-o-ngay</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/can-ho-75m2-2-pn-da-nang-plaza-06-nguyen-du</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-toa-can-ho-16p-cau-do-tuy-loan-45tr-thang</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1256,12 +1400,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-40-m2-duong-thanh-luong-18-sat-le-quang-chi</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/villa-370m2-5pn-ba-dinh-hai-chau-full-noi-that-co-thang-may-50tr-th</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1303,31 +1441,7 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-1pn-duong-an-thuong</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-phong-tang-2-3-4-toa-can-ho-cho-thue-tang-3-dt-30</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-chung-cu-da-nang-plaza-06-nguyen-du</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/chinh-chu-cho-thue-can-ho-1-pn-full-noi-that-mat-tien-ngo-quyen</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1339,19 +1453,7 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-cho-thue-lo-dat-goc-hai-mat-tien-my-an-11-va-hoai-thanh</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/can</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-biet-thu-3-tang-gan-song-tai-dao-vip-hoa-xuan-da-nang</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1376,12 +1478,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/017-cho-thue-nha-san-vuon-2-tang-moi-hoan-thien</loc>
-		<lastmod>2026-10-02</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-1-phong-ngu-an-thuong-3-chi-5-phut-di-bo-ra-bien</loc>
 		<lastmod>2026-10-02</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1579,6 +1675,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-bui-trang-chuoc-dg-10-5m</loc>
+		<lastmod>2026-10-01</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-gac-lung-ngo-thi-nham-lien-chieu-da-nang-vao-o-nga</loc>
 		<lastmod>2026-10-01</lastmod>
 		<changefreq>daily</changefreq>
@@ -1610,6 +1712,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-mat-tien-do-doc-lan-hoa-xuan-duong-10m5</loc>
+		<lastmod>2026-10-01</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-2-5-tang-duong-10m5-bui-trang-chuoc-hoa-xuan-da-nang</loc>
 		<lastmod>2026-10-01</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -1675,7 +1783,7 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-mia-plaza-full-noi-that-15-trieu-thang</loc>
+		<loc>https://durian.rent/id/cho-thue-nha-3-tang-bui-trang-chuoc-3-phong-ngu-3wc</loc>
 		<lastmod>2026-10-01</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -2882,6 +2990,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/tim-ban-nu-o-ghep-phong-tro-hoang-dieu-da-nang</loc>
+		<lastmod>2026-09-30</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-2-5-tang-duong-10m5-bui-trang-chuoc-hoa-xuan-cam</loc>
 		<lastmod>2026-09-30</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -5365,6 +5479,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-mat-bang-trong-suot-kep-kiet-gan-nguyen-van-thoai</loc>
+		<lastmod>2026-09-28</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-2-tang-mat-tien-thanh-luong-hoa-xuan-5pn-full-nt</loc>
 		<lastmod>2026-09-28</lastmod>
 		<changefreq>daily</changefreq>
@@ -5540,6 +5660,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-cao-cap-moi-tinh-my-da-tay-10</loc>
+		<lastmod>2026-09-28</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-mat-bang-to-hien-thanh-gan-nguyen-van-thoai-gia-20tr</loc>
 		<lastmod>2026-09-28</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -6230,12 +6356,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-studio-panoma-1</loc>
-		<lastmod>2026-09-27</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cc-cho-thue-biet-thu-co-vuon-lon-khu-hoa-xuan-da-nang</loc>
 		<lastmod>2026-09-27</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -7471,6 +7591,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-3-tang-mt-bui-trang-chuoc-phuong-hoa-xuan-cam-le-die</loc>
+		<lastmod>2026-09-25</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/chinh-chu-goi-can-cho-thue-lau-dai-phu-hop-mo-cty-van-phong</loc>
 		<lastmod>2026-09-25</lastmod>
 		<changefreq>daily</changefreq>
@@ -7616,12 +7742,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-biet-thu-san-vuon-ngu-hanh-son-da-nang</loc>
-		<lastmod>2026-09-25</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/trong-san-can-2pn-full-noi-that-can-ho-mia-plaza</loc>
 		<lastmod>2026-09-25</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -7850,6 +7970,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-studio-duong-ho-han-thuong-gan-song-han-gia-re</loc>
+		<lastmod>2026-09-25</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-nguyen-can-mt-duong-bui-trang-chuoc</loc>
 		<lastmod>2026-09-25</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -8312,6 +8438,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-2-phong-ngu-ponte</loc>
+		<lastmod>2026-09-24</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-2-tang-kep-vet-cay-xanh-duong-10m5-bui-trang-chuoc</loc>
 		<lastmod>2026-09-24</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -8965,6 +9097,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-2-tang-mat-tien-duong-bui-trang-chuoc-hoa-xuan</loc>
+		<lastmod>2026-09-23</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/can-ho-1pn-ngay-trung-tam-view-thanh-pho</loc>
 		<lastmod>2026-09-23</lastmod>
 		<changefreq>daily</changefreq>
@@ -9379,12 +9517,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/toa-moi-con-dau-18-hoa-xuan</loc>
-		<lastmod>2026-09-23</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-3-tang-moi-duong-do-quy-tang-1-thong-4-phong-5wc</loc>
 		<lastmod>2026-09-23</lastmod>
 		<changefreq>daily</changefreq>
@@ -9547,6 +9679,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-2-5-tang-3pn-duong-bui-trang-chuoc-hoa-xuan</loc>
+		<lastmod>2026-09-23</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/penthouse-2-phong-ngu-view-bien-nguyen-chanh-lien-chieu</loc>
 		<lastmod>2026-09-23</lastmod>
 		<changefreq>daily</changefreq>
@@ -9560,12 +9698,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-1pn-45m2-duong-thieu-chuu-hoa-xuan</loc>
-		<lastmod>2026-09-23</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-nguyen-can-2-tang-trung-tam-kiet-pham-van-nghi</loc>
 		<lastmod>2026-09-23</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -9620,6 +9752,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-bien-45m2-ban-cong-dep</loc>
+		<lastmod>2026-09-22</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-nha-bui-trang-chuoc-3pn-gia-15tr</loc>
 		<lastmod>2026-09-22</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -9806,6 +9944,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-1pn-tran-thanh-mai-an-hai-bac-son-tra-xinh-xan-tien-ngh</loc>
+		<lastmod>2026-09-22</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/nha-2-5-tang-duong-bui-trang-chuoc-hoa-xuan</loc>
 		<lastmod>2026-09-22</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -10345,12 +10489,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-1pn-to-hien-thanh-gan-bien-my-khe-sieu-moi-ban-cong</loc>
-		<lastmod>2026-09-21</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/can-ho-full-noi-that-nam-khu-pho-han-cho-thue-lau-dai</loc>
 		<lastmod>2026-09-21</lastmod>
 		<changefreq>daily</changefreq>
@@ -10579,12 +10717,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-3-tang-mt-tran-thanh-tong-son-tra</loc>
-		<lastmod>2026-09-21</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-duong-tran-phu-hai-chau</loc>
 		<lastmod>2026-09-21</lastmod>
 		<changefreq>daily</changefreq>
@@ -10675,12 +10807,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/can-ho-cao-cap-moi-100-1-phong-ngu-ngu-hanh-son</loc>
-		<lastmod>2026-09-21</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/d</loc>
 		<lastmod>2026-09-21</lastmod>
 		<changefreq>daily</changefreq>
@@ -10718,12 +10844,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-moi-duong-nguyen-cong-tru-quan-son-tra-gan-cau-rong</loc>
-		<lastmod>2026-09-21</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-lo-dat-2-mat-tien-truong-sa-221m2-ngang-11m-hd-lau-dai</loc>
 		<lastmod>2026-09-21</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -10897,12 +11017,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-khu-pham-van-dong-vi-tri-thuan-tien-gan-bien-4-ph</loc>
-		<lastmod>2026-09-20</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-mt-bac-son-kinh-doanh-mo-quan-bida-quan-net-ok</loc>
 		<lastmod>2026-09-20</lastmod>
 		<changefreq>daily</changefreq>
@@ -10970,12 +11084,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-chung-cu-2pn-full-noi-that-8tr-thang</loc>
-		<lastmod>2026-09-20</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/195-cho-thue-nha-nguyen-can-3-tang-khu-nam-viet-a</loc>
 		<lastmod>2026-09-20</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -11312,12 +11420,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-full-noi-that-nam-khu-pho-tay-cho-thue-lau-dai</loc>
-		<lastmod>2026-09-19</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-3-tang-duong-cao-ba-nha-son-tra-da-nang</loc>
 		<lastmod>2026-09-19</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -11719,6 +11821,12 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
+		<loc>https://durian.rent/id/cho-thue-khach-san-bien-duong-truong-sa-14-phong-gia-50tr-thang</loc>
+		<lastmod>2026-09-18</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-moi-xay-265-vo-an-ninh-da-nang</loc>
 		<lastmod>2026-09-18</lastmod>
 		<changefreq>daily</changefreq>
@@ -11887,72 +11995,6 @@
 		<priority>0.8</priority>
 	</url>
 	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-duong-chuong-duong-view-song-han</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-goc-2mt-duong-ngu-hanh-son-doan-gan-phan-tu-ngang-14m</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-3-tang-duong-lam-hoanh-ngay-cong-vien-bai-bien-my-khe</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/can-ho-full-noi-that-nguyen-thuat-gan-nga-ba-hue</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-mat-bang-le-van-hien</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/nha-mat-tien-chuong-duong-view-song</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-3-tang-mat-tien-duong-bau-nang</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/toi-cho-thue-nha-3-tang-dt-200m2-ngang-8m</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-khu-thi-an-kiet-luu-quang-vu-hoa-quy-4-trieu-thang</loc>
-		<lastmod>2026-09-18</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-muong-thanh-da-nang</loc>
-		<lastmod>2026-09-17</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-can-ho-muong-thanh-tang-34</loc>
-		<lastmod>2026-09-17</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
 		<loc>https://durian.rent/id/cho-thue-mat-bang-duong-ton-duc-thang-gan-ben-xe-trung-tam</loc>
 		<lastmod>2026-09-17</lastmod>
 		<changefreq>daily</changefreq>
@@ -12008,6 +12050,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/can-ho-1pn-full-noi-that-ban-cong-giat-rieng-hoa-xuan-da-nang</loc>
+		<lastmod>2026-09-17</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-1pn-tran-dinh-long-cam-le-da-nang-full-noi-that</loc>
 		<lastmod>2026-09-17</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -12128,6 +12176,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-tang-tret-full-noi-that-trung-tam-hai-chau</loc>
+		<lastmod>2026-09-17</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/can-ho-full-noi-that-khu-biet-thu-ecocharm-3-5-trieu-thang</loc>
 		<lastmod>2026-09-17</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -12398,6 +12452,12 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-can-ho-2pn-cao-ba-quat-an-hai-view-cau-rong</loc>
+		<lastmod>2026-09-17</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://durian.rent/id/cho-thue-can-ho-full-noi-that-an-thuong</loc>
 		<lastmod>2026-09-17</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
@@ -15932,12 +15992,6 @@
 	</url>
 	<url>
 		<loc>https://durian.rent/id/cho-thue-nha-2-tang-3pn-kdt-phuoc-ly-2-storey-house-3br-phuoc-ly</loc>
-		<lastmod>2026-09-03</lastmod>
-		<changefreq>daily</changefreq>
-		<priority>0.8</priority>
-	</url>
-	<url>
-		<loc>https://durian.rent/id/cho-thue-nha-moi-3-tang-mat-tien-hoi-kieng-nam-hoa-xuan</loc>
 		<lastmod>2026-09-03</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>0.8</priority>
