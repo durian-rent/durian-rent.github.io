@@ -525,6 +525,11 @@ Prices are expressed in Vietnamese dong (VND).
 
         if (!auth) {
             console.log('Key', KEY, 'is expired')
+            const key_toast = () => {
+                $toast.textContent = 'Listings are updating. Check back in a few hours.'
+                $toast.removeAttribute('hidden')
+            }
+            document.readyState == 'loading' ? addEventListener('DOMContentLoaded', key_toast) : key_toast()
             if ((Date.now() - localStorage.getItem('last_reload_timestamp')) / 1000 / 60 > 60) {
                 localStorage.setItem('last_reload_timestamp', Date.now())
                 location.reload()
