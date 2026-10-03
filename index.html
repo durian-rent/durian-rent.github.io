@@ -2888,10 +2888,7 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
-    if (!maxi_closed) {
-        current_page = maxi_from
-        return maxi_close()
-    }
+    if (!maxi_closed) maxi_close()
     if (!saved_closed && history.state?.page != PAGE.SAVED) saved_close()
     if (history.state?.page == PAGE.FORM) {
         if (!post_started) return history.back()
@@ -3300,7 +3297,6 @@ var photo_swipe
 var card_moved = false
 var card_closed = true
 var maxi_closed = true
-var maxi_from = PAGE.MAIN
 var saved_closed = true
 var saved_start_t = null
 var saved_start_x = 0
