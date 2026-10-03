@@ -3644,6 +3644,12 @@ function maxi_open(id) {
     const kind = get_category_for_user(ad.category)
     const district = get_area_v2_for_user(ad.area)
     $maxi.dataset.id = id
+    $maxi_strip.innerHTML = ''
+    $maxi_count.textContent = ''
+    $maxi.style.transition = 'none'
+    $maxi.style.transform = 'translate3d(0,0,0)'
+    $maxi.scrollTop = 0
+    $maxi.removeAttribute('hidden')
     $maxi.querySelector('h1').textContent = !(kind == 'Apartment' || kind == 'House')
         ? `${kind} in ${district}`
         : ad.bedrooms > 0
@@ -3681,16 +3687,11 @@ function maxi_open(id) {
     .then(() => {
         var photos_urls = get_ad_img_urls(id)
         if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
-        $maxi_strip.innerHTML = ''
         photos_urls.forEach((url, i) => add_photo($maxi_strip, i, url))
         maxi_photo_index = 0
         $maxi_strip.style.transition = 'none'
         $maxi_strip.style.transform = 'translate3d(0,0,0)'
         $maxi_count.textContent = $maxi_strip.children.length ? `1 / ${$maxi_strip.children.length}` : ''
-        $maxi.style.transition = 'none'
-        $maxi.style.transform = 'translate3d(0,0,0)'
-        $maxi.scrollTop = 0
-        $maxi.removeAttribute('hidden')
     })
     .catch(e => {
         console.error(`ERROR: get_ad_img_urls(${id})`, e)
