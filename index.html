@@ -3667,6 +3667,7 @@ function add_photo($strip, index, url) {
         img.className = name
         img.alt = ''
         img.onload = photo_loaded
+        img.onerror = e => caches.open('photos').then(c => c.delete(e.target.src))
         $item.appendChild(img)
     }
     $item.firstChild.src = url
@@ -5399,6 +5400,12 @@ apply_filter = throttle(apply_filter, 90)
                 gtag('js', new Date())
                 gtag('config', 'G-RJ21952T38')
             })
+
+            caches.open('photos')
+            .then(c =>
+                c.keys()
+                .then(keys => keys.slice(0, -100).forEach(r => c.delete(r)))
+            )
             
         })
 
