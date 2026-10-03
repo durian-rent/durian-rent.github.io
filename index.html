@@ -372,7 +372,7 @@ Prices are expressed in Vietnamese dong (VND).
     }
 
     window.gtag = () => null
-    window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, SINGLE: 3, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
+    window.PAGE = {MAIN: 0, LIKES: 1, SHARED: 2, MAXI: 4, SAVED: 5, PIN: 6, FORM: 7, PROFILE: 8}
 
     const VER_WASM = '1790992183660'
     const URL_WASM = `/durian.rent.wasm?v=${VER_WASM}`
@@ -648,14 +648,6 @@ Prices are expressed in Vietnamese dong (VND).
                 likes_local_storage = existed_likes
                 localStorage.setItem('likes', existed_likes.join(','))
             }
-        }
-
-        if (location.pathname.split('/')[1] == 'id') {
-            window.current_page = PAGE.SINGLE
-            var ad_id = +document.querySelector('meta[name="ad:id"]').content
-            var ad_current = ads.find(ad => ad.id == ad_id)
-            if (ad_current) window.ad_current = ad_current
-            else document.title = '[SOLD] ' + document.title
         }
     })
     
@@ -2832,12 +2824,6 @@ const $last_update_time_value = document.getElementById('last_update_time_value'
 var same_likes
 
 const router = () => {
-    if (history.state?.page == PAGE.MAXI) {
-        if (!window.ad_current) return history.back()
-        if (current_page != PAGE.MAXI) maxi_from = current_page
-        current_page = PAGE.MAXI
-        return maxi_open(ad_current.id)
-    }
     if (!maxi_closed) {
         current_page = maxi_from
         return maxi_close()
@@ -2855,7 +2841,7 @@ const router = () => {
         return pin_open()
     }
     if (!pin_closed) {
-        current_page = location.pathname.split('/')[1] == 'id' ? PAGE.SINGLE : PAGE.MAIN
+        current_page = PAGE.MAIN
         return pin_close()
     }
     const pathname = location.pathname.split('/')
@@ -2863,16 +2849,23 @@ const router = () => {
     likes_local_storage = (localStorage.getItem('likes') || '').split(',').map(Number).filter(Boolean)
     likes_search_params = search_params.has('likes') ? search_params.get('likes').split(',').map(Number).filter(Boolean) : []
 
-    if (window.current_page == PAGE.SINGLE && !window.ad_current) {
-        history.replaceState({}, '', '/')
-        window.title = 'Durian Rent Map'
-        current_page = PAGE.MAIN
-    }
-
     if (pathname[1] == 'id') {
-        window.current_page = PAGE.SINGLE
+        if (!ad_current) {
+            var ad_id = +document.querySelector('meta[name="ad:id"]').content
+            ad_current = ads.find(ad => ad.id == ad_id)
+        }
+        if (ad_current) {
+            window.ad_current = ad_current
+            window.current_page = PAGE.MAXI
+            return maxi_open(ad_current.id)
+        } else {
+            window.title = 'Durian Rent Map'
+            window.current_page = PAGE.MAIN
+            history.replaceState({}, '', '/')
+        }
     } else if (pathname[1] == 'profile') {
         window.current_page = PAGE.PROFILE
+        profile_open()
     } else {
         window.current_page = PAGE.MAIN
     }
@@ -2912,7 +2905,6 @@ const router = () => {
     current_page == PAGE.SHARED && console.log('SHARED')
     current_page == PAGE.MAIN && console.log('MAIN')
     current_page == PAGE.LIKES && console.log('LIIKES')
-    current_page == PAGE.SINGLE && console.log('SINGLE')
     $close.toggleAttribute('hidden', current_page != PAGE.SHARED)
     $heart.toggleAttribute('hidden', current_page == PAGE.SHARED)
     $share.toggleAttribute('hidden', current_page != PAGE.LIKES)
@@ -2920,7 +2912,7 @@ const router = () => {
     filters_hide()
     $logo.removeAttribute('hidden')
     $last_update_time.removeAttribute('hidden')
-    $card.toggleAttribute('hidden', current_page != PAGE.SINGLE)
+
     if (search_params.has('beta')) $tabbar.querySelector('[data-tab="profile"]').removeAttribute('hidden')
     
     const likes = likes_search_params.length
@@ -2934,11 +2926,7 @@ const router = () => {
                 id: ad.id
             },
             {
-                mode: current_page == PAGE.SINGLE
-                    ? ad.id == ad_current.id
-                        ? 'selected'
-                        : 'other'
-                    : ad.price < min$ || ad.price > max$
+                mode: ad.price < min$ || ad.price > max$
                         ? 'filtered'
                         : 'normal',
                 liked: likes.includes(ad.id)
@@ -2946,8 +2934,7 @@ const router = () => {
         )
     )
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
-    if (current_page == PAGE.PROFILE) profile_open()
-    else if (!profile_closed) profile_close()
+    if (!profile_closed) profile_close()
     if (history.state?.page == PAGE.SAVED) saved_open()
 }
 
@@ -3175,7 +3162,7 @@ $card.onclick = e => {
         window.ad_current = ads.find(ad => ad.id == $c.dataset.id)
         get_ad_text(ad_current.id)
         .then(ad => {
-            history.pushState({page: PAGE.MAXI}, '', `/id/${ad.ad_url}`)
+            history.pushState({}, '', `/id/${ad.ad_url}`)
             router()
         })
     }
@@ -4202,7 +4189,7 @@ $saved.onclick = e => {
     window.ad_current = ads.find(ad => ad.id == $open.dataset.id)
     get_ad_text(ad_current.id)
     .then(ad => {
-        history.pushState({page: PAGE.MAXI}, '', `/id/${ad.ad_url}`)
+        history.pushState({}, '', `/id/${ad.ad_url}`)
         router()
     })
 }
@@ -4225,7 +4212,7 @@ $share.onclick = () => {
 $close.onpointerup = e => {
     if (
         window.current_page == PAGE.SHARED ||
-        window.current_page == PAGE.SINGLE
+        window.current_page == PAGE.MAXI
     ) {
         current_page = PAGE.MAIN
         history.pushState({}, '', '/')
@@ -5168,10 +5155,8 @@ apply_filter = throttle(apply_filter, 90)
             ]
             map_args.fitBoundsOptions = {padding: 100}
         } else {
-            map_args.center = window.current_page && current_page == PAGE.SINGLE
-                ? [ad_current.longitude, ad_current.latitude]
-                : get_center()
-            map_args.zoom = window.current_page && current_page == PAGE.SINGLE ? 15 : get_zoom()
+            map_args.center = get_center()
+            map_args.zoom = get_zoom()
         }
 
         window.map = new maplibregl.Map(map_args)
@@ -5324,11 +5309,6 @@ apply_filter = throttle(apply_filter, 90)
                 })
                 if (!features || !features.length) {
                     card_hide()
-                    if (current_page == PAGE.SINGLE) {
-                        current_page = PAGE.MAIN
-                        history.pushState({}, '', '/')
-                        router()
-                    }
                     return
                 }
             })
