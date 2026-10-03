@@ -3898,33 +3898,34 @@ function fill_card($c, id) {
     $c.dataset.body = ''
     const likes = new Set((localStorage.getItem('likes') || '').split(',').filter(_ => !!_).map(_ => Number(_)))
     $c.querySelector('.card_heart').setAttribute('aria-pressed', likes.has(id))
-
-    var photos_urls
-    try {
-        photos_urls = get_ad_img_urls(id)
-        if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
-    } catch (e) {
-        console.error(`ERROR: get_ad_img_urls(${id}) ${url}`, e)
-        photos_urls = []
-    }
-    fill_ad($c, ad, photos_urls)
-    if ($c == $card_centre) {
-        photo_current_index = 0
-        photo_total_count = photos_urls.length
-    }
     $c.querySelector('.area').textContent = get_area_v2_for_user(ad.area)
     $c.querySelector('.street').textContent = ''
-
-    return get_ad_text(id)
-    .then(ad => {
-        if ($c.dataset.id != id) return
-        $c.querySelector('.street').textContent = ad.street_name
-        $c.dataset.body = ad.body
-        if ($maxi.dataset.id == id) {
-            $maxi.querySelector('.street').textContent = ad.street_name
-            maxi_about(ad.body)
-        }
-    })
+    
+    return Promise.all([
+        window.price_list_ready
+        .then(() => {
+            var photos_urls = get_ad_img_urls(id)
+            if ('serviceWorker' in navigator) navigator.serviceWorker.controller?.postMessage({type: 'PHOTO_PRIORITY', url: photos_urls[0]})
+            fill_ad($c, ad, photos_urls)
+            if ($c == $card_centre) {
+                photo_current_index = 0
+                photo_total_count = photos_urls.length
+            }
+        })
+        .catch(e => {
+            console.error(`ERROR: get_ad_img_urls(${id})`, e)
+        }),
+        get_ad_text(id)
+        .then(ad => {
+            if ($c.dataset.id != id) return
+            $c.querySelector('.street').textContent = ad.street_name
+            $c.dataset.body = ad.body
+            if ($maxi.dataset.id == id) {
+                $maxi.querySelector('.street').textContent = ad.street_name
+                maxi_about(ad.body)
+            }
+        })
+    ])
 }
 
 function to_current() {
