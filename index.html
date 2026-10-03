@@ -1396,6 +1396,8 @@ Prices are expressed in Vietnamese dong (VND).
             display: flex;
             align-items: center;
             gap: var(--offset-small);
+            height: var(--input-height-big);
+            margin: calc(var(--offset-small) * -1) 0;
             border: 0;
             background: none;
             font-weight: 700;
@@ -1744,7 +1746,9 @@ Prices are expressed in Vietnamese dong (VND).
             color: var(--text-muted);
         }
         .saved_share {
-            padding: 0;
+            height: var(--input-height-big);
+            margin: calc(var(--offset-middle) * -1) calc(var(--offset-small) * -1);
+            padding: 0 var(--offset-small);
             border: 0;
             background: none;
             color: var(--text-color);
