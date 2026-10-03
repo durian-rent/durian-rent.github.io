@@ -1385,6 +1385,37 @@ Prices are expressed in Vietnamese dong (VND).
             box-shadow: var(--shadow);
             cursor: pointer;
         }
+        .maxi_facts {
+            padding: var(--offset-big) var(--offset-middle) 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--offset-middle);
+        }
+        .maxi_facts h2 {
+            margin: 0;
+            font-size: x-large;
+        }
+        .specs {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: medium;
+        }
+        .specs th, .specs td {
+            padding: var(--offset-small) 0;
+            border-bottom: var(--border-width-small) solid var(--line-color);
+        }
+        .specs th {
+            text-align: left;
+            font-weight: normal;
+            color: var(--text-muted);
+        }
+        .specs td {
+            text-align: right;
+            font-weight: bold;
+        }
+        .specs tr:last-child th, .specs tr:last-child td {
+            border-bottom: 0;
+        }
         .maxi_source {
             padding: var(--offset-big) var(--offset-middle);
             font-size: small;
@@ -2753,6 +2784,10 @@ Prices are expressed in Vietnamese dong (VND).
         <p class="desc" lang="vi"></p>
         <button type="button" class="more">Show more</button>
     </section>
+    <section class="maxi_facts">
+        <h2>Good to know</h2>
+        <table class="specs"></table>
+    </section>
     <p class="maxi_source">Source: <a class="maxi_link" target="_blank">Chợ Tốt</a></p>
 </div>
 <svg id="pin_marker" class="pin_marker" viewBox="0 0 30 42" aria-hidden="true" hidden><path d="M15 40.5C15 40.5 2 25 2 15a13 13 0 0 1 26 0c0 10-13 25.5-13 25.5z"/><circle cx="15" cy="15" r="5"/></svg>
@@ -3676,6 +3711,17 @@ function maxi_open(id) {
         .filter(([name, value]) => ad[name] == value)
         .map(([name, value, label, icon, no]) => `<li class="seed${no ? ' no' : ''}"><i>${SEED_ICON[icon]}</i>${label}</li>`)
         .join('')
+    const facts = [
+        ['Deposit', ad.deposit_months > 0 && (ad.deposit_months == 1 ? '1 month' : `${ad.deposit_months} months`)],
+        ['Minimum stay', ad.min_contract > 0 && (ad.min_contract == 1 ? 'Month to month' : ad.min_contract % 12 ? `${ad.min_contract} months` : ad.min_contract == 12 ? '1 year' : `${ad.min_contract / 12} years`)],
+        ['Floor', ad.floor > 0 && ad.floor],
+        ['Cleaning', FACT_WORDS.cleaning_included[ad.cleaning_included]],
+        ['Listed by', FACT_WORDS.owner_direct[ad.owner_direct]],
+        ['Foreigners', FACT_WORDS.foreign_allowed[ad.foreign_allowed]],
+        ['Contact via', FACT_WORDS.contact_channel[ad.contact_channel]]
+    ].filter(([name, value]) => value)
+    $maxi.querySelector('.specs').innerHTML = facts.map(([name, value]) => `<tr><th>${name}</th><td>${value}</td></tr>`).join('')
+    $maxi.querySelector('.maxi_facts').hidden = !facts.length
     $maxi.querySelector('.maxi_link').href = get_url(id)
     window.price_list_ready
     .then(() => {
@@ -3696,6 +3742,13 @@ function maxi_open(id) {
         console.error(`ERROR: get_ad_img_urls(${id})`, e)
     })
     maxi_closed = false
+}
+
+const FACT_WORDS = {
+    cleaning_included: {2: 'Included', 1: 'Not included'},
+    owner_direct: {2: 'Owner', 1: 'Agent'},
+    foreign_allowed: {2: 'Welcome', 1: 'Not accepted'},
+    contact_channel: {1: 'Zalo', 2: 'Phone', 3: 'Facebook', 4: 'Messenger', 5: 'WhatsApp', 6: 'Telegram'}
 }
 
 function maxi_about(text) {
