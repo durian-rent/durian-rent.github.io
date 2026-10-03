@@ -2934,7 +2934,7 @@ const router = () => {
         )
     )
     gtag('event', 'page_view', {page_title: document.title, page_location: location.href})
-    if (!profile_closed) profile_close()
+    if (current_page != PAGE.PROFILE && !profile_closed) profile_close()
     if (history.state?.page == PAGE.SAVED) saved_open()
 }
 
