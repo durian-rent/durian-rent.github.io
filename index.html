@@ -3651,6 +3651,7 @@ function maxi_open(id) {
             : `Studio in ${district}`
     
     get_ad_text(id).then(ad => {
+        if ($maxi.dataset.id != id) return
         $maxi.querySelector('.street').textContent = ad.street_name
         maxi_about(ad.body)
     })
